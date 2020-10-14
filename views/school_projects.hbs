@@ -1,0 +1,107 @@
+
+<style>
+.card {
+    width: 40%;
+    margin: 0 auto
+}
+
+.card-wrapper {
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding:0;
+    margin:25px 5px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container-card {
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.container-card a {
+    color:#6a3394;
+}
+</style>
+
+
+<header class="header">
+<div class="header_top">
+    <div class="logo">
+        <a href="/" class="logo__tallam">Tallam</a>
+        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+    </div>
+    <a href="#" class="menu_btn" id="menu_btn">
+        <span></span>
+    </a>
+    
+    <nav class="main_nav" id="main_nav">
+        <ul class="main_nav__items">
+            <!-- <li class="main_nav__item"><a href="#" class="main_nav__link">Проекты</a></li> -->
+            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
+        </ul>
+    </nav>
+</div>
+</header>
+
+
+<main> 
+    <div class="blue-line"></div>      
+    <h1>Список проектов</h1> 
+    
+        {{#if projects }}
+            {{#each projects}}
+            <div class="card">
+                <div class="card-wrapper">
+                    <a href="/school/project/{{id_project}}">
+                        <img src="/img/projects/{{picture}}" alt="{{picture}}" style="width:100%">
+                    </a>
+                    <div class="container-card">
+                        <h2><b><a href="/school/project/{{id_project}}"> {{ name_project }}</a> </b></h2> 
+                    </div>
+                </div>
+            </div>   
+            {{/each}}
+            {{else}}
+            <h2>Ваша образовательная организация не участвует в проектах</h2>
+        
+        {{/if}}
+
+        <div class="modal modal--feedback">
+            <div class="modal__cross modal__cross--feedback">x</div>
+            <div class="feedback">
+                <form action="/" method="POST" class="feedback__form" name="feedback_form" novalidate>
+                    <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
+                    <h2 class="feedback__heading">Форма обратной связи</h2>
+                    <label> Тема
+                        <select name="type_id" id="feedback_theme" class="feedback__theme">
+                            {{#each support_type}}
+                                <option value="{{id_type}}">{{thema}}</option>
+                            {{/each}}
+                        </select>
+                    </label>  
+                    <label>
+                        Сообщение <span class="star">*</span>
+                        <textarea name="message" id="feedback_text" cols="30" rows="10"  required></textarea>
+                    </label>
+                    
+                    <label>
+                        Почта <span class="star">*</span>
+                        <input type="email" name="email" required>
+                    </label>
+                    <label>
+                        Номер телефона
+                        <input type="tel" name="phone">
+                    </label>
+                     <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                    <button type="submit" class="button feedback__button">Отправить</button>
+                </form>
+            </div>
+        </div>
+</main>
+
+
+
+

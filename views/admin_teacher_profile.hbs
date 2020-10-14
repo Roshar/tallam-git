@@ -1,0 +1,195 @@
+
+            <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/admin/school_list/{{school_id}}/" class="second_nav__link">Вернуться на главную страницу школы </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<main>   
+    <section>
+        {{#if notice}}
+            <h3> {{ notice}}</h3>
+        {{/if}}
+    </section>
+    <section class="profile">
+            {{#if teacher.length}}
+            {{#each teacher}}
+        <div class="profile__photo">
+            <img src="/img/teachers/avatars/{{avatar}}" alt="Фото">
+            <a href="#" сlass="profile__button">Редактировать</a>
+            <!-- <a href="#" сlass="profile__button">Удалить из проекта</a> -->
+        </div>
+        
+        <div class="profile__info">
+
+            <section class="profile__block personal">
+                <h2 class="profile__title">Личные данные</h2>
+                <div class="personal__buttons">
+                    <a href="/admin/teacher/edit/main_data/{{id_teacher}}/{{../school_id}}"> Редактировать </a>
+                    <!-- <a href="#">Оценить</a> -->
+                </div>
+                <div>
+                    <div>
+                        <h4 class="profile__subtitle">ФИО</h4> 
+                        
+                        <p class="personal__fullname">{{surname}}  {{firstname}} {{patronymic}}</p>
+                    </div>
+                    <div>
+                        <h4 class="profile__subtitle">Дата рождения</h4>
+                        <p class="personal__birthday"> {{../birthdayShort}}</p>
+                    </div>  
+                    <div>
+                        <h4 class="profile__subtitle">СНИЛС</h4> 
+                        <p class="personal__snils">{{snils}}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile__block profile__education education">
+                <h2 class="profile__title">Образование</h2>
+                <div>
+                    <div>
+                        <h4 class="profile__subtitle">Образование</h4>
+                        <p class="education__name">{{title_edu_level}}</p>
+                    </div>
+                    <div>
+                        <h4 class="profile__subtitle ">Номер документа</h4>
+                        <p class="education__document">{{diploma}}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile__block profile__education education">
+                <h2 class="profile__title">Профессиональные данные</h2>
+                <div>
+                    <div>
+                        <h4 class="profile__subtitle">Должность</h4> 
+                        <p class="personal__position">{{ title_position}}</p>
+                    </div>
+                    <div>
+                        <h4 class="profile__subtitle ">Категория</h4>
+                        <p class="title_category">{{title_category}}</p>
+                    </div>
+                    <div>
+            
+                        <h4 class="profile__subtitle ">Преподваемые дисциплины:</h4>
+                        {{#if ../discipline.length}}
+                        <ol class="training__projects projects__list">
+                        {{#each ../discipline}}
+                            <li style="list-style-type: none;"> <p class="title_category" >{{title_discipline}}</p></li>
+                        {{/each}}
+                        </ol>
+                        
+                        {{else}}
+                            <p class="title_category"> нет </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile__block profile__contacts contacts">
+                <h2 class="profile__title">Контактные данные</h2>
+                <div>
+                    <div>
+                        <h4 class="profile__subtitle">Email</h4>
+                        <p class="contacts__email">{{email}}</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="profile__subtitle">Телефон</h4>
+                        <p class="contacts__phone">{{phone}}</p>
+                        </div>
+                </div>
+            </section>
+            {{/each}}
+                {{else}}
+            <h2> Работник отсутствует!</h2>
+                {{/if}}
+            <section class="profile__block profile__training training">
+                <h2 class="profile__title">Повышение квалификации  </h2>
+                <h4>Сведения о последних пройденных КПК</h4>
+                {{#if kpk.length}}
+                    {{#each kpk}}
+                    <div>
+                        <h4 class="profile__subtitle">Наименование программы КПК, место прохождения</h4>
+                        <p class="training__name">{{place_training}}</p>
+                    </div>
+                    <div>
+                        <h4 class="profile__subtitle">Год прохождения</h4>
+                        <p class="training__place">{{year_training}}</p>
+                    </div>
+                    {{/each}}
+                {{else}}
+                <h3> Отсутствует информация о прохождении КПК</h3>
+                {{/if}}
+            </section>
+            {{#if issetInProjects.length}}
+            <section class="profile__block profile__training training">
+                <h2 class="profile__title">Проекты, в которых участвует работник</h2>
+                <table>
+                    <tr>
+                        <td><h4 class="profile__subtitle">Проекты </h4></td>
+                        <td style="width: 60%">
+                            
+                            <ol class="training__projects projects__list">
+                            {{#each issetInProjects}}
+                                <li class="project"><p class="project__name"> {{name_project}} </p></li>
+                            {{/each}}
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+                        
+                        
+                {{else}}
+                <h3> Отсутствует информация </h3>
+                {{/if}}
+                <a href="/admin/teacher/delete_profile/{{teacher_id}}/{{school_id}}" class="profile__button profile__button--delete">Удалить профиль</a>
+            </section>
+            
+        </div>
+        
+        
+        
+        <div class="modal">
+            <div class="modal__cross">x</div>
+            <h3 class="modal__question">Вы уверены, что хотите удалить этот профиль?</h3>
+            <div class="modal__answer modal__answer--yes">Да</div>
+            <div href="/admin/school_list/{{school_id}}/{{teacher_id}}" class="modal__answer modal__answer--no">Нет</div>
+        </div>
+    </section> 
+  
+</main>
+
+    <script type="text/javascript">
+        let modal =  document.querySelector('.modal');
+        let cross = document.querySelector('.modal__cross');
+        let black = document.querySelector('.black');
+        let closeButton = document.querySelector('.modal__answer--no');
+        let body = document.querySelector('body');
+
+        cross.addEventListener('click', closeModal);
+        black.addEventListener('click', closeModal);
+        closeButton.addEventListener('click', closeModal);
+        document.addEventListener('keyup', event => {
+            if (event.keyCode === 27) {closeModal()}
+        })
+
+
+        function closeModal() {
+            modal.style.display = 'none';
+            black.style.display = 'none';
+            body.style.height = 'auto';
+            body.style.overflow= 'auto';
+        }
+
+        let deleteButton = document.querySelector('.profile__button--delete');
+        deleteButton.addEventListener('click', event => {
+            modal.style.display = 'block';
+            black.style.display = 'block';
+            body.style.height = '100vh';
+            body.style.overflow= 'hidden';
+        })
+    </script>

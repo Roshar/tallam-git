@@ -1,0 +1,278 @@
+<header class="header">
+<div class="header_top">
+    <div class="logo">
+        <a href="/" class="logo__tallam">Tallam</a>
+        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+    </div>
+    <a href="#" class="menu_btn" id="menu_btn">
+        <span></span>
+    </a>
+    <nav class="main_nav" id="main_nav">
+        <ul class="main_nav__items">
+            <!-- <li class="main_nav__item"><a href="#" class="main_nav__link">Проекты</a></li> -->
+            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
+        </ul>
+    </nav>
+</div>
+</header>
+<main>   
+    <section>
+        {{#if notice}}
+            <h3> {{ notice}}</h3>
+        {{/if}}
+        {{#if error}}
+            <h3> {{ error}}</h3>
+        {{/if}}
+    </section>
+    <section class="profile">
+            {{#if teacher.length}}
+            {{#each teacher}}
+        <div class="profile__photo">
+            <img src="/img/teachers/avatars/{{avatar}}" alt="Фото">
+            <a href="#" сlass="profile__button">Редактировать</a>
+            <!-- <a href="#" сlass="profile__button">Удалить из проекта</a> -->
+        </div>
+        
+        <div class="profile__info">
+
+            <section class="profile__block personal">
+                <h2 class="profile__title">Личные данные</h2>
+                <div class="personal__buttons">
+                    <a href="/school/list/edit/{{id_teacher}}"> Редактировать </a>
+                    <!-- <a href="#">Оценить</a> -->
+                </div>
+                <div>
+                    <div>
+                        <h4 class="profile__subtitle">ФИО</h4> 
+                        
+                        <p class="personal__fullname">{{surname}}  {{firstname}} {{patronymic}}</p>
+                    </div>
+                    <div>
+                        <h4 class="profile__subtitle">Дата рождения</h4>
+                        <p class="personal__birthday"> {{../birthdayShort}}</p>
+                    </div>  
+                    <div>
+                        <h4 class="profile__subtitle">СНИЛС</h4> 
+                        <p class="personal__snils">{{snils}}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile__block profile__education education">
+                <h2 class="profile__title">Образование</h2>
+                <div>
+                    <div>
+                        <h4 class="profile__subtitle">Образование</h4>
+                        <p class="education__name">{{title_edu_level}}</p>
+                    </div>
+                    <div>
+                        <h4 class="profile__subtitle ">Номер документа</h4>
+                        <p class="education__document">{{diploma}}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile__block profile__education education">
+                <h2 class="profile__title">Профессиональные данные</h2>
+                <div>
+                    <div>
+                        <h4 class="profile__subtitle">Должность</h4> 
+                        <p class="personal__position">{{ title_position}}</p>
+                    </div>
+                    <div>
+                        <h4 class="profile__subtitle ">Категория</h4>
+                        <p class="title_category">{{title_category}}</p>
+                    </div>
+                    <div>
+            
+                        <h4 class="profile__subtitle ">Преподваемые дисциплины:</h4>
+                        {{#if ../discipline.length}}
+                        <ol class="training__projects projects__list">
+                        {{#each ../discipline}}
+                            <li style="list-style-type: none;"> <p class="title_category" >{{title_discipline}}</p></li>
+                        {{/each}}
+                        </ol>
+                        
+                        {{else}}
+                            <p class="title_category"> нет </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile__block profile__contacts contacts">
+                <h2 class="profile__title">Контактные данные</h2>
+                <div>
+                    <div>
+                        <h4 class="profile__subtitle">Email</h4>
+                        <p class="contacts__email">{{email}}</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="profile__subtitle">Телефон</h4>
+                        <p class="contacts__phone">{{phone}}</p>
+                        </div>
+                </div>
+            </section>
+            {{/each}}
+                {{else}}
+            <h2> Работник отсутствует!</h2>
+                {{/if}}
+            <section class="profile__block profile__training training">
+                <h2 class="profile__title">Повышение квалификации  </h2>
+                <h4>Сведения о последних пройденных КПК</h4>
+                {{#if kpk.length}}
+                    {{#each kpk}}
+                    <div>
+                        <h4 class="profile__subtitle">Наименование программы КПК, место прохождения</h4>
+                        <p class="training__name">{{place_training}}</p>
+                    </div>
+                    <div>
+                        <h4 class="profile__subtitle">Год прохождения</h4>
+                        <p class="training__place">{{year_training}}</p>
+                    </div>
+                    {{/each}}
+                {{else}}
+                <h3> Отсутствует информация о прохождении КПК</h3>
+                {{/if}}
+            </section>
+         
+            <section class="profile__block profile__training training">
+                <h2 class="profile__title">Проекты, в которых участвует учитель</h2>
+                <table>
+                    <tr>
+                        <td><h4 class="profile__subtitle">Проекты </h4></td>
+                        <td style="width: 60%">
+                            
+                            <ol class="training__projects projects__list">
+                            {{#if issetInProjects }}
+                            {{#each issetInProjects}}
+                                <li class="project"><p class="project__name"> {{name_project}} </p></li>
+                            {{/each}}
+                            {{else}}
+                                <li class="project"><p class="project__name"> не участвует  </p></li>
+                            {{/if}}
+                            </ol>
+                        </td>
+                    </tr>
+                </table>  
+            </section> 
+        </div>
+            <a href="/school/list/delete_profile/{{teacher_id}}" class="profile__button profile__button--delete">Удалить профиль</a> 
+           
+            <div class="modal modal--delete_profile">
+                <div class="modal__cross modal__cross--delete_profile">x</div>
+                <h3 class="modal__question">Вы уверены, что хотите удалить этот профиль?</h3>
+                <button type="button" class="modal__answer modal__answer--yes">Да</button>
+                <button type="button" class="modal__answer modal__answer--no">Нет</button>
+            </div>
+    </section> 
+</main>
+<div class="black"></div>
+
+<script type="text/javascript">
+
+let menuButton = document.querySelector(".menu_btn");
+
+menuButton.addEventListener('click', toggleMenu);
+
+function toggleMenu() {
+    let mainNav = document.querySelector('.main_nav');
+    /* let inst = document.querySelector('.header__institution'); */
+
+    menuButton.classList.toggle('menu_btn--active');
+    mainNav.classList.toggle('main_nav--active');
+    /* inst.classList.toggle('header__institution--without_nav'); */
+
+    return false;
+}
+
+
+    let menuItems = document.querySelectorAll('.second_nav__item a');
+    let locationIndex = window.location.pathname.lastIndexOf('/');
+    let documentLocation = window.location.pathname.slice(locationIndex+1, );
+
+    menuItems.forEach(item => {
+        let itemIndex = item.attributes.href.value.lastIndexOf('/');
+        let itemHref = item.attributes.href.value.slice(itemIndex+1, );
+        if(itemHref == documentLocation){
+            item.classList.add('active');
+        }
+    })
+
+
+let black = document.querySelector('.black');
+let body = document.querySelector('body');
+
+let popUp = document.querySelector('.modal--pop_up');
+let popUpCloseButton = document.querySelector('.modal__cross--pop_up');
+let popUpOk =  document.querySelector('.pop_up__ok');
+
+if(popUpCloseButton){ 
+    popUpCloseButton.addEventListener('click', closeModal(popUp));
+    popUpOk.addEventListener('click', closeModal(popUp));
+}
+
+let success = document.querySelector('.success');
+let popUpCloseTimer;
+
+if(success){
+    success.addEventListener('click', () => {
+        openModal(popUp)(); 
+        popUpCloseTimer = setTimeout(closeModal(popUp), 10000);
+    });
+}
+
+black.addEventListener('click', () => {
+    let modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => closeModal(modal)());
+    clearTimeout(popUpCloseTimer);
+} );
+
+document.addEventListener('keyup', event => {
+    if (event.keyCode === 27) {
+        closeModal(popUp)();
+    }
+})
+
+function closeModal(modal) {
+    if (modal === null) return;
+    return () => {
+        modal.style.opacity = '0';
+        modal.style.transform = 'translateY(-100vh)';
+        black.style.display = 'none';
+        body.style.overflow= '';
+    };
+}
+
+function openModal(modal) { 
+    if (modal === null) return;
+    return () => {
+        modal.style.opacity = '1';
+        modal.style.transform = 'translateY(0px)';
+        black.style.display = 'block';
+        body.style.overflow= 'hidden';
+    };
+}
+
+        let modal =  document.querySelector('.modal--delete_profile');
+        let cross = document.querySelector('.modal__cross--delete_profile');
+        let closeButton = document.querySelector('.modal__answer--no');
+
+        let deleteButton = document.querySelector('.profile__button--delete');
+        deleteButton.addEventListener('click', openModal(modal));
+
+
+        closeButton.addEventListener('click', closeModal(modal));
+        cross.addEventListener('click', closeModal(modal));
+
+        black.addEventListener('click', closeModal(modal));
+
+        document.addEventListener('keyup', event => {
+            if (event.keyCode === 27) {
+                closeModal(modal)();
+            }
+        })
+
+
+</script>

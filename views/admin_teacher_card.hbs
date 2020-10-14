@@ -1,0 +1,129 @@
+            <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/admin/projects/school/{{school_id}}/{{project_id}}" class="second_nav__link">Вернуться на главную страницу проекта</a></li>
+                    <li class="second_nav__item"><a href="/admin/cards/add/school/{{school_id}}/teacher/{{teacher_id}}/project/{{project_id}}" class="second_nav__link">Оценить</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<main>   
+
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+    overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+    font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+    .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+    .teacher-card__tbl {margin-top: 50px;}
+    .teacher-card__tbl table {margin:0 auto;}
+    .teacher-card__title h2 {
+        text-align: center;
+    }
+    .teacher-card__second-title {
+        margin: 0 auto;
+        width:20%
+    }
+
+    .teacher-card__title h2 {
+        margin-bottom: 30px;
+    }
+</style>
+        <section class="teacher-card">
+            <div class="teacher-card__title">
+                {{#if teacherData}}
+                    {{#each teacherData}}
+                    <h2>Личная карта</h2>
+                        <h2>ФИО: <span style="text-decoration:underline; text-transform:uppercase">{{surname}} {{firstname}} {{patronymic}} </span></h2>
+                    {{/each}}
+                {{else}}
+                    нет данных
+                {{/if}}
+            </div>
+            
+            <div class="teacher-card__second-title">
+                
+                <form action="/admin/cards/school/{{school_id}}/teacher/{{teacher_id}}/project/{{project_id}}/filter" method="POST">
+                    <label for="">  Объект оценки:  </label>
+                    <select name="card-results-sourse" id="card-results-sourse">
+                        <option value="all"  > Тип оценки </option>
+                        <option value="1" {{selected 1 currentSourceId}}> Отобразить результаты внешней проверки</option>
+                        <option value="2" {{selected 2 currentSourceId}}> Отобразить результаты внтуренней проверки</option>
+                    </select>   
+                    <select name="card-results-discipline" id="card-results-discipline">
+                        {{#if disciplineListByTeacherId}}
+                             <option value="all" > Выбрать предмет</option>
+                            {{#each disciplineListByTeacherId}}
+                                <option value="{{discipline_id}}"{{selected discipline_id ../currentDisc}}>  {{title_discipline}}</option>
+                            {{/each}}
+                        {{else}}
+                        <option value="">Нет предмета</option>
+                        {{/if}}
+                    </select> 
+                    
+                    <input type="hidden" name="id_teacher" value="{{teacher_id}}" id="id_teacher">
+                    <input type="hidden" name="school_id" value="{{school_id}}" id="school_id">
+                    <input type="hidden" name="project_id" value="{{project_id}}" id="project_id">
+                    <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                    <button type="submit"> Отобразить результаты по фильтру</button> 
+                </form>
+            </div>
+            <div class="teacher-card__tbl">
+                <table class="tg">
+                <thead>
+                    <tr>
+                        <th class="tg-fymr" rowspan="2">№</th>
+                        <th class="tg-fymr" rowspan="2">Дата</th>
+                        <th class="tg-0pky" colspan="10"><span style="font-weight:bold;font-style:normal">Критерии оценки урока </span><span style="font-weight:400;font-style:italic">(2 – требование выполнено на оптимальном уровне, 1 – есть резервы, 0 - требование практически не выполнено )</span></th>
+                        <th class="tg-fymr" rowspan="2">Предмет</th>
+                        <th class="tg-fymr" rowspan="2">Класс</th>
+                        <th class="tg-fymr" rowspan="2">Тип оценки</th>
+                    </tr>
+                    <tr>
+                        <td class="tg-fymr" colspan="3"><span style="font-style:normal">1. Предметно-</span><br><span style="font-style:normal">методическая</span></td>
+                        <td class="tg-fymr" colspan="2"><span style="font-style:normal">2. Психолого-</span><br><span style="font-style:normal">педагогическая</span></td>
+                        <td class="tg-fymr"><span style="font-style:normal">3. Валеологическая</span></td>
+                        <td class="tg-fymr"><span style="font-style:normal">4. Коммуникативная</span></td>
+                        <td class="tg-fymr" colspan="2"><span style="font-style:normal">5. Управленческая</span></td>
+                        <td class="tg-fymr"><span style="font-style:normal">6. Результативность урока</span></td>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#if card}}
+                    {{#each card}}
+                    <tr>
+                        <td class="tg-0pky"> {{increment @index}}</td>
+                        <td class="tg-0pky">{{day}} {{getMonthFromArray month}}  {{year}}</td>
+                        <td class="tg-0pky">{{k_1_1}}</td>
+                        <td class="tg-0pky">{{k_1_2}}</td>
+                        <td class="tg-0pky">{{k_1_3}}</td>
+                        <td class="tg-0pky">{{k_2_1}}</td>
+                        <td class="tg-0pky">{{k_2_2}}</td>
+                        <td class="tg-0pky">{{k_3_1}}</td>
+                        <td class="tg-0pky">{{k_4_1}}</td>
+                        <td class="tg-0pky">{{k_5_1}}</td>
+                        <td class="tg-0pky">{{k_5_2}}</td>
+                        <td class="tg-0pky">{{k_6_1}}</td>
+                        <td class="tg-0pky">{{title_discipline}}</td>
+                        <td class="tg-0pky">{{class_id}}</td>
+                        <td class="tg-0pky">{{getSource source_id}} </td>
+                    </tr>
+                    {{/each}}
+                {{else}}
+                    <tr>
+                         <td class="tg-fymr" colspan="15"> нет данных</td>
+                    </tr>
+                {{/if}}
+                </tbody>
+                </table>
+            </div>
+           
+        </section>  
+    </main>
+    <div class="black"></div>
+
+
+
+    
+  

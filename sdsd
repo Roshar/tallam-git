@@ -1,0 +1,77 @@
+disciplines.addEventListener('change', event => {
+            let value = $(this).find(':selected').data('discip');
+            let exist = false;
+            let li;
+            console.log(value)
+            let selectedDisciplines = document.querySelectorAll('.selected_disciplines li');
+            console.log(value)
+            for(let i = 0; i < selectedDisciplines.length; i++){
+                if(selectedDisciplines[i].innerText.slice(0, selectedDisciplines[0].innerText.length-1) === value){
+                    exist = true;
+                }
+            }
+
+            if(!exist){
+                li = document.createElement('li');
+                li.className = 'discipline';
+                li.innerHTML = value;
+
+                let span = document.createElement('span');
+                span.className = 'cross';
+                span.innerHTML = 'x';
+                span.addEventListener('click', event => {
+                    event.target.closest('li').remove();
+                    if(!selectedDisciplines.length){
+                        disciplines.value = '';
+                    }
+                })
+
+                li.append(span);
+                selectedDisciplinesList.append(li);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("#dis").change( function () {
+            let value = $('option:selected', this).data("discip");
+            let exist = false;
+            let li;
+            let selectedDisciplines = document.querySelectorAll('.selected_disciplines li');
+            for(let i = 0; i < selectedDisciplines.length; i++){
+                if(selectedDisciplines[i].innerText.slice(0, selectedDisciplines[0].innerText.length-1) === value){
+                    exist = true;
+                }
+            }
+
+            if(!exist){
+                li = document.createElement('li');
+                li.className = 'discipline';
+                li.innerHTML = value;
+
+                let span = document.createElement('span');
+                span.className = 'cross';
+                span.innerHTML = 'x';
+                span.addEventListener('click', event => {
+                    event.target.closest('li').remove();
+                    if(!selectedDisciplines.length){
+                        disciplines.value = '';
+                    }
+                })
+
+                li.append(span);
+                selectedDisciplinesList.append(li);
+            }
+        });
+

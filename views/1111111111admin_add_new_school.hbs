@@ -1,0 +1,60 @@
+
+            <nav class="second_nav_admin">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/admin/add_new_cabinet/" class="second_nav__link">Создать личный кабинет</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2> Добавить в базу образовательную организацию  </h2>
+        {{#if error}}
+            <p> {{ error}}</p>
+        {{/if}}
+         {{#if notice}}
+            <p> {{ notice}}</p>
+        {{/if}}
+
+        <form action="/admin/add_new_school" method="POST">
+        <input type="text" name="fullname" placeholder="Полное название ОУ">
+        <input type="text" name="short_name" placeholder="Короткое название">
+        <select name="area" id="area">
+             {{#if areas.length }}
+             <option value="" > выбрать город/район </option>
+                {{#each areas}}
+                    <option value="{{ id_area }}"> {{ title_area}}</option>
+                {{/each}}
+            {{else}}
+            <option value=""> нет данных </option>
+            {{/if}}
+        </select>
+      
+        <select name="type" id="type">
+             {{#if types.length }}
+             <option value=""> выбрать тип школы </option>
+                {{#each types}}
+                    <option value="{{ id_type }}"> {{ title_type}}</option>
+                {{/each}}
+            {{else}}
+            <option value=""> нет данных </option>
+            {{/if}}
+        </select>
+        <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+        <input type="submit" value="Добавить">
+      </form>
+     
+    </main>
+
+    <footer class="footer">
+        <div class="support">
+            <div class="support__contact_developers">
+                <a href="#" class="support__link">Связаться с разработчиками</a>
+            </div>
+        </div>
+    </footer>
+   
+
+
+
+    

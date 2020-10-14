@@ -1,0 +1,135 @@
+            <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/admin/add_new_cabinet/" class="second_nav__link"> Создать личный кабинет</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <style>
+
+        .wrapper-body {
+            color:#484343;
+        }
+
+        .wrapper-body h2 {
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .wrapper-body ul li {
+            padding:15px;
+        }
+
+        .section-school-title {
+            margin:20px 0;
+            color: #484343;
+            text-transform: uppercase;
+        }
+
+         .wrapper-body select  {
+            padding:8px 15px;
+            font-size: 1.2em;
+            border: 1px solid #ccc
+        }
+
+        .wrapper-body button  {
+            padding:13px 45px;
+            border:none;
+            font-size:1.2em;
+            background-color: #6a3394;
+            color:white;
+        }
+
+        .wrapper-body button:disabled {
+            background-color: grey;
+        }
+
+         .school_list a {
+            color: #6a3394;
+            text-transform: uppercase;
+        }
+
+        .school_list a:hover {
+            color: #511788
+        }
+
+        .wrapper-form {
+            margin:30px 0;
+        }
+
+
+    </style>
+
+    
+
+    <main>
+        <div class="wrapper-body">
+            <h2> База (список) ОУ </h2>
+                {{#if error}}
+                  <p> {{ error}}</p>
+                {{/if}}
+                {{#if notice}}
+                 <p> {{ notice}}</p>
+                {{/if}}
+
+            {{#if areas}}
+            <h3>Выберите нужный город или район</h3>
+      
+            <div class="wrapper-form">
+                <form action="/admin/school_list/area/" method="post">
+                    <select name="area_id" id="select_area">
+                        <option value="0" id="disable" data-choose = "disable">Выберите город/район</option>
+                        {{#each areas}}
+                        <option  {{selected id_area ../selected_id}} value="{{id_area}}"> {{title_area}} </option>  
+                        {{/each}}
+                    </select>
+                    <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                    <button id="area_btn" type="submit" disabled> Выбрать </button>
+                </form>
+            </div>
+                
+            {{/if}}
+            {{#if schools.length}}
+            <h3> Последние  добавленные ОУ</h3>
+            <ul class="school_list">
+            {{#each schools}}
+            <li><a href="/admin/school_list/{{id_school}}">{{school_name}}</a></li>
+            {{/each}}
+            </ul>
+            {{/if}}
+        </div>
+        
+     
+    </main>
+
+
+
+    <script>
+            let btnAttr = document.querySelector('#area_btn')
+            let checkStatus = parseInt($("#select_area option:selected").val());
+            if(checkStatus) {
+                btnAttr.removeAttribute('disabled')
+            }
+           $(" select ").change(function(){
+               let position = parseInt($("#select_area option:selected").val())
+               if (position) {
+                   console.log(position)    
+                    btnAttr.removeAttribute('disabled')
+               }else {
+                   console.log(position)
+                   btnAttr.setAttribute("disabled", "disabled")
+               }
+           })
+        
+    </script>
+
+    
+    
+   
+
+
+
+    

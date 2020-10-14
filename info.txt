@@ -1,0 +1,4 @@
+Имя базы данных: 	govzalla_tallam_version_1
+Адрес хоста: 	localhost
+Пользователь: 	govzalla_tallam_version_1
+Пароль: 	2404141rA

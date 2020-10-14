@@ -1,0 +1,115 @@
+
+        </div>
+    </header>
+<style>
+.card {
+    width: 40%;
+    margin: 0 auto
+}
+
+.card-wrapper {
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding:0;
+    margin:25px 5px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container-card {
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.container-card a {
+    color:#6a3394;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #2e609a;
+  color: white;
+}
+
+.tbl-wrapper {
+    color:#353638;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+.tbl-wrapper h3 {
+    text-align: center;
+    font-size: 2.5em;
+    margin:20px 0;
+}
+</style>
+    <main> 
+        <div class="blue-line"></div>      
+        <h1>{{project_heading}}</h1> 
+
+        <div class="tbl-wrapper">
+            <h3>Общая информация</h3>
+        <table style="100%">
+            <tbody>
+                <tr>
+                    <th> Наименование ОО</th>
+                    <th> Район</th>
+                </tr>
+            </tbody>
+            {{#if project_schools}}
+            {{#each project_schools}}
+                <tr>
+                    <td><a href="/admin/projects/school/{{id_school}}/{{../project_id}}"> {{school_name}}</a></td>
+                    <td> {{title_area}} </td>    
+                </tr>
+            {{/each}}
+
+            {{!-- BinaryRow {
+            id_school: '11',
+            fullname: 'fullname',
+            short_name: 'short_name',
+            type_id: 1,
+            area_id: 1,
+            title_area: 'Грозненский',
+            title_type: 'МБОУ '
+            } --}}
+
+            {{/if}}
+
+        </table>
+     
+        </div>
+
+        
+            {{#if projects.length }}
+                {{#each projects}}
+                <div class="card">
+                    <div class="card-wrapper">
+                        <a href="/admin/projects/{{id_project}}">
+                            <img src="/img/projects/{{picture}}" alt="{{picture}}" style="width:100%">
+                        </a>
+                        <div class="container-card">
+                            <h2><b><a href="/admin/projects/{{id_project}}"> {{ name_project }}</a> </b></h2> 
+                        </div>
+                    </div>
+                </div>   
+                {{/each}}
+            {{/if}}
+        
+    </main>
+</style>
+</head>
+<body>
+
+

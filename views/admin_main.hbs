@@ -1,0 +1,15 @@
+
+        </div>
+    </header>
+
+    <main> 
+        <div class="blue-line"></div>      
+        <h1>Список проектов</h1> 
+        <ul>
+            {{#if projects.length }}
+                {{#each result}}
+                    <li> <a href="/project/{{id_project}}"> {{ name_project }} </a></li>
+                {{/each}}
+            {{/if}}
+        </ul>  
+    </main>

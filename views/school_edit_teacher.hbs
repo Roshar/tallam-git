@@ -1,0 +1,123 @@
+<header class="header">
+<div class="header_top">
+    <div class="logo">
+        <a href="/" class="logo__tallam">Tallam</a>
+        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+    </div>
+    <a href="#" class="menu_btn" id="menu_btn">
+        <span></span>
+    </a>
+    <nav class="main_nav" id="main_nav">
+        <ul class="main_nav__items">
+            <!-- <li class="main_nav__item"><a href="#" class="main_nav__link">Проекты</a></li> -->
+            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
+        </ul>
+    </nav>
+    <nav class="second_nav">
+        <ul class="second_nav__items">
+             <li class="second_nav__item"><a href="/school/list/{{teacher_id}}" class="second_nav__link">Отменить редактирование</a></li>
+        </ul>
+    </nav>
+</div>
+</header>
+<main>   
+    <section>
+        {{#if notice}}
+            <h3> {{ notice}}</h3>
+        {{/if}}
+    </section>
+    <div class="blue-line"></div>      
+        <h1>Форма редактирования</h1>  
+        <form action="" method="POST" class="add_form" name="add_teacher">
+
+            <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
+            <h2 class="add_form__heading">Личные данные</h2>
+            <label>ФИО <span class="star">*</span>
+            {{#each teacher}}
+            <input type="text" autofocus value="{{surname}}" name="surname" required>
+            <label class="message" for="surname">Фамилия содержит только буквы русского алфавита</label>
+
+            <input type="text" value="{{firstname}}" name="firstname" required>
+            <label class="message" for="firstname">Имя содержит только буквы русского алфавита</label>
+
+            <input type="text" value="{{patronymic}}" name="patronymic">
+            <label class="message" for="patronymic">Отчество содержит только буквы русского алфавита</label>
+
+            <label>Дата рождения <span class="star">*</span>
+            <input type="date"  value="{{../birthdayConverter}}" name="birthday"   >
+            <label class="message" for="birthday">Формат даты рождения должен быть таким: 01.01.1990</label>
+
+            <label>СНИЛС <span class="star">*</span></label>
+            <input type="text"  value="{{snils}}" name="snils" required>
+            <label class="message" for="snils">Введите только 12 цифр</label>
+           
+            <label>Пол <span class="star">*</span>
+                <select name="gender_id"  required>
+              
+                {{#each ../gender}}
+                <option {{selected id_gender ../gender_id}} value="{{id_gender}}">{{gender_title}}</option>
+                {{/each}}
+                </select>
+            </label>
+            <label class="message" for="gender">Выберите пол</label>
+
+
+            <h2 class="add_form__heading">Образование</h2>
+
+            <input type="text" value="{{specialty}}"  name="specialty">
+            <label class="message" for="specialty"></label>
+
+            <label>Уровень образования <span class="star">*</span>
+                <select name="level_of_education_id"  required>    
+                    {{#each ../edu}}
+                     <option {{selected id_edu_level ../level_of_education_id}} value="{{id_edu_level}}">{{title_edu_level}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label class="message" for="level_of_education">Выберите уровень образования</label>
+            <label for=""> Номер документа</label>
+            <input type="text" value="{{diploma}}" name="diploma">
+            <h2 class="add_form__heading">Профессиональные данные</h2>
+
+            <label>Должность <span class="star">*</span>
+                <select name="position"  required>
+                    {{#each ../position}}
+                    <option  {{selected id_position ../position}} value="{{id_position}}">{{title_position}}</option>
+                    {{/each}} 
+                </select>
+            </label>
+
+            <label class="message" for="position">Выберите должность</label>
+            <label class="message" for="disciplines">message</label>
+            <label  for="total_experience">Общий стаж</label>
+            <input type="text" placeholder="Общий стаж" value="{{total_experience}}" name="total_experience">
+            <label for="teaching_experience">Педагогический стаж</label>
+            <input type="text" placeholder="Педагогический стаж"  value="{{teaching_experience}}" name="teaching_experience">
+            
+            
+            <label>Категория
+                <select name="category" >
+                    <option value="" selected>-</option>
+                   {{#each ../category}}
+                    <option {{selected id_category ../category_id}} value="{{id_category}}">{{title_category}}</option>
+                   {{/each}}
+                </select>
+            </label>
+            <label class="message" for="category">message</label>
+
+
+            <h2 class="add_form__heading">Контактные данные</h2>
+
+            <input type="text" value="{{phone}}" name="phone">
+            <label class="message" for="phone">Введите номер телефона в формате <br>+7 (000) 000 00 00</label>
+
+            <input type="email" value="{{email}}" name="email">
+            <label class="message" for="email">Адрес почты должен быть верного формата: example@mail.ru</label>
+            <input type="hidden" name="id_teacher" value="{{id_teacher}}">
+            <input type="hidden" name="school_id" value="{{ ../school_id }}">
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+            <button type="submit" class="add_form__button button">Обновить </button>
+
+            {{/each}}
+        </form>
+</main>

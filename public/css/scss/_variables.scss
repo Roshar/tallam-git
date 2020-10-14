@@ -1,0 +1,92 @@
+/*** variables ***/
+
+/** colors **/
+
+$lightblue: #C7D9ED;
+$darkblue: #2E609A;
+$brightblue: #52A1FF;
+
+
+/** fonts **/
+
+$main-sans: 'Istok Web', sans-serif;
+$second-sans: 'Alegreya Sans', sans-serif;
+
+
+$blueline-height: 5px;
+
+
+$mobile: 675px;
+$s-mobile: 414px;
+$md: 816px;
+
+
+/*** mixins ***/
+
+@mixin bodyFont{
+    font-family: $main-sans;
+    font-weight: normal;
+}
+
+@mixin flex($justify-content){
+    display: flex;
+    justify-content: $justify-content;
+    align-items: center;
+}
+
+@mixin button($padding-top, $padding-right, $margin-top){
+    display: block;
+    margin: $margin-top auto;
+    padding: $padding-top $padding-right;
+    background: $darkblue;
+    color: #FFF;
+    text-align: center;
+    font-weight: bold;
+    transition: .3s;
+    border: none;
+
+    &:hover, &:active{
+        background: #FFF;
+        outline: 1px solid $darkblue;
+        color: $darkblue;
+        cursor: pointer;
+    }
+}
+
+@mixin link_style{
+    display: block;
+    color: #FFF;
+    text-transform: uppercase;
+}
+
+/** media queries **/ 
+
+@mixin mobile{
+    @media(max-width: $mobile){
+        @content;
+    }
+}
+
+@mixin mobile-landscape{
+    @media(max-width: $mobile) and (orientation: landscape){
+        @content;
+    }
+}
+
+@mixin s-mobile{
+    @media(max-width: $s-mobile){
+        @content;
+    }
+}
+
+@mixin md{
+    @media(max-width: $md){
+        @content;
+    }
+}
+
+@mixin md-landscape{
+    @media(max-width: $md) and (orientation: landscape){
+        @content;
+    }
+}

@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body, p, ul, ol, h1, h2, h3, h4 {
+    padding: 0;
+    margin: 0;
+}
+
+html, body, main, header, footer{
+    width: 100%;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:active, a:focus { outline: none; }
+
+input, textarea {outline:none;}
+input:active, input:focus {outline:none;}
+
+select:active, select:focus {outline:none;}
+
+textarea:active {outline:none;}
+textarea {resize:none;}
+textarea {resize:vertical;}
+textarea {resize:horizontal;}
+
+button:active, button:focus {
+    outline: none;
+}
+
+button::-moz-focus-inner {
+    border: 0;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+
+<style>
+   
+*{
+padding:0px;
+margin:0px;
+}
+body{
+background:black;
+}
+.st0{font-family:'FootlightMTLight';}
+.st1{font-size:83.0285px;}
+.st2{fill:gray;}
+
+svg{
+width: 500px;
+height: 400px;
+text-align: center;
+fill: #2e609a;
+}
+path#XMLID_5_ {
+
+fill: #2e609a;
+filter: url(#blurFilter4);
+}
+path#XMLID_11_ ,path#XMLID_2_ {
+fill: #2e609a;
+}
+.circle{
+animation: out 2s infinite ease-out;
+fill: #2e609a;
+}
+
+#container{
+text-align:center;
+}
+.message{
+font-size: 1.5em;
+color:#2e609a;
+}
+.message:after{
+content:"]";
+}
+.message:before{
+content:"[";
+}
+
+.message:after, .message:before {
+
+color: #2e609a;
+font-size: 20px;
+-webkit-animation-name: opacity;
+-webkit-animation-duration: 2s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-name: opacity;
+animation-name: opacity;
+-webkit-animation-duration: 2s;
+animation-duration: 2s;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite;
+margin:0 50px;
+}
+
+@-webkit-keyframes opacity {
+0%, 100% {
+opacity: 0;
+}
+50% {
+opacity: 1;
+}
+}
+
+@keyframes opacity {
+0%, 100% {
+opacity: 0;
+}
+50% {
+opacity: 1;
+}
+}
+
+@keyframes out {
+0% {r:1;  opacity: 0.9 ;}
+25%{r:5;  opacity: 0.3 ;}
+50%{r:10; opacity: 0.2 ;}
+75%{r:15;opacity:0.1;}
+100% {r:20;opacity:0;}
+}
+
+
+</style>
+
+

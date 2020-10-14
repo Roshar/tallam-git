@@ -1,0 +1,76 @@
+<header class="header">
+    <div class="header_top">
+        <h2 class="header__institution--main">{{school_name}}</h2>
+        <a href="#" class="menu_btn" id="menu_btn">
+            <span></span>
+        </a>
+        <h1 class="header__heading fulltitle">{{school_name}}</h1>
+        <nav class="main_nav" id="main_nav">
+            <ul class="main_nav__items">
+                <!-- <li class="main_nav__item"><a href="#" class="main_nav__link">Проекты</a></li> -->
+                <li class="main_nav__item"><a href="/auth/logout" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <main class="main_page">   
+        <!-- <div class="block"></div> -->
+        <div class="logo">
+            <h1 class="main-header__heading">Tallam</h1>
+            <div class="main-header__blue-line"></div>
+        </div>
+        <div class="content">
+            <div class="main_page__heading">
+                <h2>Добро пожаловать на платформу Tallam!</h2>
+                <h2>Перед началом работы рекомендуем просмотреть видеоинструкцию</h2>
+                {{#if error}}
+                    <h3>{{error}}</h3>
+                {{/if}}
+                {{#if notice}}
+                    <h3>{{notice}}</h3>
+                {{/if}}
+               
+            </div>
+            <section class="video">
+                <iframe src="https://www.youtube.com/embed/TKOhGi-iCyU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </section>   
+            <section class="main_page_buttons">
+                <a href="/school/project" class="main_page_button">Проекты</a>
+                <a href="/school/list" class="main_page_button">База работников</a>
+            </section>
+        </div>
+        
+        <div class="modal modal--feedback">
+            <div class="modal__cross modal__cross--feedback">x</div>
+            <div class="feedback">
+                <form action="/" method="POST" class="feedback__form" name="feedback_form" novalidate>
+                    <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
+                    <h2 class="feedback__heading">Форма обратной связи</h2>
+                    <label> Тема
+                        <select name="type_id" id="feedback_theme" class="feedback__theme">
+                            {{#each support_type}}
+                                <option value="{{id_type}}">{{thema}}</option>
+                            {{/each}}
+                        </select>
+                    </label>  
+                    <label>
+                        Сообщение <span class="star">*</span>
+                        <textarea name="message" id="feedback_text" cols="30" rows="10"  required></textarea>
+                    </label>
+                    
+                    <label>
+                        Почта <span class="star">*</span>
+                        <input type="email" name="email" required>
+                    </label>
+                    <label>
+                        Номер телефона
+                        <input type="tel" name="phone">
+                    </label>
+                     <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                    <button type="submit" class="button feedback__button">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    

@@ -1,0 +1,136 @@
+
+            <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <!-- <li class="second_nav__item"><a href="#" class="second_nav__link">Список работников</a></li> -->
+                    <li class="second_nav__item"><a href="/admin/projects/school/{{school_id}}/{{project_id}} " class="second_nav__link">Вернуться в проект</a></li>
+                     <li class="second_nav__item"><a href="/admin/school_list/{{school_id}}" class="second_nav__link">Вернуться в личный кабинет</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<style>
+
+.second_nav__items {
+    background-color:#511788 ;
+}
+    
+.teachers_list__item a {
+    position: relative;
+}
+
+    li .teachers_list__item  {
+        display: flex;
+        justify-content: center; /*Центрирование по горизонтали*/
+        align-items: center;  
+        
+    }  
+
+.gg-add-r {
+   box-sizing: border-box;
+   position: relative;
+   display: inline-block;
+   width: 22px;
+   height: 22px;
+   border: 2px solid;
+   transform: scale(var(--ggs,1));
+   border-radius: 2px;
+   top:5px;
+}
+.gg-add-r::after,
+.gg-add-r::before {
+   content: "";
+   display: block;
+   box-sizing: border-box;
+   position: absolute;
+   width: 10px;
+   height: 2px;
+   background: currentColor;
+   border-radius: 5px;
+   top: 8px;
+   left: 4px
+}
+.gg-add-r::after {
+   width: 2px;
+   height: 10px;
+   top: 4px;
+   left: 8px
+}
+
+.gg-add-rr {
+   box-sizing: border-box;
+   position: relative;
+   display: inline-block;
+   width: 22px;
+   height: 22px;
+   border: 2px solid;
+   transform: scale(var(--ggs,1));
+   border-radius: 2px;
+   top:5px;
+}
+.gg-add-rr::after,
+.gg-add-rr::before {
+   content: "";
+   display: block;
+   box-sizing: border-box;
+   position: absolute;
+   width: 10px;
+   height: 2px;
+   background: currentColor;
+   border-radius: 5px;
+   top: 8px;
+   left: 4px
+}
+
+</style>
+    <main>
+        <div class="lists">
+            <div class="lists__list lists__global_list"> <!-- <div class="blue-line"></div>    -->   
+                <h1>Список педагогических работников</h1>   
+                <section class="list_section">
+                    <ul class="teachers_list">
+                        {{#if common_data}}
+                            {{#each common_data}}
+                            <div class="wrapper_list_item">
+                                <li class="teachers_list__item"> <a href="/admin/library/add/{{id_teacher}}/{{../school_id}}/{{../project_id}}"> {{surname}} {{firstname}} {{patronymic}} <i class="gg-add-r"></i>  </a></li>
+                            </div>
+                            {{/each}}
+                        {{else}}
+                            Пусто
+                        {{/if}}
+                    </ul>
+                </section>  
+            </div>
+
+            <div class="lists__control_buttons">
+                <span class="lists__control_button lists__control_button--add">Добавить в проект</span>
+                <span class="lists__control_button lists__control_button--delete">Удалить из проекта</span>
+            </div>
+
+            <div class="lists__list lists__project_list">
+                <h1>Список учителей, участвующих <br class="br-mobile"> в проекте <br class="br-heading">"{{name_project}}"</h1>   
+                <section class="list_section">
+                    <ul class="teachers_list">
+                        {{#if members_current_project_teachers}}
+                            {{#each members_current_project_teachers}}   
+                                <li class="teachers_list__item"> <a href="/admin/library/delete_in_project/{{id_teacher}}/{{../school_id}}/{{../project_id}}">{{surname}} {{firstname}} {{patronymic}} <i class="gg-add-rr"></i> </a> </i></li>
+                            {{/each}}
+                        {{else}}
+                            пусто
+                        {{/if}}
+                    </ul>
+                </section>  </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="support">
+            <div class="support__contact_developers">
+                <a href="#" class="support__link">Связаться с разработчиками</a>
+            </div>
+        </div>
+    </footer>
+
+    
+    </script>
+</body>
+</html>

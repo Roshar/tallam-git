@@ -1,0 +1,150 @@
+<header class="header">
+<div class="header_top">
+    <div class="logo">
+        <a href="/" class="logo__tallam">Tallam</a>
+        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+    </div>
+    <a href="#" class="menu_btn" id="menu_btn">
+        <span></span>
+    </a>
+    <nav class="main_nav" id="main_nav">
+        <ul class="main_nav__items">
+            <!-- <li class="main_nav__item"><a href="#" class="main_nav__link">Проекты</a></li> -->
+            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
+        </ul>
+    </nav>
+    <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/school/project/{{project_id}}" class="second_nav__link">Вернуться на главную страницу проекта</a></li>
+                    <li class="second_nav__item"><a href="/school/card/add/project/{{project_id}}/teacher/{{teacher_id}}" class="second_nav__link">Оценить</a></li>
+                </ul>
+    </nav>
+</div>
+</header>
+<main>   
+    <section>
+        {{#if notice}}
+            <h3> {{ notice}}</h3>
+        {{/if}}
+    </section> 
+
+    <div class="teacher-card__title">
+    {{#if teacher}}
+        {{#each teacher}}
+        <h2>Личная карта</h2>
+            <h2>ФИО: <span style="text-decoration:underline; text-transform:uppercase">{{surname}} {{firstname}} {{patronymic}} </span></h2>
+        {{/each}}
+    {{else}}
+        нет данных
+    {{/if}}
+    </div>
+    <div class="teacher-card__tbl">
+        <table class="tg">
+            <thead >
+                {{#each singleCard}}
+                <tr>
+                    <td class="tg-6bug tg-center">Дата  </td>
+                    <td class="tg-bv7r " colspan="2"> {{../create_mark_date}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-6bug tg-center">ФИО,  должность субъекта оценивания урока   </td>
+                    <td class="tg-bv7r" colspan="2">{{../sourceData}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-0g60 tg-center">Предмет</td>
+                    <td class="tg-w747" colspan="2">{{title_discipline}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-0g60 tg-center">Класс</td>
+                    <td class="tg-w747" colspan="2">{{class_id}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-0g60 tg-center">Тема</td>
+                    <td class="tg-w747" colspan="2">{{thema}}</td>
+                </tr>
+                <tr>
+                    <th class="tg-9wq8"><span style="font-weight:bold">Компетенции учителя</span></th>
+                    <th class="tg-9wq8">   <br><span style="font-weight:bold">Критерии оценки урока</span><br>   <br><span style="font-style:italic">(2   – требование выполнено на оптимальном уровне,    1 – есть резервы,  0 -   требование практически не выполнено)</span><br>   <br>    </th>
+                    <th class="tg-9wq8"><span style="font-weight:bold">   </span><br><span style="font-weight:bold">Оценивание в   баллах</span>   </th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                 
+                <tr>
+                    <td class="tg-9wq8 tg-center" rowspan="3">предметно-методическая</td>
+                    <td class="tg-0pky">1. Требования Стандартов к предметному содержанию</td>
+                    <td class="tg-0pky tg-center">{{k_1_1}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky"><br>2.  Развитие личностной сферы ученика средствами   предмета</td>
+                    <td class="tg-0pky tg-center">{{k_1_2}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">3.&nbsp;&nbsp;Использование заданий, развивающих УУД на уроках предмета*</td>
+                    <td class="tg-0pky tg-center">{{k_1_3}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-9wq8 tg-center" rowspan="2">психолого-педагогическая</td>
+                    <td class="tg-0pky">4. <span style="font-weight:400;font-style:normal">Учет и развитие мотивации и психофизиологической сферы учащихся</span></td>
+                    <td class="tg-0pky tg-center">{{k_2_1}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">   <br>5.  Обеспечение целевой психолого-педагогической   поддержки обучающихся   </td>
+                    <td class="tg-0pky tg-center">{{k_2_2}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-9wq8 tg-center">валеологическая</td>
+                    <td class="tg-0pky">   <br>6.  Требования ЗСС в содержании, структуре   урока, в работе с оборудованием и учете данных о детях с ОВЗ   </td>
+                    <td class="tg-0pky tg-center">{{k_3_1}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-9wq8 tg-center">коммуникативная</td>
+                    <td class="tg-0pky">   <br>7.  Стиль и формы педагогического   взаимодействия на уроке   </td>
+                    <td class="tg-0pky tg-center">{{k_4_1}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-9wq8 tg-center" rowspan="2">управленческая</td>
+                    <td class="tg-0pky">   <br>8.  Управление организацией учебной   деятельности обучающихся через систему оценивания   </td>
+                    <td class="tg-0pky tg-center">{{k_5_1}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>9.  Управление собственной обучающей&nbsp;&nbsp;&nbsp;деятельностью&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-0pky tg-center ">{{k_5_2}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-c3ow tg-center" colspan="2"><br>10.Результативность урока      &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-0pky tg-center">{{k_6_1}}</td>
+                </tr>
+                <tr>
+                    <td class="tg-c3ow tg-center " colspan="2"><span style="font-weight:bold">Сумма баллов</span></td>
+                    <td class="tg-0pky tg-center">{{../commonValue}}</td>
+                </tr>
+                <tr class=" final-tr {{../levelStyle}}">
+                    <td class="tg-c3ow tg-center" colspan="2">КАЧЕСТВО УРОКА<br><span style="font-weight:bold;font-style:italic">100-85% - оптимальный уровень,  84-60% - допустимый уровень,</span><br><span style="font-weight:bold;font-style:italic">59-50% -  критический уровень, менее 50 % - недопустимый уровень</span><span style="font-weight:bold"> </span></td>
+                    <td class="tg-0pky tg-center">{{../interest}} <br> {{../level}}</td>
+                </tr>
+            </tbody>
+          
+        </table>
+
+        <div class="list-func">
+                <div class="list-func__child excel-btn"> <a href="/school/card/api/excel/{{../teacher_id}}/{{id_card}}/{{../project_id}}/download">Экспорт даных  в Excel </a> </div>
+                <div class="list-func__child email-btn"> <a href="/school/card/api/send/{{../teacher_id}}/{{id_card}}">Отправить на электронный адрес учителя</a> </div>
+                <div class="list-func__child method-btn"> <a href="/school/card/api/method/{{../teacher_id}}/{{id_card}}">Скачать методические рекомендации</a> </div>
+                <div class="list-func__child diagramma-btn"> <a href="/school/card/api/diaggram/{{../teacher_id}}/{{id_card}}">Сгенерировать диаграмму по карте учителя</a> </div>
+        </div>
+          {{/each}}
+    </div>
+ 
+    </main>
+
+<div class="black"></div>
+
+<script>
+    $('tr[data-href]').on("click", function() {
+         document.location = $(this).data('href');
+    }); 
+</script>
+
+

@@ -1,0 +1,16 @@
+const mysql = require('mysql2')
+
+const DB = mysql.createConnection({
+    host: "141.8.192.49",
+    user: "govzalla_tallam_version_1",
+    database: "govzalla_tallam_version_1",
+    password: "2404141rA"
+})
+
+module.exports = DB
+
+------------
+DATABASE = tallam_version_01
+DATABASE_HOST = localhost
+DATABASE_PASSWORD = 
+DATABASE_USER = root

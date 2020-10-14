@@ -1,0 +1,201 @@
+
+        </div>
+    </header>
+<style>
+.card {
+    width: 40%;
+    margin: 0 auto
+}
+
+.card-wrapper {
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding:0;
+    margin:25px 5px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container-card {
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.container-card a {
+    color:#6a3394;
+}
+
+main h2 {
+    text-align: center;
+}
+
+.wrapper-body {
+    color:#484343;
+}
+
+.wrapper-body h2 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.wrapper-body ul li {
+    padding:15px;
+}
+
+.section-school-title {
+    margin:20px 0;
+    color: #484343;
+    text-transform: uppercase;
+}
+
+    .wrapper-body select  {
+    padding:8px 15px;
+    font-size: 1.2em;
+    border: 1px solid #ccc
+}
+
+.wrapper-body button  {
+    padding:13px 45px;
+    border:none;
+    font-size:1.2em;
+    background-color: #6a3394;
+    color:white;
+}
+
+.wrapper-body button:disabled {
+    background-color: grey;
+}
+
+    .school_list a {
+    color: #6a3394;
+    text-transform: uppercase;
+}
+
+.school_list a:hover {
+    color: #511788
+}
+
+.wrapper-form {
+    margin:30px 0;
+}
+
+li.add_in_current_project>span {
+    background-color:olivedrab;
+    padding:5px 15px; 
+    color:white;
+    font-weight: bold;
+}
+
+li.delete_from_current_project>span {
+    background-color: tomato;
+    padding:5px 15px; 
+    color:white;
+    font-weight: bold;
+}
+
+</style>
+    <main> 
+        <div class="blue-line"></div>      
+        <h1>{{project_heading}}</h1> 
+
+        <h3>Статисчтичекие данные</h3>
+        <table style="100%">
+            <tr>
+                 <td><a href="/admin/projects/{{project_id}}/teachers"> Количество учителей участвующих в проекте:</a></td>
+                <td><a href="/admin/projects/{{project_id}}/teachers"> {{total_teachers}} </a></td>
+           
+            </tr>
+            <tr>
+                <td><a href="/admin/projects/{{project_id}}/schools"> Количество школ:</a></td>
+                <td><a href="/admin/projects/{{project_id}}/schools"> {{total_schools}} </a></td>
+            </tr>
+        </table>
+     
+            {{#if projects.length }}
+                {{#each projects}}
+                <div class="card">
+                    <div class="card-wrapper">
+                        <a href="/admin/projects/{{id_project}}">
+                            <img src="/img/projects/{{picture}}" alt="{{picture}}" style="width:100%">
+                        </a>
+                        <div class="container-card">
+                            <h2><b><a href="/admin/projects/{{id_project}}"> {{ name_project }}</a> </b></h2> 
+                        </div>
+                    </div>
+                </div>   
+                {{/each}}
+            {{/if}}
+        <h2> Добавить в проект</h2>
+
+        <div class="wrapper-body">
+            <h2> База (список) ОУ </h2>
+                {{#if error}}
+                  <p> {{ error}}</p>
+                {{/if}}
+                {{#if notice}}
+                 <p> {{ notice}}</p>
+                {{/if}}
+
+            {{#if areas}}
+            <h3>Выберите нужный город или район</h3>
+      
+            <div class="wrapper-form">
+                <form action="/admin/projects/{{project_id}}/select_school_for_add_in_project" method="post">
+                    <select name="area_id" id="select_area">
+                        <option value="0" id="disable" data-choose = "disable">Выберите город/район</option>
+                        {{#each areas}}
+                        <option  {{selected id_area ../selected_id}} value="{{id_area}}"> {{title_area}} </option>  
+                        {{/each}}
+                    </select>
+                    <input type="hidden" name="project_id" value="{{project_id}}" id="token">
+                    <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                    <button id="area_btn" type="submit" disabled> Выбрать </button>
+                </form>
+            </div>  
+            {{/if}}
+
+
+            {{#if schools.length}}
+            <h3> Школы для добавления</h3>
+            <ul class="school_list">
+
+
+            {{#each schools}}       
+                <li class="{{link}}"> 
+                    <a href="/admin/projects/{{link}}/{{@root.project_id}}/{{id_school}}">  {{school_name}} </a>
+                </li>      
+            {{/each}}
+            </ul>
+            {{/if}}
+        </div>
+    </main>
+</style>
+</head>
+<script>
+            let btnAttr = document.querySelector('#area_btn')
+            let checkStatus = parseInt($("#select_area option:selected").val());
+            if(checkStatus) {
+                btnAttr.removeAttribute('disabled')
+            }
+           $(" select ").change(function(){
+               let position = parseInt($("#select_area option:selected").val())
+               if (position) {
+                   console.log(position)    
+                    btnAttr.removeAttribute('disabled')
+               }else {
+                   console.log(position)
+                   btnAttr.setAttribute("disabled", "disabled")
+               }
+           })
+        $('.delete_from_current_project').append('<span>Удалить</span>')
+        $('.add_in_current_project').append('<span>Добавить</span>')
+        
+
+        
+    </script>
+<body>
+
+

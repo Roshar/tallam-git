@@ -1,0 +1,37 @@
+
+    <header class="main-header">
+        <h1 class="main-header__heading">Tallam</h1>
+        <div class="main-header__blue-line"></div>
+        <p class="main-header__info">информационно-аналитическая платформа</p>
+    </header>
+    <div class="wrapper">
+        <main class="main">
+                
+            <div class="white-container">
+                {{#if error}}
+                    <p> {{ error}}</p>
+                {{/if}}
+                {{#if notice}}
+                    <p> {{ notice}}</p>
+                {{/if}}
+                <form action="/auth/login" method="POST" class="signin-form">
+                    <input id="email" type="text" class="signin-form__login" placeholder="ЛОГИН" name="email">
+                    <input id="password" type="password" class="signin-form__password" placeholder="ПАРОЛЬ" name="password">
+                    <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                    <input type="submit"  class="signin-form__button" value="Войти">
+                </form>
+
+                <a href="#" class="forget-password">забыли пароль?</a>
+            </div>            
+        </main>
+
+        <footer class="footer">
+            <div class="support">
+                <div class="support__text">
+                    <p>Техническая поддержка: <br>auth-support@tallam.ru</p>
+                    <p>График работы: в будние дни <br>с 9:00 до 17:00</p>
+                </div>
+                <div class="support__info"><a href="#">?</a></div>
+            </div>
+        </footer>
+    </div>  

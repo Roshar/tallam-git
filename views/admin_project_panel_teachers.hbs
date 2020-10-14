@@ -1,0 +1,223 @@
+
+        </div>
+    </header>
+<style>
+.card {
+    width: 40%;
+    margin: 0 auto
+}
+
+.card-wrapper {
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding:0;
+    margin:25px 5px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container-card {
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.container-card a {
+    color:#6a3394;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #2e609a;
+  color: white;
+}
+
+.tbl-wrapper {
+    color:#353638;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+.tbl-wrapper h3 {
+    text-align: center;
+    font-size: 2.5em;
+    margin:20px 0;
+}
+
+.pagination li {
+    display: inline-block;
+}
+.pagination li a {
+    padding:10px;
+    border: 1px solid grey;
+}
+.filter-wrapper__live-search {
+    margin-top: 20px;
+}
+</style>
+    <main> 
+        <div class="blue-line"></div>      
+        <h1>{{project_heading}}</h1> 
+        <div class="filter-wrapper">
+            <div class="filter-wrapper__alphabet">
+                <ul class="pagination">
+                    <span>ФАМИЛИЯ</span>
+                    <li><a href="/admin/projects/{{project_id}}/teachers">ВСЕ</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B0">А</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B1">Б</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B2">В</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B3">Г</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B4">Д</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B5">Е</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%91">Ё</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B6">Ж</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B7">З</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%B8">И</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%BA">К</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%BB">Л</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%BC">М</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%BD">Н</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%BE">О</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D0%BF">П</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%80">Р</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%81">С</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%82">Т</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%83">У</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%84">Ф</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%85">Х</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%86">Ц</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%87">Ч</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%88">Ш</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%89">Щ</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%8D">Э</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%8E">Ю</a></li>
+                    <li><a href="/admin/projects/{{project_id}}/list/surname/%D1%8F">Я</a></li>
+                </ul>
+            </div>
+            <div class="filter-wrapper__live-search">
+                <form  method="POST">
+                    <label for="search_teacher"> ИЛИ </label>
+                        <input type="text" name="search_teacher"  id="searchTeacher" class="w3-input w3-animate-input"  type="text" style="width:30%" placeholder="Введите данные для поиска" > 
+                        <input type="hidden" name="project_id" value="{{project_id}}" id="project_id">
+                        <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                </form>
+            </div>
+
+            <div class="search-result" id="search-result">
+                
+            </div>
+            
+        </div>
+
+        <div class="tbl-wrapper">
+            <h3>Список участников</h3>
+        <table style="100%">
+            <thead>
+                <tr>
+                    <th> № п/п </th>
+                    <th> ФИО</th>
+                    <th> Школа</th>
+                </tr>
+            </thead>
+            <div id="search-t">
+                {{#if teachersFromCurrentProject}}
+                    {{#each teachersFromCurrentProject}}
+                        <tr>
+                        <td>{{increment @index}}</td>
+                        <td style="text-transform: capitalize;"><a href="/admin/school_list/{{school_id}}/{{id_teacher}}">  {{surname}} {{firstname}} {{patronymic}}</a></td>
+                        <td> {{school_name}} </td>   
+                        </tr>
+                    {{/each}}
+                {{/if}}
+            </div>
+            
+        </table>
+        </div>
+            {{#if projects.length }}
+                {{#each projects}}
+                <div class="card">
+                    <div class="card-wrapper">
+                        <a href="/admin/projects/{{id_project}}">
+                            <img src="/img/projects/{{picture}}" alt="{{picture}}" style="width:100%">
+                        </a>
+                        <div class="container-card">
+                            <h2><b><a href="/admin/projects/{{id_project}}"> {{ name_project }}</a> </b></h2> 
+                        </div>
+                    </div>
+                </div>   
+                {{/each}}
+            {{/if}}
+    </main>
+<script>
+
+    $(document).ready(function(e){
+        let csrf = $('#token').val()
+        let project_id = $('#project_id').val()
+
+        $("#searchTeacher").keyup(function(){
+            let name = $(this).val();
+            
+           
+
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data:{
+                    name,
+                    project_id,
+                    '_csrf': csrf
+                    },
+                success: function(data)
+                {
+                    let htmlcode = ` <h3>Список участников</h3>
+        <table style="100%">
+            <thead>
+                <tr>
+                    <th> № п/п </th>
+                    <th> ФИО</th>
+                    <th> Школа</th>
+                </tr>
+            </thead>`;
+                    if(data instanceof Array) {
+                        for(let i = 0; i< data.length; i++) {
+                            if(data[i].surname == undefined) {
+                                continue
+                            }else {
+                                htmlcode +=`<tr>
+                                            <td>${i+1}</td>
+                                             <td style='text-transform: capitalize;'> <a href="/admin/school_list/${data[i].school_id}/${data[i].id_teacher}">${data[i].surname} ${data[i].firstname} ${data[i].patronymic}</a></td>
+                                             <td>${data[i].school_name}</td>
+                                            </tr> 
+                                        `
+                            } 
+                        }
+                        htmlcode+='</table>'
+                        $('.tbl-wrapper').html(htmlcode)
+                        console.log(data)
+                        
+                    }else {
+                        console.log('это не масссив')
+                    }
+                }
+
+            })
+
+        })
+
+    })
+
+</script>
+</head>
+<body>
+
+

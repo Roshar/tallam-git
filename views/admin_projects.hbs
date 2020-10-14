@@ -1,0 +1,58 @@
+            <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/admin/projects/" class="second_nav__link">Создать новый проект</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<style>
+.card {
+    width: 40%;
+    margin: 0 auto
+}
+
+.card-wrapper {
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding:0;
+    margin:25px 5px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container-card {
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.container-card a {
+    color:#6a3394;
+}
+</style>
+    <main> 
+        <div class="blue-line"></div>      
+        <h1>Список проектов</h1> 
+     
+            {{#if projects.length }}
+                {{#each projects}}
+                <div class="card">
+                    <div class="card-wrapper">
+                        <a href="/admin/projects/{{id_project}}">
+                            <img src="/img/projects/{{picture}}" alt="{{picture}}" style="width:100%">
+                        </a>
+                        <div class="container-card">
+                            <h2><b><a href="/admin/projects/{{id_project}}"> {{ name_project }}</a> </b></h2> 
+                        </div>
+                    </div>
+                </div>   
+                {{/each}}
+            {{/if}}
+        
+    </main>
+</style>
+</head>
+<body>
+
+

@@ -1,0 +1,77 @@
+<div class="black"></div>
+<footer class="footer">
+        <div class="support">
+            <div class="support__contact_developers">
+                <button type="button" class="support__button">Связаться с разработчиками</button>
+            </div>
+        </div>
+</footer>
+
+<script>
+let menuButton = document.querySelector(".menu_btn");
+
+menuButton.addEventListener('click', toggleMenu);
+
+function toggleMenu() {
+    let mainNav = document.querySelector('.main_nav');
+    /* let inst = document.querySelector('.header__institution'); */
+
+    menuButton.classList.toggle('menu_btn--active');
+    mainNav.classList.toggle('main_nav--active');
+    /* inst.classList.toggle('header__institution--without_nav'); */
+
+    return false;
+}
+
+
+let menuItems = document.querySelectorAll('.second_nav__item a');
+let locationIndex = window.location.pathname.lastIndexOf('/');
+let documentLocation = window.location.pathname.slice(locationIndex+1, );
+
+menuItems.forEach(item => {
+    let itemIndex = item.attributes.href.value.lastIndexOf('/');
+    let itemHref = item.attributes.href.value.slice(itemIndex+1, );
+    if(itemHref == documentLocation){
+        item.classList.add('active');
+    }
+})
+
+
+let black = document.querySelector('.black');
+let body = document.querySelector('body');
+let modalFeedback = document.querySelector('.modal--feedback');
+let feedbackButton = document.querySelector('.support__button');
+let modalCloseButton = document.querySelector('.modal__cross--feedback');
+
+feedbackButton.addEventListener('click', openModal(modalFeedback));
+modalCloseButton.addEventListener('click', closeModal(modalFeedback));
+
+
+black.addEventListener('click', () => {
+    closeModal(modalFeedback)();
+    closeModal(modal)();
+} );
+
+document.addEventListener('keyup', event => {
+    if (event.keyCode === 27) {
+        closeModal(modalFeedback)();
+    }
+})
+
+function closeModal(modal) {
+    return function(){
+        modal.style.display = 'none';
+        black.style.display = 'none';
+        body.style.overflow= 'auto';
+    };
+}
+
+function openModal(modal) {
+    return function() {
+        modal.style.display = 'block';
+        black.style.display = 'block';
+        body.style.overflow= 'hidden';
+    };
+}
+
+</script>

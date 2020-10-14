@@ -1,0 +1,307 @@
+
+            <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/library_list" class="second_nav__link">Список работников</a></li>
+                    <li class="second_nav__item"><a href="/global_add" class="second_nav__link">Добавить учителя</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="blue-line"></div>      
+        <h1>Форма добавления учителя</h1>  
+        <form action="" method="POST" class="add_form" name="add_teacher">
+
+            <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
+            <h2 class="add_form__heading">Личные данные</h2>
+            <label>ФИО <span class="star">*</span>
+            <input type="text" autofocus placeholder="Фамилия *" name="surname" required>
+            <label class="message" for="surname">Фамилия содержит только буквы русского алфавита</label>
+
+            <input type="text" placeholder="Имя *" name="firstname" required>
+            <label class="message" for="firstname">Имя содержит только буквы русского алфавита</label>
+
+            <input type="text" placeholder="Отчество" name="patronymic">
+            <label class="message" for="patronymic">Отчество содержит только буквы русского алфавита</label>
+
+            <label>Дата рождения <span class="star">*</span>
+            <input type="date" placeholder="01.01.2000" name="birthday"  min="1940-01-01" max="2020-12-01" required >
+            <label class="message" for="birthday">Формат даты рождения должен быть таким: 01.01.1990</label>
+
+            <label>СНИЛС <span class="star">*</span></label>
+            <input type="text" placeholder="000 000 000 00" name="snils" required>
+            <label class="message" for="snils">Введите только 12 цифр</label>
+
+            <label>Пол <span class="star">*</span>
+                <select name="gender" form="add_teacher" required>
+                <option value="" selected disabled>-</option>
+                <option value="punkt1">Мужской</option>
+                <option value="punkt2">Женский</option>
+                </select>
+            </label>
+            <label class="message" for="gender">Выберите пол</label>
+
+
+            <h2 class="add_form__heading">Образование</h2>
+
+            <input type="text" placeholder="Специальность" name="specialty">
+            <label class="message" for="specialty"></label>
+
+            <label>Уровень образования <span class="star">*</span>
+                <select name="level_of_education" form="add_teacher" required>
+                    <option value="" selected disabled>-</option>
+                    <option value="secondary_general">среднее общее</option>
+                    <option value="secondary_specialized">среднее профессиональное</option>
+                    <option value="higher">высшее</option>
+                </select>
+            </label>
+            <label class="message" for="level_of_education">Выберите уровень образования</label>
+
+            <input type="text" placeholder="Серия и номер диплома" name="diploma">
+            <label class="message" for="diploma">В поле должны быть введены только цифры</label>
+
+
+            <h2 class="add_form__heading">Профессиональные данные</h2>
+
+            <label>Должность <span class="star">*</span>
+                <select name="position" form="add_teacher" required>
+                    <option value="" selected disabled>-</option>
+                    <option value="punkt1">пункт 1</option>
+                    <option value="punkt2">пункт 2</option>
+                    <option value="punkt3">пункт 3</option>
+                </select>
+            </label>
+            <label class="message" for="position">Выберите должность</label>
+            
+            <label>Преподаваемые дисциплины
+                <select name="disciplines" form="add_teacher">
+                    <option value="" selected>-</option>
+                    <option value="punkt1">пункт 1</option>
+                    <option value="punkt2">пункт 2</option>
+                    <option value="punkt3">пункт 3</option>
+                </select>
+                <ul class="selected_disciplines">
+                </ul>
+            </label>
+            <label class="message" for="disciplines">message</label>
+
+            <input type="text" placeholder="Общий стаж" name="total_experience">
+            <label class="message" for="total_experience">message</label>
+
+            <input type="text" placeholder="Педагогический стаж" name="teaching_experience">
+            <label class="message" for="teaching_experience">message</label>
+            
+            <label>Категория
+                <select name="category" form="add_teacher">
+                    <option value="" selected>-</option>
+                    <option value="punkt1">пункт 1</option>
+                    <option value="punkt2">пункт 2</option>
+                    <option value="punkt3">пункт 3</option>
+                </select>
+            </label>
+            <label class="message" for="category">message</label>
+
+
+            <h2 class="add_form__heading">Контактные данные</h2>
+
+            <input type="text" placeholder="Телефон" name="phone">
+            <label class="message" for="phone">Введите номер телефона в формате <br>+7 (000) 000 00 00</label>
+
+            <input type="email" placeholder="Email" name="email">
+            <label class="message" for="email">Адрес почты должен быть верного формата: example@mail.ru</label>
+            
+
+            <h2 class="add_form__heading">Повышение квалификации</h2>
+
+            <div class="qualification_section">
+                <div class="qualification_section__block">
+                    <div class="cross">X</div>
+                    <input type="text" placeholder="Место, программа (тема) КПК" name="place">
+                    <label class="message" for="place">message</label>
+                    
+                    <label>Год
+                        <select name="year" form="add_teacher">
+                            <option value="" selected>-</option>
+                            <option value="punkt1"></option>
+                            <option value="punkt2"></option>
+                            <option value="punkt3"></option>
+                            <option value="punkt3"></option>
+                            <option value="punkt3"></option>
+                        </select>
+                    </label>
+                    <label class="message" for="year">message</label>
+                </div>
+            </div>
+            <button type="button" class="add_qualification__button button">Добавить еще</button>
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+            <button type="submit" class="add_form__button button">Добавить учителя</button>
+        </form> 
+    </main>
+
+    <footer class="footer">
+        <div class="support">
+            <div class="support__contact_developers">
+                <a href="#" class="support__link">Связаться с разработчиками</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="../js/script.js"></script>
+    <script type="text/javascript" src="../js/mask.js"></script>
+    <script type="text/javascript">
+        let years = document.querySelectorAll("select[name='year'] > option");
+        function setYears(){
+            let year = new Date().getFullYear();
+
+            for(let i = 1; i < 6; i++){
+                years[i].innerHTML = year - i+1;
+            }
+        }
+        setYears();
+
+
+        const patterns = { 
+            surname: /^[а-яёА-ЯЁ]{1,}$/u,
+            firstname: /^[а-яёА-ЯЁ]{1,}$/u,
+            patronymic: /^[а-яёА-ЯЁ]+$/u,
+            birthday: /^((?:19|20)\d{2})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$/,
+            snils: /^\d{11}$/,
+
+           /*  specialty: /^[а-яёА-ЯЁa-zA-Z]+$/u, */
+            diploma: /^\d{6,}$/,
+
+            /* total_experience: /^\d{1,2}$/,
+            teaching_experience: /^\d{1,2}$/, */
+
+            phone: /^\+7 \(\d{3}\) \d{3} \d{2} \d{2}$/,
+            email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/
+        }
+
+
+        let inputs = document.querySelectorAll('input');
+        let isValid = false;
+
+        inputs.forEach((input) => {
+            input.addEventListener('keyup', e => {
+                validate(e.target, patterns[e.target.attributes.name.value]);
+            })
+        });
+
+        let requiredFields = document.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            let fieldName = field.attributes.name.value;
+            let label = document.querySelector(`label[for='${fieldName}']`);
+            const labelValue = label.innerHTML; 
+
+            field.addEventListener('keyup', (e) => {
+                if(!e.target.value || e.target.value === null || e.target.value === undefined){
+                    label.innerHTML = 'Поле обязательно для заполнения';
+                }
+                else{
+                    label.innerHTML = labelValue;
+                }
+            })
+        });
+
+        function validate(field, regex){
+            if(regex.test(field.value) || 
+              (!field.attributes.required && 
+              (!field.value || field.value === null || field.value === undefined))){
+                field.className = 'valid';
+                isValid = true;
+            }else{
+                field.className = 'invalid';
+                isValid = false;
+            }
+        };
+
+
+        let validSelections = 0;
+        function validateSelections(){
+            let selects = document.querySelectorAll('select[required]');
+            selects.forEach(select => {
+                select.addEventListener('change', () => {
+                    if(select.value){
+                        validSelections++;
+                    }else
+                        validSelections--;
+                })
+            });
+        };
+
+        validateSelections();
+
+        let disciplines = document.querySelector("select[name='disciplines']");
+        let  selectedDisciplinesList = document.querySelector('.selected_disciplines');
+        disciplines.addEventListener('change', event => {
+            let value = event.target.value;
+            let exist = false;
+            let li;
+            let selectedDisciplines = document.querySelectorAll('.selected_disciplines li');
+
+            for(let i = 0; i < selectedDisciplines.length; i++){
+                if(selectedDisciplines[i].innerText.slice(0, selectedDisciplines[0].innerText.length-1) === value){
+                    exist = true;
+                }
+            }
+
+            if(!exist){
+                li = document.createElement('li');
+                li.className = 'discipline';
+                li.innerHTML = value;
+
+                let span = document.createElement('span');
+                span.className = 'cross';
+                span.innerHTML = 'x';
+                span.addEventListener('click', event => {
+                    event.target.closest('li').remove();
+                    if(!selectedDisciplines.length){
+                        disciplines.value = '';
+                    }
+                })
+
+                li.append(span);
+                selectedDisciplinesList.append(li);
+            }
+        });
+
+
+        let form = document.querySelector('.add_form');
+        form.addEventListener('submit', event => {
+            validateSelections()
+            if(!isValid || validSelections < 3) { 
+                let activeElement = document.activeElement;
+                activeElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+
+                event.preventDefault();
+                return false;
+            }
+        });
+
+        let addQButton = document.querySelector('.add_qualification__button');
+        
+        addQButton.addEventListener('click', () =>{
+            let qSection = document.querySelector('.qualification_section');
+            let qBlock = document.querySelector('.qualification_section__block').cloneNode(true);
+            qBlock.classList.add('qualification_section__block--new')
+            qSection.appendChild(qBlock);
+
+            let cross = qBlock.firstElementChild;
+            cross.addEventListener('click', event => {
+                event.target.parentElement.remove();
+            });
+        });
+
+
+        let dateInput = document.querySelector("input[type='date']");
+
+        let isMouseDown = false; // в примере будет работать только для 1ой кнопки
+        dateInput.addEventListener('click', () => {
+            isMouseDown = true
+            console.log('hi');
+            if(!isMouseDown){
+            dateInput.blur();
+            }
+        })
+    </script>

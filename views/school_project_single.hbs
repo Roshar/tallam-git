@@ -1,0 +1,199 @@
+<style>
+    /* надо перенести в файл */
+
+
+
+.add_form {
+    background-color: white;
+}
+
+.section-school-title {
+    margin:20px 0;
+    color: #484343;
+    text-transform: uppercase;
+    
+}
+
+.section-school-title h2,
+.section-school-title h3 {
+   line-height: 150%;
+    text-align: center;
+}
+ 
+
+.section-school-title .main_title {
+    color: #2e609a;
+    
+}
+
+.wrapper-body h2{
+    text-align: center;
+}
+
+.wrapper-body button{
+    margin:35px 0;
+    width:100%;
+    padding:12px;
+    border:none;
+    color:white;
+    text-transform: uppercase;
+    background-color: #6a3394;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dad6d6;
+  text-align: left;
+  padding: 18px;
+}
+
+</style>
+
+<header class="header">
+<div class="header_top">
+    <div class="logo">
+        <a href="/" class="logo__tallam">Tallam</a>
+        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+    </div>
+    <a href="#" class="menu_btn" id="menu_btn">
+        <span></span>
+    </a>
+    <nav class="main_nav" id="main_nav">
+        <ul class="main_nav__items">
+            <!-- <li class="main_nav__item"><a href="#" class="main_nav__link">Проекты</a></li> -->
+            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
+        </ul>
+    </nav>
+    <nav class="second_nav">
+        <ul class="second_nav__items">
+            <li class="second_nav__item"><a href="/school/list" class="second_nav__link">Список работников</a></li>
+        </ul>
+    </nav>
+</div>
+</header>
+
+<main>
+
+<div class="section-school-title">
+
+    {{#if school.length}}
+        {{#each school}}
+            <h2 class="main_title "> {{this.school_name}}</h2>
+            <h2> Общая информация </h2>
+            <h4>  Проект:  {{../project_name}} </h2>
+            <h4 >Район: {{this.title_area}}</h3>   
+        {{/each}}
+    {{else}}
+        <h2> Нет данных </h2>
+    {{/if}}
+
+    {{#if error}}
+        <p> {{ error}}</p>
+    {{/if}}
+    {{#if notice}}
+        <p> {{ notice}}</p>
+    {{/if}}
+</div>
+
+<!-- TABLE FOR STAFF -->
+<h3 style="text-align: center; margin-bottom:20px;"> Список учителей участвующих в проекте  </h3>
+<div class="wrapper-body">
+<table>
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>ФИО (учителя)</th>
+            <th>Должность</th>
+            <th>Данные пользователя</th>
+            <th>Личная карта</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#if teachers}}
+            {{#each teachers}}
+                <tr >
+                    <td>{{increment @index}}</td>
+                    <td>{{surname}} {{firstname}}</td>
+                    <td>{{title_position}}</td>
+                    <td>
+                        <a href="/school/list/{{id_teacher}}" class="rate_button button">Профиль</a>
+                    </td>
+                    <td >
+                        <a href="/school/card/project/{{../project_id}}/teacher/{{id_teacher}}" class="rate_button button">Карта</a>   
+                    </td>
+                </tr>
+            {{/each}}
+        {{/if}}
+    </tbody>  
+</table> 
+<a href="/school/project/library/{{project_id}}" id="myBtn">Добавить учителя в проект </a>
+</div> 
+<div class="modal modal--feedback">
+            <div class="modal__cross modal__cross--feedback">x</div>
+            <div class="feedback">
+                <form action="/" method="POST" class="feedback__form" name="feedback_form" novalidate>
+                    <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
+                    <h2 class="feedback__heading">Форма обратной связи</h2>
+                    <label> Тема
+                        <select name="type_id" id="feedback_theme" class="feedback__theme">
+                            {{#each support_type}}
+                                <option value="{{id_type}}">{{thema}}</option>
+                            {{/each}}
+                        </select>
+                    </label>  
+                    <label>
+                        Сообщение <span class="star">*</span>
+                        <textarea name="message" id="feedback_text" cols="30" rows="10"  required></textarea>
+                    </label>
+                    
+                    <label>
+                        Почта <span class="star">*</span>
+                        <input type="email" name="email" required>
+                    </label>
+                    <label>
+                        Номер телефона
+                        <input type="tel" name="phone">
+                    </label>
+                     <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                    <button type="submit" class="button feedback__button">Отправить</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal modal--feedback">
+            <div class="modal__cross modal__cross--feedback">x</div>
+            <div class="feedback">
+                <form action="/" method="POST" class="feedback__form" name="feedback_form" novalidate>
+                    <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
+                    <h2 class="feedback__heading">Форма обратной связи</h2>
+                    <label> Тема
+                        <select name="type_id" id="feedback_theme" class="feedback__theme">
+                            {{#each support_type}}
+                                <option value="{{id_type}}">{{thema}}</option>
+                            {{/each}}
+                        </select>
+                    </label>  
+                    <label>
+                        Сообщение <span class="star">*</span>
+                        <textarea name="message" id="feedback_text" cols="30" rows="10"  required></textarea>
+                    </label>
+                    
+                    <label>
+                        Почта <span class="star">*</span>
+                        <input type="email" name="email" required>
+                    </label>
+                    <label>
+                        Номер телефона
+                        <input type="tel" name="phone">
+                    </label>
+                     <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                    <button type="submit" class="button feedback__button">Отправить</button>
+                </form>
+            </div>
+        </div>  
+</main>

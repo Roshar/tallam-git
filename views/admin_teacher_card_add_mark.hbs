@@ -1,0 +1,353 @@
+            <nav class="second_nav">
+                <ul class="second_nav__items">
+                    
+                    <li class="second_nav__item"><a href="/admin/cards/school/{{school_id}}/teacher/{{teacher_id}}/project/{{project_id}}" class="second_nav__link">Вернуться к личной карте</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<main>   
+
+<style type="text/css">
+
+    .teacher-card__tbl {margin-top: 50px;}
+    .teacher-card__tbl table {margin:0 auto;}
+    .teacher-card__title h2 {
+        text-align: center;
+    }
+    .teacher-card__second-title {
+        margin: 0 auto;
+        width:80%
+    }
+
+    .teacher-card__title h2 {
+        margin-bottom: 30px;
+    }
+    .form-area {
+        margin: 0 auto;
+        width: 80%;
+    }
+    .form-area table {
+        margin:0;
+    }
+    .form-area th, td {
+        padding:15px;
+        border-bottom: 1px solid #ccc;
+    }
+    .form-area th {
+        background-color: #6A3394;
+        color: white;
+    }
+    .form-area .h-td {
+        background-color: #9C50D7;
+        color: white;
+    }
+
+     option{
+        border-radius:2em
+    }
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+select.custom-select {
+    padding:10px;
+    border-radius: 4px;
+    border: 1px solid rgba(106, 51, 148, 0.5)
+}
+
+select {
+     padding:5px 15px;
+}
+
+.card-class__thema {
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+.teacher-card {
+    margin-bottom: 40px;
+}
+
+.w3-input {
+    padding-top:20px;
+} 
+
+.card-results-discipline {
+    width: 100%;
+}
+
+.card-results-discipline {
+    margin-bottom:20px;
+}
+
+p, select {
+    margin: 6px;
+    font: 16px Arial;
+}
+select {
+    width: 262px;
+    height: 50px;
+
+}
+
+.btn-card {
+    background-color:#635190;
+    padding:20px 40px;
+    width:50%;
+    margin: 0 auto;
+    display: block;
+    border:none;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-card:hover{
+    background-color:#7f57e2;
+    cursor:pointer;
+}
+
+.hidden-block {
+    display: none;
+}
+
+</style>
+    <div class="w3-container">
+        <section class="teacher-card">
+            <div class="teacher-card__title">
+                <h2>Оценить урок </h2>
+            </div>
+
+            <div class="teacher-card__second-title">
+                <form action="/addhandle/school/{{school_id}}/teacher/{{teacher_id}}/project/{{project_id}}/" class="w3-container" method="POST">
+                    {{#each teacherData}}
+                         <label for="">  ФИО: {{surname}} {{firstname}} {{patronymic}} </label>
+                    {{/each}}
+                   
+                    <select name="discipline_id" class="card-results-discipline" id="discipline" >
+                        {{#if disciplineListByTeacherId}}
+                            {{#each disciplineListByTeacherId}}
+                                <option value="{{discipline_id}}">{{title_discipline}}</option>
+                            {{/each}}
+                        {{else}}
+                        <option value="">Нет предмета</option>
+                        {{/if}}
+                    </select>
+                    <select name="class_id" id="class_id">
+                        <option value=""> Выберите класс</option>
+                        <option value="1" > 1 класс </option>
+                        <option value="2"> 2 класс </option>
+                        <option value="3"> 3 класс </option>
+                        <option value="4"> 4 класс </option>
+                        <option value="5"> 5 класс </option>
+                        <option value="6"> 6 класс </option>
+                        <option value="7"> 7 класс </option>
+                        <option value="8"> 8 класс </option>
+                        <option value="9"> 9 класс </option>
+                        <option value="10"> 10 класс </option>
+                    </select> 
+                    <select name="source_id" id="sourse">
+                        <option value="2" id="inside" data-inside="inside"> Внтуришкольная оценка</option>
+                        <option value="1" id="outside" data-outside="outside"> Внешняя оценка</option>
+                    </select> 
+                    <div class="hidden-block" id="hidden-block">
+                        <h4>Данные оценивающего:</h4>
+                        <input class="w3-input w3-animate-input" style="width:30%"  type="text" name="source_fio" placeholder="ФИО">
+                        <input class="w3-input w3-animate-input" style="width:30%"  type="text" name="position_name" placeholder="Должность">
+                        <input class="w3-input w3-animate-input" style="width:30%"  type="text" name="source_workplace"  placeholder="Место работы">
+                    </div>
+                    
+                    <div class="card-class__thema"></div>
+                        <label for="thema"> Тема урока: </label>
+                        <input type="text" name="thema"  class="w3-input w3-animate-input"  type="text" style="width:30%" placeholder="Напишите тему урока" > 
+                    </div>
+            </div>
+        </section>
+        <section>
+                <div class="form-area">
+                    <table novalidate>
+                        <thead>
+                        <tr>
+                            <th scope="col">Критерии оценки урока (2 – требование выполнено на оптимальном уровне, 1 – есть резервы, 0 - требование практически не выполнено )	</th>
+                            <th scope="col">Оценка в баллах</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td scope="row" class="h-td"><strong>1. Предметно-методическая компетенция</strong> </td>
+                            <td class="h-td">макс. оценка 6 баллов</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">1.1 Требования Стандартов к предметному содержанию</td>
+                            <td>
+                                <select  class="custom-select" name="k_1_1" id="k_1_1">
+                                    <option value="" selected>Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">1.2. Развитие личностной сферы ученика средствами предмета</td>
+                            <td>
+                                <select class="custom-select" name="k_1_2" id="k_1_2">
+                                    <option value="" selected req>Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">1.3. Использование заданий, развивающих УУД на уроках предмета</td>
+                            <td>
+                                <select  class="custom-select" name="k_1_3" id="k_1_3">
+                                    <option value="" selected>Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!--end first block-->
+                        <tr>
+                            <td scope="row" class="h-td"> <strong>2. Психолого-педагогическая компетенция </strong>  </td>
+                            <td class="h-td"> макс. оценка 4 баллов</td>
+                        </tr>
+                        <tr>
+                            <td scope="row"> 2.1. Учет и развитие мотивации и психофизиологической сферы учащихся</td>
+                            <td>
+                                <select class="custom-select" name="k_2_1" id="k_2_1">
+                                    <option value="" selected>Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row"> 2.2. Обеспечение целевой психолого-педагогической поддержки обучающихся</td>
+                            <td>
+                                <select  class="custom-select" name="k_2_2" id="k_2_2">
+                                    <option value="" selected>Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!-- end second block-->
+                        
+                        
+                        <tr>
+                            <td scope="row" class="h-td"> <strong>3. Валеологическая компетенция</strong>  </td>
+                            <td class="h-td">макс. оценка 2 баллов</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">Требования ЗСС в содержании, структуре урока, в работе с оборудованием и учете данных о детях с ОВЗ </td>
+                            <td>
+                                <select class="custom-select" name="k_3_1" id="k_3_1">
+                                    <option value="" selected>Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                    
+                        <!--end third block-->
+                        <tr>
+                            <td scope="row" class="h-td"> <strong>4.Коммуникативная компетенция</strong> </td>
+                                <td class="h-td">макс. оценка 2 баллов</td>
+                        </tr>
+                        <tr>
+                            <td scope="row"> 4.1. Стиль и формы педагогического взаимодействия на уроке </td>
+                            <td>
+                                <select class="custom-select" name="k_4_1" id="k_4_1">
+                                    <option value="" >Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!--end 4 block-->
+
+                        <tr>
+                            <td scope="row" class="h-td"> <strong>5. Управленческая компетенция</strong> </td>
+                                <td class="h-td">макс. оценка 4 баллов</td>
+                        </tr>
+                        <tr>
+                            <td scope="row"> 5.1.Управление организацией учебной деятельности обучающихся через систему оценивания</td>
+                            <td>
+                                <select class="custom-select" name="k_5_1" id="k_5_1">
+                                    <option value="" >Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                            <tr>
+                            <td scope="row"> 5.2. Управление собственной обучающей деятельностью</td>
+                            <td>
+                                <select class="custom-select" name="k_5_2" id="k_5_2">
+                                    <option value="" >Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!--end 5 block-->
+
+                        <tr>
+                            <td scope="row"> <strong> Результативность урока</strong> </td>
+                            <td>
+                                <select class="custom-select" name="k_6_1" id="k_6_1">
+                                    <option value="" >Выберите оценку</option>
+                                    <option value="3">2</option>
+                                    <option value="2">1</option>
+                                    <option value="1">0</option>
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <input type="hidden" name="id_teacher" value="{{teacher_id}}">
+                <input type="hidden" name="school_id" value="{{school_id}}">
+                <input type="hidden" name="project_id" value="{{project_id}}">
+                <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                <button type="submit" class="btn-card"> Оценить </button>
+            </form>
+            
+        </section> 
+    </div>
+         
+    </main>
+    <div class="black"></div>
+    <script>
+ 
+let op = $('#hidden-block');
+
+          $("#sourse").change(function(){       
+              if($(this).find(':selected').attr('id') == "outside"){
+                  op.removeClass('hidden-block')
+
+              }else {
+                  op.addClass('hidden-block')
+              }   
+        });
+
+
+    </script>
+
+
+
+    
+  
