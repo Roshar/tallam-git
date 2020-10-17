@@ -13,11 +13,11 @@ exports.getAllArea = async function () {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT * FROM area')
@@ -38,11 +38,11 @@ exports.getAreaIdBySchoolId = async function (req, res) {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const school_id = await req.id_school
@@ -66,11 +66,11 @@ exports.getTypes = async function () {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT * FROM type_school')
@@ -92,11 +92,11 @@ exports.getSchoolsByAreaId = async function (req, res) {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const area_id = await req.area_id;
@@ -119,11 +119,11 @@ exports.getSchoolFromCurrentProject = async function (req, res) {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
       
       const project_id = await req.project_id || await req.id;
@@ -148,11 +148,11 @@ exports.getUserByEmail = async (req, res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const email = await req.email;
@@ -176,11 +176,11 @@ exports.getLevelEdu = async () => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT * FROM edu_level')
@@ -204,11 +204,11 @@ exports.getAllSchoolProfiles = async () => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT * FROM schools LIMIT 10')
@@ -231,11 +231,11 @@ exports.getAllSchoolWithAreas = async () => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT schools.id_school, schools.area_id, schools.school_name,  schools.type_id, area.id_area, area.title_area FROM schools INNER JOIN area ON schools.area_id = area.id_area')
@@ -258,11 +258,11 @@ exports.getGenders = async () => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT * FROM gender')
@@ -284,11 +284,11 @@ exports.getPositionList = async () => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT * FROM position')
@@ -311,11 +311,11 @@ exports.getdisciplinesList = async () => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT * FROM discipline_title')
@@ -338,11 +338,11 @@ exports.getCategories = async () => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const [res, fields] = await dbh.execute('SELECT * FROM category')
@@ -365,11 +365,11 @@ exports.getSchoolProfileById = async (req,res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const id_school = await req.id;
@@ -392,11 +392,11 @@ exports.getAllProjectsWithThisSchool = async (req,res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const school_id = await req.id;
@@ -420,11 +420,11 @@ exports.getAllTeachersFromThisSchool = async (req,res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const school_id = await req.id;
@@ -451,11 +451,11 @@ exports.getProfileByTeacherId = async (req, res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const school_id = await req.id;
@@ -489,11 +489,11 @@ exports.getAllKpkByIdTeacher = async(req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const teacher_id = await req.teacher_id
@@ -516,11 +516,11 @@ exports.getTeacherDisciplines = async(req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const teacher_id = await req.teacher_id
@@ -548,7 +548,7 @@ exports.getAllProjects = async function () {
       user: process.env.DATABASE_USER,
       database: process.env.DATABASE,
       password: process.env.DATABASE_PASSWORD,
-      socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+      
    })
    const [res, fields] = await dbh.execute('SELECT * FROM projects WHERE id_project > 1')
    dbh.end()
@@ -564,11 +564,11 @@ exports.getTeacherProjects = async(req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const teacher_id = await req.teacher_id
@@ -593,11 +593,11 @@ exports.getAllSchoolsFromThisProjects = async (req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const project_id = await req.id;
@@ -627,11 +627,11 @@ exports.getInfoFromProjectById = async (req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const project_id = await req;
@@ -655,11 +655,11 @@ exports.getTotalValueTeacherFromProject = async (req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const project_id = await req.id;
@@ -697,11 +697,11 @@ exports.getTotalValueSchoolFromProject = async (req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const project_id = await req.id;
@@ -725,11 +725,11 @@ exports.getInformationAboutIssetTeacherInProject = async (req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const teacher_id = await req.teacher_id;
@@ -785,11 +785,11 @@ exports.createNewCabinet = async (req, res) => {
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const email = await req.email;
@@ -818,11 +818,11 @@ exports.addNewSchool = async (req, res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const id = uuidv4()
@@ -852,11 +852,11 @@ exports.addNewTeacher = async (req, res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       /** sql for teachers table */
@@ -943,11 +943,11 @@ exports.insertSchoolInProject = async (req, res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const id_project = await req.id;
@@ -980,11 +980,11 @@ exports.updateTeacherMainInformationById  = async (req, res) =>{
    try {
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
       
       const id_teacher = await req.id_teacher;
@@ -1048,11 +1048,11 @@ exports.deleteTeacherProfileById = async(req , res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const teacher_id = await req.teacher_id;
@@ -1105,11 +1105,11 @@ exports.deleteSchoolFromCurrentProject = async(req , res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const id_project = await req.id;
