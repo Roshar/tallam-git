@@ -13,11 +13,11 @@ exports.getSchoolData = async function (req, res) {
     try{
         const dbh = await mysql.createConnection({
            host: process.env.DATABASE_HOST,
-           port: process.env.DATABASE_PORT,
+     
            user: process.env.DATABASE_USER,
            database: process.env.DATABASE,
            password: process.env.DATABASE_PASSWORD,
-           socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+           
         })
 
         const id_school = await req.school_id
@@ -40,11 +40,11 @@ exports.getSupportType = async function () {
     try{
         const dbh = await mysql.createConnection({
            host: process.env.DATABASE_HOST,
-           port: process.env.DATABASE_PORT,
+     
            user: process.env.DATABASE_USER,
            database: process.env.DATABASE,
            password: process.env.DATABASE_PASSWORD,
-           socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+           
         })
 
         const [result, fields] = await dbh.execute("SELECT *  FROM `support_type_middleware` ")
@@ -71,11 +71,11 @@ exports.insertMessageInDB  = async (req, res) => {
     try {
        const dbh = await mysql.createConnection({
           host: process.env.DATABASE_HOST,
-          port: process.env.DATABASE_PORT,
+    
           user: process.env.DATABASE_USER,
           database: process.env.DATABASE,
           password: process.env.DATABASE_PASSWORD,
-          socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+          
        })
        console.log(req)
        const type_id = await req.type_id;

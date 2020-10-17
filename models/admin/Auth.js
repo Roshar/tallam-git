@@ -19,11 +19,11 @@ exports.getExistsUserInDb = async (req, res) => {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+         
       })
 
       const email = await req.email;
@@ -48,11 +48,11 @@ exports.sessionStore = (req, res) => {
    try {
       const dbh = mysql2.createConnection({
          host: process.env.DATABASE_HOST,
-         port: process.env.DATABASE_PORT,
+         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
-         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
+         
             
       })
 
