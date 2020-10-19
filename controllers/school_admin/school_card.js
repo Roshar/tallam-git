@@ -317,6 +317,36 @@ exports.getSingleCardById = async (req, res) => {
                     level = 'недопустимый уровень';
                     levelStyle = 'trash';
                 }
+
+                if(req.body.excel_tbl) {
+                    
+                    const jsonsingleCard = JSON.parse(JSON.stringify(singleCard));
+
+                    let workbook = new excel.Workbook(); 
+                    let worksheet = workbook.addWorksheet('Singlecard');
+
+                    worksheet.columns = [
+                        { header: 'Id', key: 'id_card', width: 10 },
+                        { header: 'Teacher_id', key: 'teacher_id', width: 30 },
+                        { header: 'discipline_id', key: 'discipline_id', width: 30},
+                        { header: 'source_id', key: 'source_id', width: 30},
+                        { header: 'title_discipline:', key: 'title_discipline:', width: 30},
+                        { header: 'source_fio:', key: 'source_fio:', width: 30},
+                        { header: 'school_id:', key: 'school_id:', width: 10, outlineLevel: 1}
+                    ];
+
+                    worksheet.addRows(jsonsingleCard);
+
+                    let excelFileName = teacher[0].surname + '-' + Date.now();
+
+                    await workbook.xlsx.writeFile(`files/excels/schools/tmp/${excelFileName}.xlsx`);
+
+                     return res.download(path.join(__dirname,'..','..','files','excels','schools','tmp',`${excelFileName}.xlsx`), (err) => {
+                       if(err) {
+                        console.log('Ошибка при скачивании' + err)
+                       }
+                    })
+                }
                
 
 

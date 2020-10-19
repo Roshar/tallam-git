@@ -6,7 +6,8 @@ const school_cardCtrl = require('../../controllers/school_admin/school_card')
 
 const router = Router()
 
-router.get('/api/excel/:teacher_id/:id_card/:project_id/download', school_cardCtrl.getExcel)
+
+router.post('/single/:id_card/project/:project_id', school_cardCtrl.getSingleCardById)
 router.get('/single/:id_card/project/:project_id', school_cardCtrl.getSingleCardById)
 router.post('/project/:project_id/teacher/:teacher_id', school_cardCtrl.getCardPageByTeacherId)
 router.get('/project/:project_id/teacher/:teacher_id', school_cardCtrl.getCardPageByTeacherId)
