@@ -129,10 +129,28 @@
         </table>
 
         <div class="list-func">
-                <div class="list-func__child excel-btn"> <a href="/school/card/api/excel/{{../teacher_id}}/{{id_card}}/{{../project_id}}/download">Экспорт даных  в Excel </a> </div>
-                <div class="list-func__child email-btn"> <a href="/school/card/api/send/{{../teacher_id}}/{{id_card}}">Отправить на электронный адрес учителя</a> </div>
-                <div class="list-func__child method-btn"> <a href="/school/card/api/method/{{../teacher_id}}/{{id_card}}">Скачать методические рекомендации</a> </div>
-                <div class="list-func__child diagramma-btn"> <a href="/school/card/api/diaggram/{{../teacher_id}}/{{id_card}}">Сгенерировать диаграмму по карте учителя</a> </div>
+                <div class="list-func__child excel-btn"> 
+                    <form method="POST" >
+                        <input type="hidden" name="excel_tbl" value="{{@root.csrf}}" id="excel_tbl">
+                        <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                        <button type="submit" class="card-btn">Экспорт даных  в Excel </button>
+                    </form>
+                 </div>
+                <div class="list-func__child email-btn"> <a  class="card-btn" href="/school/card/api/send/{{../teacher_id}}/{{id_card}}">Отправить на электронный адрес учителя</a> </div>
+                <div class="list-func__child method-btn">                
+                    <form method="POST" >
+                        <input type="hidden" name="method_rec" value="{{@root.csrf}}" id="excel_tbl">
+                        <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                        <button type="submit" class="card-btn">Скачать методические рекомендации</button>
+                    </form> 
+                </div>
+                <div class="list-func__child diagramma-btn"> 
+                    <form method="POST" >
+                        <input type="hidden" name="diagramm" value="{{@root.csrf}}" id="excel_tbl">
+                        <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+                        <button type="submit" class="card-btn">Сгенерировать диаграмму по карте учителя </button>
+                    </form>
+                </div>
         </div>
           {{/each}}
     </div>
