@@ -131,9 +131,11 @@ app.use(jsonParser = bodyParser.json())
 
 const dbh =  mysql.createConnection({
     host: process.env.DATABASE_HOST,
+    
     user: process.env.DATABASE_USER,
     database: process.env.DATABASE,
     password: process.env.DATABASE_PASSWORD,
+     
  })
 
  const options = {
@@ -164,8 +166,6 @@ app.use(csrf())
 app.use(varMiddle)
 app.use(flash())
 
-
-//app.use(varmiddleware)
 
 //роутеры
 app.use('/',  cabinetRoutes)

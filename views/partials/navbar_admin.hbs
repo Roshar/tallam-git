@@ -4,12 +4,10 @@
         <li class="main_nav__item"><a href="/admin/add_new_cabinet" class="main_nav__link">Создать личный кабинет</a></li>
          <li class="main_nav__item"><a href="/admin/school_list" class="main_nav__link">Менеджер школ</a></li>
         <li class="main_nav__item"><a href="/admin/projects" class="main_nav__link">Проекты</a></li>
-        {{#if isAuth}}
-        <li class="main_nav__item"><a href="#" class="main_nav__link">АВТОРИЗОВАН!</a></li>
+        {{#if isAdmin}}
          <li class="main_nav__item"><a href="/auth/logout" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
-        {{else}}
-        <li class="main_nav__item"><a href="#" class="main_nav__link">НЕЕАВТОРИЗОВАН!</a></li>
         {{/if}}
+        
     </ul>
 </nav>
 </div>
