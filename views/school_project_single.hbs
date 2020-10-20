@@ -65,13 +65,14 @@ td, th {
     </a>
     <nav class="main_nav" id="main_nav">
         <ul class="main_nav__items">
-            <!-- <li class="main_nav__item"><a href="#" class="main_nav__link">Проекты</a></li> -->
+            <li class="main_nav__item"><a href="/school/project" class="main_nav__link">Проекты</a></li> 
+            <li class="main_nav__item"><a href="/school/list" class="main_nav__link">Учителя</a></li> 
             <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
         </ul>
     </nav>
     <nav class="second_nav">
         <ul class="second_nav__items">
-            <li class="second_nav__item"><a href="/school/list" class="second_nav__link">Список работников</a></li>
+            <li class="second_nav__item"><a href="/school/project/library/{{project_id}}" id="myBtn" class="second_nav__link"> Добавить учителя в проект</a></li>
         </ul>
     </nav>
 </div>
@@ -131,7 +132,7 @@ td, th {
         {{/if}}
     </tbody>  
 </table> 
-<a href="/school/project/library/{{project_id}}" id="myBtn">Добавить учителя в проект </a>
+
 </div> 
 <div class="modal modal--feedback">
             <div class="modal__cross modal__cross--feedback">x</div>
