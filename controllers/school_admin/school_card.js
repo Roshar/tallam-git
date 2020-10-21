@@ -324,7 +324,7 @@ exports.getSingleCardById = async (req, res) => {
                 singleCard[0].school_name = school_name;
                 singleCard[0].commonValue = commonValue;
                 singleCard[0].level = level;
-                console.log(singleCard)
+             
                
                 if(req.body.excel_tbl) {
                     
