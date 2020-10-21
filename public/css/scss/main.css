@@ -1,5 +1,6 @@
 /*** variables ***/
 /** colors **/
+/* $lightblue: #97bbe5; */
 /** fonts **/
 /*** mixins ***/
 /** media queries **/
@@ -165,12 +166,18 @@ body {
   color: #FFF;
   text-transform: uppercase;
   cursor: pointer;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 
 @media (max-width: 675px) {
   .main .white-container .signin-form input[type="submit"] {
     width: 100%;
   }
+}
+
+.main .white-container .signin-form input[type="submit"]:hover, .main .white-container .signin-form input[type="submit"]:active {
+  background: #1a4474;
 }
 
 .main .white-container .signin-form__password::after {

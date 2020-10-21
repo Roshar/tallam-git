@@ -7,12 +7,9 @@ html, body{
 body{
     font-family: $main-sans, serif;
     font-weight: normal;
+    display: flex;
+    flex-direction: column;
 }
-
-
-/*     header, main, footer{
-        flex-grow: 1;
-    } */
 
 .main-header{
     width: 100vw;
@@ -62,153 +59,182 @@ body{
     }
 }
 
-.wrapper{
-    height: 90%;
+.main{
+    background: $lightblue;
+    padding: 14vh 0;
+    width: 100vw;
+    flex-grow: 1;
 
-    .main{
-        background: $lightblue;
-        padding: 14vh 0;
-        width: 100vw;
+    @include mobile{
         height: 80%;
-
-        .white-container{
-            max-width: 619px;
-            background: #FFF;
-            padding: 4.5em;
-            padding-bottom: 2.3em;
-            margin: auto;
-
-            @include mobile{
-                width: 90%;
-                padding: 2.5em;
-            }
-            
-            @include s-mobile{
-                padding: 2em 1em
-            }
-
-            .signin-form{
-                width: 100%;
-                background: #FFF;
-                text-align: center;
-                margin: auto;
-
-                @include mobile{
-                    width: 95%;
-                }
-
-                input{
-                    width: 100%;
-                    padding: 1.4em;
-                    color: #000;
-                    border: 1px solid $darkblue;
-                    margin-bottom: 1.7em;
-
-                    @include mobile{
-                        padding: 1.2em;
-                    }
-
-                    @include s-mobile{
-                        margin-bottom: 0.7em;
-                    }
-                    
-                    &:not([type="submit"]){
-
-                        font-size: 1.1rem;
-                        &::-moz-placeholder,
-                        &::-webkit-input-placeholder,
-                        &::-ms-input-placeholder,
-                        &::placeholder { color: $darkblue; }
-
-                        &:focus,
-                        &:focus::-webkit-input-placeholder, 
-                        &:focus::-moz-placeholder,
-                        &:focus:-moz-placeholder,
-                        &:focus:-ms-input-placeholder {
-                            color: transparent
-                        }
-                    }
-
-                    &[type="submit"]{
-                        width: 236px;
-                        background: $darkblue;
-                        color: #FFF;
-                        text-transform: uppercase;
-                        cursor: pointer;
-
-                        @include mobile{
-                            width: 100%;
-                        }
-                    }
-                }
-            }
-
-            .forget-password{
-                color: $brightblue;
-                display: block;
-                margin: 1em 0 0 3px;
-            }
-        }
+        padding: 10vh 0;
     }
 
-    .footer {
-        background: $lightblue;
-        padding: 1em 3em 2em;
-        height: 20%;
+    .white-container{
+        max-width: 619px;
+        background: #FFF;
+        padding: 4.5em;
+        padding-bottom: 2.3em;
+        margin: auto;
 
         @include mobile{
-            padding: 1em 1.5em;
+            width: 90%;
+            padding: 2.5em;
+        }
+        
+        @include s-mobile{
+            padding: 2em 1em
         }
 
-        .support{
-            @include flex(space-between);
-            width: 95%;
+        .signin-form{
+            width: 100%;
+            background: #FFF;
+            text-align: center;
             margin: auto;
 
             @include mobile{
-                flex-direction: column;
-                width: 90%;
-                margin: 0;
+                width: 95%;
             }
 
-            &__text{
-                color: #979393;
-                line-height: 1.5rem;
+            input{
+                width: 100%;
+                padding: 1.4em;
+                color: #000;
+                border: 1px solid $darkblue;
+                margin-bottom: 1.7em;
 
                 @include mobile{
+                    padding: 1.2em;
+                }
 
-                    align-self: baseline;
+                @include s-mobile{
+                    margin-bottom: 0.7em;
+                }
+                
+                &:not([type="submit"]){
 
-                    p{
-                        margin-bottom: 0.5em;
-                        font-size: 0.85rem;
+                    font-size: 1.1rem;
+                    &::-moz-placeholder,
+                    &::-webkit-input-placeholder,
+                    &::-ms-input-placeholder,
+                    &::placeholder { color: $darkblue; }
+
+                    &:focus,
+                    &:focus::-webkit-input-placeholder, 
+                    &:focus::-moz-placeholder,
+                    &:focus:-moz-placeholder,
+                    &:focus:-ms-input-placeholder {
+                        color: transparent
                     }
                 }
 
-                br{
-                    display: none;
+                &[type="submit"]{
+                    width: 236px;
+                    background: $darkblue;
+                    color: #FFF;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    transition: .3s;
 
-                    @media (max-width: 368px){
-                        display: block;
+                    @include mobile{
+                        width: 100%;
+                    }
+
+                    &:hover, &:active{
+                        background: #1a4474;
                     }
                 }
             }
 
-            &__info{
-                @include mobile{
-                    position: absolute;
-                    right: 25px;
+            &__password{
+
+                &::after {
+                    content: "&#xf008";
+                    font-family: 'Font Awesome 5 Free'; 
+                    visibility: visible;
+                    font-weight: 900;
                 }
-
-                @include mobile-landscape{
-                    right: 45px;
-                } 
-            }
-
-            &__info a{
-                color: #FFF;
-                font-size: 2.5rem;
             }
         }
+
+        .password_block{
+            position: relative;
+
+            i{
+                position: absolute;
+                cursor: pointer;
+                right: 1.4em;
+                top: 1.75em;
+                color: #333;
+            }
+        
+        }
+
+        .forget-password{
+            color: $brightblue;
+            display: block;
+            margin: 1em 0 0 12px;
+        }
     }
-} 
+}
+
+.footer {
+    background: $lightblue;
+    padding: 3em;
+    flex-shrink: 0;
+
+    @include mobile{
+        padding: 1.5em;
+    }
+
+    .support{
+        @include flex(space-between);
+        width: 95%;
+        margin: auto;
+
+        @include mobile{
+            flex-direction: column;
+            width: 90%;
+            margin: 0;
+        }
+
+        &__text{
+            color: #979393;
+            line-height: 1.5rem;
+
+            @include mobile{
+
+                align-self: baseline;
+
+                p{
+                    margin-bottom: 0.5em;
+                    font-size: 0.85rem;
+                }
+            }
+
+            br{
+                display: none;
+
+                @media (max-width: 368px){
+                    display: block;
+                }
+            }
+        }
+
+        &__info{
+            @include mobile{
+                position: absolute;
+                right: 25px;
+            }
+
+            @include mobile-landscape{
+                right: 45px;
+            } 
+        }
+
+        &__info a{
+            color: #FFF;
+            font-size: 2.5rem;
+        }
+    }
+}
