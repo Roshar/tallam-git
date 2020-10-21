@@ -318,22 +318,39 @@ exports.getSingleCardById = async (req, res) => {
                     level = 'недопустимый уровень';
                     levelStyle = 'trash';
                 }
+
+                singleCard[0].fio = teacher[0].surname +' '+ teacher[0].firstname + ' ' + teacher[0].patronymic;
+                singleCard[0].position  = teacher[0].title_position;
+                singleCard[0].school_name = school_name;
+                singleCard[0].commonValue = commonValue;
+                singleCard[0].level = level;
+                console.log(singleCard)
                
                 if(req.body.excel_tbl) {
                     
                     const jsonsingleCard = JSON.parse(JSON.stringify(singleCard));
-
                     let workbook = new excel.Workbook(); 
                     let worksheet = workbook.addWorksheet('Singlecard');
-
+                    
                     worksheet.columns = [
-                        { header: 'Id', key: 'id_card', width: 10 },
-                        { header: 'Teacher_id', key: 'teacher_id', width: 30 },
-                        { header: 'discipline_id', key: 'discipline_id', width: 30},
-                        { header: 'source_id', key: 'source_id', width: 30},
-                        { header: 'title_discipline:', key: 'title_discipline:', width: 30},
-                        { header: 'source_fio:', key: 'source_fio:', width: 30},
-                        { header: 'school_id:', key: 'school_id:', width: 10, outlineLevel: 1}
+                        { header: 'ФИО', key: 'fio', width: 10 },
+                        { header: 'Должность', key: 'position', width: 30 },
+                        { header: 'Предмет', key: 'title_discipline', width: 30},
+                        { header: 'Требования Стандартов к предметному содержанию', key: 'k_1_1', width: 50},
+                        { header: 'Развитие личностной сферы ученика средствами предмета', key: 'k_1_2', width: 50},
+                        { header: 'Использование заданий, развивающих УУД на уроках предмета', key: 'k_1_3', width: 50},
+                        { header: 'Учет и развитие мотивации и психофизиологической сферы учащихся', key: 'k_2_1', width: 50},
+                        { header: 'Обеспечение целевой психолого-педагогической поддержки обучающихся', key: 'k_2_2', width: 50},
+                        { header: 'Требования ЗСС в содержании, структуре урока, в работе с оборудованием и учете данных о детях с ОВЗ', key: 'k_3_1', width: 50},
+                        { header: 'Стиль и формы педагогического взаимодействия на уроке', key: 'k_4_1', width: 50},
+                        { header: 'Управление организацией учебной деятельности обучающихся через систему оценивания', key: 'k_5_1', width: 50},
+                        { header: 'Управление собственной обучающей   деятельностью ', key: 'k_5_2', width: 50},
+                        { header: 'Результативность урока', key: 'k_6_1', width: 50},
+                        { header: 'Сумма баллов', key: 'commonValue', width: 50},
+                        { header: 'Оценка', key: 'level', width: 50},
+                        { header: 'Источник ФИО', key: 'source_fio', width: 50},
+                        { header: 'Субьект оценивания:', key: 'name_source', width: 30},
+                        { header: 'Наименование ОО', key: 'school_name', width: 30}
                     ];
 
                     worksheet.addRows(jsonsingleCard);
@@ -342,16 +359,16 @@ exports.getSingleCardById = async (req, res) => {
 
                     await workbook.xlsx.writeFile(`files/excels/schools/tmp/${excelFileName}.xlsx`);
 
-                     return res.download(path.join(__dirname,'..','..','files','excels','schools','tmp',`${excelFileName}.xlsx`), (err) => {
+                    return res.download(path.join(__dirname,'..','..','files','excels','schools','tmp',`${excelFileName}.xlsx`), (err) => {
                        if(err) {
                         console.log('Ошибка при скачивании' + err)
                        }
                     })
                 }
 
-                if(req.body.method_rec) {
-                    console.log('methodRec')
-                }
+                    if(req.body.method_rec) {
+                        console.log('methodRec')
+                    }
 
                 return res.render('school_teacher_card_single', {
                     layout: 'maincard',
