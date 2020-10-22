@@ -106,7 +106,7 @@ exports.getCardPageByTeacherId = async (req, res) => {
                     }
                 }
 
-                console.log(card);
+               
 
                 return res.render('school_teacher_card', {
                     layout: 'maincard',
