@@ -66,34 +66,22 @@
                 <table class="tg personal_card">
                 <thead>
                     <tr class="for_hide">
-                        <th class="tg-fymr" rowspan="2">№</th>
-                        <th class="tg-fymr" rowspan="2">Дата</th>
-                        <th class="tg-0pky" colspan="10"><span style="font-weight:bold;font-style:normal">Критерии оценки урока </span><span style="font-weight:400;font-style:italic">(2 – требование выполнено на оптимальном уровне, 1 – есть резервы, 0 - требование практически не выполнено )</span></th>
-                        <th class="tg-fymr" rowspan="2">Предмет</th>
-                        <th class="tg-fymr" rowspan="2">Класс</th>
-                        <th class="tg-fymr" rowspan="2">Тип оценки</th>
+                        <th class="tg-fymr" >№</th>
+                        <th class="tg-fymr" >Дата</th>
+                        <th class="tg-0pky" >Критерии оценки урока </th>
+                        <th class="tg-fymr" >Предмет</th>
+                        <th class="tg-fymr" >Класс</th>
+                        <th class="tg-fymr" >Тип оценки</th>
                     </tr>
-                    <tr class="for_hide">
-                        <th class="tg-fymr"><span style="font-style:normal">1. Предметно-</span><br><span style="font-style:normal">методическая</span></th>
-                        <th class="tg-fymr"><span style="font-style:normal">2. Психолого-</span><br><span style="font-style:normal">педагогическая</span></th>
-                        <th class="tg-fymr"><span style="font-style:normal">3. Валеологическая</span></th>
-                        <th class="tg-fymr"><span style="font-style:normal">4. Коммуникативная</span></th>
-                        <th class="tg-fymr"><span style="font-style:normal">5. Управленческая</span></th>
-                        <th class="tg-fymr"><span style="font-style:normal">6. Результативность урока</span></th>
-                    </tr>
+                   
                 </thead>
                 <tbody>
                 {{#if card}}
                     {{#each card}}
                     <tr class="hov-link" data-href="/school/card/single/{{id_card}}/project/{{../project_id}}">
-                        <td class="tg-0pky"> {{increment @index}}</td>
+                         <td class="tg-0pky"> {{increment @index}}</td>
                         <td class="tg-0pky">{{day}} {{getMonthFromArray month}} {{year}}</td>
-                        <td class="tg-0pky">{{k_1_1}}</td>
-                        <td class="tg-0pky">{{k_2_1}}</td>
-                        <td class="tg-0pky">{{k_3_1}}</td>
-                        <td class="tg-0pky">{{k_4_1}}</td>
-                        <td class="tg-0pky">{{k_5_1}}</td>
-                        <td class="tg-0pky">{{k_6_1}}</td>
+                        <td class="tg-0pky">{{level}}</td>
                         <td class="tg-0pky">{{title_discipline}}</td>
                         <td class="tg-0pky">{{class_id}}</td>
                         <td class="tg-0pky">{{getSource source_id}} </td>
