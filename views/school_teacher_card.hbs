@@ -62,24 +62,23 @@
                     <button type="submit" class="btn-search card_fields"> Отобразить результаты по фильтру</button> 
                 </form>
             </div>
-            <div class="teacher-card__tbl">
+            <div class="teacher-card__tbl table_section">
                 <table class="tg personal_card">
                 <thead>
                     <tr class="for_hide">
-                        <th class="tg-fymr" >№</th>
-                        <th class="tg-fymr" >Дата</th>
-                        <th class="tg-0pky" >Критерии оценки урока </th>
-                        <th class="tg-fymr" >Предмет</th>
-                        <th class="tg-fymr" >Класс</th>
-                        <th class="tg-fymr" >Тип оценки</th>
+                        <th class="tg-fymr">№</th>
+                        <th class="tg-fymr">Дата</th>
+                        <th class="tg-0pky"><span style="font-weight:bold;font-style:normal">Критерии оценки урока </span></th>
+                        <th class="tg-fymr">Предмет</th>
+                        <th class="tg-fymr">Класс</th>
+                        <th class="tg-fymr">Тип оценки</th>
                     </tr>
-                   
                 </thead>
                 <tbody>
                 {{#if card}}
                     {{#each card}}
                     <tr class="hov-link" data-href="/school/card/single/{{id_card}}/project/{{../project_id}}">
-                         <td class="tg-0pky"> {{increment @index}}</td>
+                        <td class="tg-0pky"> {{increment @index}}</td>
                         <td class="tg-0pky">{{day}} {{getMonthFromArray month}} {{year}}</td>
                         <td class="tg-0pky">{{level}}</td>
                         <td class="tg-0pky">{{title_discipline}}</td>

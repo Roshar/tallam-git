@@ -2,6 +2,7 @@
 /** colors **/
 /* $lightblue: #97bbe5; */
 /** fonts **/
+/* $large: 816px; */
 /*** mixins ***/
 /** media queries **/
 html, body {
@@ -271,7 +272,7 @@ body {
 
 @media (max-width: 675px) {
   .footer .support__info {
-    position: absolute; 
+    position: absolute;
     right: 25px;
   }
 }

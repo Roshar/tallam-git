@@ -525,9 +525,10 @@ body, html{
         
 }
 
-
 main{
     height: auto;
+    max-width: 1600px;
+    margin: auto;
     padding: 5em 3em 3em;  
     flex-grow: 1;
     position: relative;
@@ -709,7 +710,6 @@ main{
         }
     }
     
-
     .add_form{
        
         position: relative;
@@ -724,10 +724,6 @@ main{
                 margin: 2.5em 0 1.5em;
                 font-size: 1.3rem;
             }
-
-            /* &+input{
-                margin-bottom: 2em
-            } */
 
             &:first-of-type
             {
@@ -865,14 +861,18 @@ main{
         color: red;
     }
 
+    table{
+        width: 100%;
+    }
+
     .table_section{
         overflow: visible;
         overflow-x: scroll;
-        width: 80%;
-        max-width: 1000px;
-        margin: auto;
-        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.18),
-                    0 2px 8px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 1600px;
+        margin: 2em auto;
+        /* border: 1px solid #EEE; */
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.18);
 
         &--card{
             width: 95%;
@@ -884,6 +884,10 @@ main{
             width: 100%;
             box-shadow: none;
             padding: .2em;
+        }
+
+        th{
+            color: $darkblue;
         }
 
         .teacher_table, .personal_card{
@@ -971,7 +975,7 @@ main{
             }
         }
 
-        .button{
+        /* .button{
             @include button(0.8em, 0.8em, 0);
             width: 170px;
             text-shadow: none;
@@ -980,7 +984,7 @@ main{
                margin-right: 0;
                width: 100%;
             }
-        }
+        } */
     }
 
     .personal_card{
@@ -998,46 +1002,6 @@ main{
             text-align: -webkit-center;
         }
 
-        &__row, tr{
-
-            @include large{
-                display: block;
-                margin-bottom: .8em;
-
-                &:not(.for_hide){
-                    border: 1px solid $darkblue;
-                }
-            }
-
-            &--thead, th{
-
-                @include large{
-                    display: none;
-                }
-
-                /* &:last-child{
-                    div{
-                        writing-mode: vertical-rl;
-                        text-orientation: sideways;
-                        transform: rotate(-180deg);
-                    }
-
-                    .personal_card__col{
-
-                        transition: .3s;
-
-                        &:hover, &:active {
-                            position: relative;
-                            transform: rotate(90deg);
-                            background: #FFF;
-                            z-index: 3;
-                        }
-                    }
-                } */
-            }
-        }
-
-
         &__col, td{
             border: 1px solid #CCC;
             padding: 0.9em;
@@ -1046,36 +1010,6 @@ main{
             &--thead{ 
                 max-height: 300px;
                 /* font-weight: 500; */
-            }
-
-            @include large{
-                display: block;
-                text-align: right;
-                border-bottom: 1px solid rgba(0,0,0,0.18);
-                position: relative;
-
-                 &::before{
-                    content: attr(data-label);
-                    display: block;
-                    float: left;
-                    color: $darkblue;
-                    font-weight: 600;
-                    text-align: left;    
-                    width: 50%;
-                    word-wrap: normal;
-                }
-
-                &::after{
-                    content: attr(data-second-label);
-                    position: absolute;
-                    color: #2E609A;
-                    font-weight: 600;
-                    text-align: center;
-                    top: 1em;
-                    margin-bottom: 1em;
-                    left: -2.9em;
-                    color: red;
-                }
             }
         }
     }
@@ -1580,53 +1514,7 @@ main{
     transition: .3s;
     overflow: hidden;
     display: none;
-
-    /* &--closed{
-        display: none;
-    } */
 }
-
-.main--404{
-
-    text-align: center;
-
-    h1{
-        font-size: 3rem;
-        margin: 11vh auto 3em;
-        width: 100%;
-
-        @include mobile{
-            font-size: 1.2rem;
-        }
-
-        div{
-            font-size: 15rem;
-            margin-bottom: 0.1em;
-
-            @include mobile{
-                font-size: 7rem;
-            }
-        }
-    }
-    
-    .return{
-        display: block;
-        color: #FFF;
-        width: 220px;
-        background: $darkblue;
-        margin: auto;
-        padding: 1em .5em;
-        font-size: 1.1rem;
-        border-radius: 2px;
-        transition: .3s;
-
-        &:hover, &:active{
-            background: $darkblue;
-            color: #FFF;
-        }
-    }
-}
-
 
 .footer{
     padding: 2em 3em;  flex-shrink: 0;

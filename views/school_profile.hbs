@@ -1,28 +1,14 @@
-<header class="header">
-<div class="header_top">
-    <div class="logo">
-        <a href="/" class="logo__tallam">Tallam</a>
-        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
-    </div>
-    <a href="#" class="menu_btn" id="menu_btn">
-        <span></span>
-    </a>
-    
-    <nav class="main_nav" id="main_nav">
-        <ul class="main_nav__items">
-            <li class="main_nav__item"><a href="/school/project" class="main_nav__link">Проекты</a></li> 
-            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
-        </ul>
-    </nav>
-</div>
-</header>
+
+            {{!-- <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/admin/add_new_school" class="second_nav__link">Добавить в список ОО</a></li>
+                </ul>
+            </nav> --}}
+        </div>
+    </header>
  
 <style>
     /* надо перенести в файл */
-
-.select2-container--default{
-    margin-top: 1.5em;
-}
 
 .modal-1 {
   display: none; 
@@ -91,7 +77,7 @@
  
 
 .section-school-title .main_title {
-    color: #2e609a;
+    color: #6a3394;
     
 }
 
@@ -106,7 +92,7 @@
     border:none;
     color:white;
     text-transform: uppercase;
-    background-color: #2e609a;
+    background-color: #6a3394;
 }
 
 table {
@@ -125,27 +111,24 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-main .add_form input, main .add_form select {
-    width: 100%;
-}
 
 
 
 </style>
     <main>
-       
+        {{#if account}}
    
         <div class="section-school-title">
            
                 {{#if school.length}}
                 {{#each school}}
                     <h2 class="main_title ">{{this.school_name}}</h2>
-                    <h2> Общий список педагогических работников ОО </h2>
+                    <h2> Подробная информация о пользователе </h2>
                     <h4 >Район: {{this.title_area}}</h3>   
                 {{/each}}
-                
+                {{#each account}}
                     <h4> Электронный адрес: {{email}} </h2>
-               
+                {{/each}}
 
                 {{else}}
                 <h2> Нет данных </h2>
@@ -163,7 +146,7 @@ main .add_form input, main .add_form select {
             
 
 <!-- TABLE FOR STAFF -->
-<div class="wrapper-body">
+<div class="wrapper-body table_section">
     <table>
         <thead>
             <tr>
@@ -181,8 +164,11 @@ main .add_form input, main .add_form select {
                 <td>{{increment @index}}</td>
                 <td >{{surname}} {{firstname}}</td>
                 <td >{{title_position}}</td>
-                <td >   
-                    <a href="/school/list/{{id_teacher}}" class="rate_button button">Просмотреть</a>   
+                <td >
+                        {{#each ../school}}
+                            <a href="/admin/school_list/{{id_school}}/{{../id_teacher}}" class="rate_button button">Просмотреть</a>
+                        {{/each}}
+                    
                 </td>
             </tr>
                 {{/each}}
@@ -191,7 +177,9 @@ main .add_form input, main .add_form select {
     </table>
 </section>  
 
-                                
+           
+           
+                         
 <!-- END BLOCK-->
             
         <button id="myBtn">Добавить работника в базу ОУ </button>
@@ -207,7 +195,7 @@ main .add_form input, main .add_form select {
                 <span class="close-1 clearfix">&times;</span>
             </div>
             
-             <form action="" method="POST" novalidate class="add_form" name="add_teacher">
+             <form action="/admin/school_list/add_teacher_in_school" method="POST" novalidate class="add_form" name="add_teacher">
 
             <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
             <h2 class="add_form__heading">Личные данные</h2>
@@ -307,7 +295,7 @@ main .add_form input, main .add_form select {
             
             <label>Категория
                 <select name="category">
-                    
+                    <option value="" selected>-</option>
                 {{#if categories}}
                     {{#each categories}}
                         <option  value="{{id_category}}"> {{title_category}}</option>
@@ -333,7 +321,7 @@ main .add_form input, main .add_form select {
 
             <div class="qualification_section">
                 <div class="qualification_section__block">
-                    
+                    <div class="cross">X</div>
                     <input type="text" placeholder="Место, программа (тема) КПК" name="place_kpk">
                     <label class="message" for="place">message</label>
                     
@@ -371,23 +359,25 @@ main .add_form input, main .add_form select {
             {{/each}}
             <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
             <input type="hidden" name="school_id" value="{{school_id}}">
-            <button type="submit" class="add_form__button button">Добавить</button>
+            <button type="submit" class="add_form__button button">Добавить учителя</button>
         </form> 
         </div>
 
 
 
 </div>   
-
+{{else}}  
+<h2>Аккаунт на данную образовательную организацию не зарегистрирован!</h2>
+{{/if}}
 </main>
 
 
 
 <script type="text/javascript">
 
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2({ width: '100%' });
-        });
+$(document).ready(function() {
+$('.js-example-basic-multiple').select2();
+});
                   
         let modal = document.getElementById("myModal");
 
@@ -448,7 +438,19 @@ main .add_form input, main .add_form select {
             }
         })
 
-       
+        let addQButton = document.querySelector('.add_qualification__button');
+        
+        addQButton.addEventListener('click', () =>{
+            let qSection = document.querySelector('.qualification_section');
+            let qBlock = document.querySelector('.qualification_section__block').cloneNode(true);
+            qBlock.classList.add('qualification_section__block--new')
+            qSection.appendChild(qBlock);
+
+            let cross = qBlock.firstElementChild;
+            cross.addEventListener('click', event => {
+                event.target.parentElement.remove();
+            });
+        });
 
 
         let dateInput = document.querySelector("input[type='date']");
