@@ -20,6 +20,10 @@
 <style>
     /* надо перенести в файл */
 
+.select2-container--default{
+    margin-top: 1.5em;
+}
+
 .modal-1 {
   display: none; 
   position: fixed; 
@@ -279,7 +283,7 @@ main .add_form input, main .add_form select {
             </label>
             <label class="message" for="position">Выберите должность</label>
             
-            <label>Преподаваемые дисциплины</label>
+            <label>Преподаваемые дисциплины
 
                 <select class="js-example-basic-multiple" name="disciplines[]" id="dis" multiple="multiple" >
                     {{#if disciplines}}
@@ -292,7 +296,7 @@ main .add_form input, main .add_form select {
                 </select>
                 <ul class="selected_disciplines">
                 </ul>
-            
+            </label>
             <label class="message" for="disciplines">message</label>
 
             <input type="text" placeholder="Общий стаж" name="total_experience">
@@ -381,9 +385,9 @@ main .add_form input, main .add_form select {
 
 <script type="text/javascript">
 
-$(document).ready(function() {
-$('.js-example-basic-multiple').select2({ width: '100%' });
-});
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({ width: '100%' });
+        });
                   
         let modal = document.getElementById("myModal");
 

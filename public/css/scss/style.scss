@@ -28,10 +28,6 @@ body, html{
         margin-bottom: .7em;
     }
 
-    @include s-mobile{
-        padding-top: .5em;
-    }
-
     &_top{
         @include flex(space-between);
 
@@ -212,13 +208,23 @@ body, html{
         transition: .3s; 
 
         @include mobile{
-            position: static;
-            flex-direction: column;
-            background: #EAEBEC;
-            width: 100%;
-            max-height: 0;
-            overflow: hidden;
-            margin: 0;
+
+            &--not_for_hide{
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+
+
+            &:not(.main_nav--not_for_hide){
+                position: static;
+                flex-direction: column;
+                background: #EAEBEC;
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                margin: 0;
+            }
         }
 
         &--active {   
@@ -237,8 +243,6 @@ body, html{
                 width: 100%;
                 padding: .8em;
                 border-bottom: 1px solid #DCD9D9;
-
-
             }
         }
 
@@ -249,7 +253,10 @@ body, html{
             position: relative;
 
             @include mobile{
-                color: #565656
+
+                &:not(.main_nav--not_for_hide) &__link{
+                    color: #565656
+                }
             }
 
             &::after{
@@ -521,7 +528,8 @@ body, html{
 
 main{
     height: auto;
-    padding: 5em 3em;  flex-grow: 1;
+    padding: 5em 3em 3em;  
+    flex-grow: 1;
     position: relative;
 
     @include md{
@@ -551,7 +559,7 @@ main{
         margin: 0 auto;
         margin-bottom: 1.15em;
         font-family: $second-sans, sans-serif;
-        font-size: 1.8rem;
+        font-size: 2.2rem;
 
         @media(min-width: 1023px){
             width: 55%;
@@ -563,7 +571,7 @@ main{
         }
 
         @include mobile{
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
     }
 
@@ -626,7 +634,7 @@ main{
         background: $darkblue;
     }
 
-    form{
+    form:not(.secondary_form){ 
         max-width: 900px;
         margin: 0 auto;
         box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.18),
@@ -635,7 +643,7 @@ main{
         
         @media(max-width: 996px){
             width: 100%;
-            padding: 1em 4em 3em;
+            padding: 2em 4em;
         }
 
         @include mobile{
@@ -650,6 +658,10 @@ main{
             border: none;
             border-bottom: 1px solid black;
             border-radius: 0;
+
+            &:last-child{
+                margin-bottom: 0;
+            }
 
             &.valid{
                 border-color: rgba(30, 155, 30, 0.467);
@@ -691,6 +703,10 @@ main{
             box-shadow: none;
             cursor: pointer;
         }
+
+        label{
+            color: $darkblue;
+        }
     }
     
 
@@ -709,9 +725,9 @@ main{
                 font-size: 1.3rem;
             }
 
-            &+input{
-                margin-bottom: .8em
-            }
+            /* &+input{
+                margin-bottom: 2em
+            } */
 
             &:first-of-type
             {
@@ -761,7 +777,6 @@ main{
             text-indent: .2em;
             font-size: 1.1rem;
             margin-top: 3.5em;
-            color: $darkblue;
         }
 
         .message{
@@ -778,10 +793,10 @@ main{
 
         &__button{
             @include button(.7em, 1.5em, 0);
-            margin-top: 4.5em;
+            margin-top: 2.5em;
 
             @include mobile{
-                margin-top: 3em;
+                margin-top: 1.8em;
             }
         }
 
@@ -966,100 +981,105 @@ main{
                width: 100%;
             }
         }
+    }
 
-        .personal_card{
+    .personal_card{
 
-            width: 100%;
-            margin: auto;
-            border-collapse: collapse;
-            word-wrap: break-word;
-            color: #222;
+        width: 100%;
+        margin: auto;
+        border-collapse: collapse;
+        word-wrap: break-word;
+        color: #222;
 
-            thead{
-                color: $darkblue;
-                font-size: 1rem;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-                text-align: -webkit-center;
+        thead{
+            color: $darkblue;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+            text-align: -webkit-center;
+        }
 
-            }
+        &__row, tr{
 
-            &__row{
-                overflow: visible;
+            @include large{
+                display: block;
+                margin-bottom: .8em;
 
-                &--thead{
-
-                    @include mobile{
-                        display: none;
-                    }
-
-                    &:last-child{
-                        div{
-                            writing-mode: vertical-rl;
-                            text-orientation: sideways;
-                            transform: rotate(-180deg);
-                        }
-
-                        /* .personal_card__col{
-
-                            transition: .3s;
-
-                            &:hover, &:active {
-                                position: relative;
-                                transform: rotate(90deg);
-                                background: #FFF;
-                                z-index: 3;
-                            }
-                        } */
-                    }
+                &:not(.for_hide){
+                    border: 1px solid $darkblue;
                 }
             }
 
+            &--thead, th{
 
-            &__col{
-                border: 1px solid #CCC;
-                padding: 0.9em;
-                overflow: hidden;
-                
-                &--thead{ 
-                    max-height: 300px;
-                    /* font-weight: 500; */
+                @include large{
+                    display: none;
                 }
 
-                @include mobile{
-                    display: block;
-                    text-align: right;
-                    border-bottom: 1px solid rgba(0,0,0,0.18);
-                    position: relative;
-
-                     &::before{
-                        content: attr(data-label);
-                        display: block;
-                        float: left;
-                        color: $darkblue;
-                        font-weight: 600;
-                        text-align: left;    
-                        width: 93%;
-                        word-wrap: normal;
-                    }
-
-                    /*&::after{
-                        content: attr(data-second-label);
-                        position: absolute;
-                        color: #2E609A;
-                        font-weight: 600;
-                        text-align: center;
-                        top: 1em;
-                        margin-bottom: 1em;
-                        left: -2.9em;
+                /* &:last-child{
+                    div{
                         writing-mode: vertical-rl;
-                        color: red;
+                        text-orientation: sideways;
                         transform: rotate(-180deg);
-                    } */
+                    }
+
+                    .personal_card__col{
+
+                        transition: .3s;
+
+                        &:hover, &:active {
+                            position: relative;
+                            transform: rotate(90deg);
+                            background: #FFF;
+                            z-index: 3;
+                        }
+                    }
+                } */
+            }
+        }
+
+
+        &__col, td{
+            border: 1px solid #CCC;
+            padding: 0.9em;
+            overflow: hidden;
+            
+            &--thead{ 
+                max-height: 300px;
+                /* font-weight: 500; */
+            }
+
+            @include large{
+                display: block;
+                text-align: right;
+                border-bottom: 1px solid rgba(0,0,0,0.18);
+                position: relative;
+
+                 &::before{
+                    content: attr(data-label);
+                    display: block;
+                    float: left;
+                    color: $darkblue;
+                    font-weight: 600;
+                    text-align: left;    
+                    width: 50%;
+                    word-wrap: normal;
+                }
+
+                &::after{
+                    content: attr(data-second-label);
+                    position: absolute;
+                    color: #2E609A;
+                    font-weight: 600;
+                    text-align: center;
+                    top: 1em;
+                    margin-bottom: 1em;
+                    left: -2.9em;
+                    color: red;
                 }
             }
         }
     }
-
+    
     .card_buttons{
 
         width: 580px;
@@ -1188,7 +1208,7 @@ main{
             text-align: center;
             list-style-position: inside;
             margin: auto;
-            display: flex;
+            
 
             @include s-mobile{
                 width: 100%;

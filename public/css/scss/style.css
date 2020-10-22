@@ -43,12 +43,6 @@ body, html {
   }
 }
 
-@media (max-width: 414px) {
-  .header {
-    padding-top: .5em;
-  }
-}
-
 .header_top {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -277,7 +271,12 @@ body, html {
 }
 
 @media (max-width: 675px) {
-  .header .main_nav {
+  .header .main_nav--not_for_hide {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .header .main_nav:not(.main_nav--not_for_hide) {
     position: static;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -327,7 +326,7 @@ body, html {
 }
 
 @media (max-width: 675px) {
-  .header .main_nav__link {
+  .header .main_nav__link:not(.main_nav--not_for_hide) .header .main_nav__link__link {
     color: #565656;
   }
 }
@@ -653,7 +652,7 @@ body, html {
 
 main {
   height: auto;
-  padding: 5em 3em;
+  padding: 5em 3em 3em;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -693,7 +692,7 @@ main h1 {
   margin: 0 auto;
   margin-bottom: 1.15em;
   font-family: "Alegreya Sans", sans-serif, sans-serif;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
 }
 
 @media (min-width: 1023px) {
@@ -711,7 +710,7 @@ main h1 {
 
 @media (max-width: 675px) {
   main h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -784,7 +783,7 @@ main .block {
   background: #2E609A;
 }
 
-main form {
+main form:not(.secondary_form) {
   max-width: 900px;
   margin: 0 auto;
   -webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -793,19 +792,19 @@ main form {
 }
 
 @media (max-width: 996px) {
-  main form {
+  main form:not(.secondary_form) {
     width: 100%;
-    padding: 1em 4em 3em;
+    padding: 2em 4em;
   }
 }
 
 @media (max-width: 675px) {
-  main form {
+  main form:not(.secondary_form) {
     padding: 2em;
   }
 }
 
-main form input, main form select {
+main form:not(.secondary_form) input, main form:not(.secondary_form) select {
   display: block;
   padding: 1em .8em .8em;
   width: 370px;
@@ -815,40 +814,44 @@ main form input, main form select {
   border-radius: 0;
 }
 
-main form input.valid, main form select.valid {
+main form:not(.secondary_form) input:last-child, main form:not(.secondary_form) select:last-child {
+  margin-bottom: 0;
+}
+
+main form:not(.secondary_form) input.valid, main form:not(.secondary_form) select.valid {
   border-color: rgba(30, 155, 30, 0.467);
   -webkit-box-shadow: 0px 4px 3px -2px rgba(30, 155, 30, 0.467);
           box-shadow: 0px 4px 3px -2px rgba(30, 155, 30, 0.467);
 }
 
-main form input.invalid, main form select.invalid {
+main form:not(.secondary_form) input.invalid, main form:not(.secondary_form) select.invalid {
   border-color: rgba(255, 0, 0, 0.495);
   -webkit-box-shadow: 0px 4px 3px -2px rgba(255, 0, 0, 0.495);
           box-shadow: 0px 4px 3px -2px rgba(255, 0, 0, 0.495);
 }
 
-main form input.invalid + .message, main form select.invalid + .message {
+main form:not(.secondary_form) input.invalid + .message, main form:not(.secondary_form) select.invalid + .message {
   opacity: 1;
   height: auto;
   display: inline-block;
 }
 
-main form input.invalid + .message + h2, main form select.invalid + .message + h2 {
+main form:not(.secondary_form) input.invalid + .message + h2, main form:not(.secondary_form) select.invalid + .message + h2 {
   margin-top: 1.8em;
 }
 
 @media (max-width: 675px) {
-  main form input, main form select {
+  main form:not(.secondary_form) input, main form:not(.secondary_form) select {
     width: 100%;
     margin: .8em 0 2.3em;
   }
-  main form input + .message, main form select + .message {
+  main form:not(.secondary_form) input + .message, main form:not(.secondary_form) select + .message {
     top: -30px;
     text-indent: 0;
   }
 }
 
-main form select {
+main form:not(.secondary_form) select {
   display: block;
   border-radius: 0;
   background: transparent;
@@ -857,6 +860,10 @@ main form select {
   -webkit-box-shadow: none;
           box-shadow: none;
   cursor: pointer;
+}
+
+main form:not(.secondary_form) label {
+  color: #2E609A;
 }
 
 main .add_form {
@@ -868,6 +875,9 @@ main .add_form__heading {
   padding-left: .5em;
   color: #2E609A;
   font-size: 1.6rem;
+  /* &+input{
+                margin-bottom: 2em
+            } */
 }
 
 @media (max-width: 675px) {
@@ -875,10 +885,6 @@ main .add_form__heading {
     margin: 2.5em 0 1.5em;
     font-size: 1.3rem;
   }
-}
-
-main .add_form__heading + input {
-  margin-bottom: .8em;
 }
 
 main .add_form__heading:first-of-type {
@@ -930,7 +936,6 @@ main .add_form label:not(.message) {
   text-indent: .2em;
   font-size: 1.1rem;
   margin-top: 3.5em;
-  color: #2E609A;
 }
 
 main .add_form .message {
@@ -958,7 +963,7 @@ main .add_form__button {
   transition: .3s;
   border: none;
   cursor: pointer;
-  margin-top: 4.5em;
+  margin-top: 2.5em;
 }
 
 main .add_form__button:hover, main .add_form__button:active {
@@ -969,7 +974,7 @@ main .add_form__button:hover, main .add_form__button:active {
 
 @media (max-width: 675px) {
   main .add_form__button {
-    margin-top: 3em;
+    margin-top: 1.8em;
   }
 }
 
@@ -1194,7 +1199,7 @@ main .table_section .button:hover, main .table_section .button:active {
   }
 }
 
-main .table_section .personal_card {
+main .personal_card {
   width: 100%;
   margin: auto;
   border-collapse: collapse;
@@ -1202,86 +1207,89 @@ main .table_section .personal_card {
   color: #222;
 }
 
-main .table_section .personal_card thead {
+main .personal_card thead {
   color: #2E609A;
   font-size: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.18);
   text-align: -webkit-center;
 }
 
-main .table_section .personal_card__row {
-  overflow: visible;
+@media (max-width: 816px) {
+  main .personal_card__row, main .personal_card tr {
+    display: block;
+    margin-bottom: .8em;
+  }
+  main .personal_card__row:not(.for_hide), main .personal_card tr:not(.for_hide) {
+    border: 1px solid #2E609A;
+  }
 }
 
-@media (max-width: 675px) {
-  main .table_section .personal_card__row--thead {
+main .personal_card__row--thead, main .personal_card__row th, main .personal_card tr--thead, main .personal_card tr th {
+  /* &:last-child{
+                    div{
+                        writing-mode: vertical-rl;
+                        text-orientation: sideways;
+                        transform: rotate(-180deg);
+                    }
+
+                    .personal_card__col{
+
+                        transition: .3s;
+
+                        &:hover, &:active {
+                            position: relative;
+                            transform: rotate(90deg);
+                            background: #FFF;
+                            z-index: 3;
+                        }
+                    }
+                } */
+}
+
+@media (max-width: 816px) {
+  main .personal_card__row--thead, main .personal_card__row th, main .personal_card tr--thead, main .personal_card tr th {
     display: none;
   }
 }
 
-main .table_section .personal_card__row--thead:last-child {
-  /* .personal_card__col{
-
-                            transition: .3s;
-
-                            &:hover, &:active {
-                                position: relative;
-                                transform: rotate(90deg);
-                                background: #FFF;
-                                z-index: 3;
-                            }
-                        } */
-}
-
-main .table_section .personal_card__row--thead:last-child div {
-  -webkit-writing-mode: vertical-rl;
-      -ms-writing-mode: tb-rl;
-          writing-mode: vertical-rl;
-  text-orientation: sideways;
-  -webkit-transform: rotate(-180deg);
-          transform: rotate(-180deg);
-}
-
-main .table_section .personal_card__col {
+main .personal_card__col, main .personal_card td {
   border: 1px solid #CCC;
   padding: 0.9em;
   overflow: hidden;
 }
 
-main .table_section .personal_card__col--thead {
+main .personal_card__col--thead, main .personal_card td--thead {
   max-height: 300px;
   /* font-weight: 500; */
 }
 
-@media (max-width: 675px) {
-  main .table_section .personal_card__col {
+@media (max-width: 816px) {
+  main .personal_card__col, main .personal_card td {
     display: block;
     text-align: right;
     border-bottom: 1px solid rgba(0, 0, 0, 0.18);
     position: relative;
-    /*&::after{
-                        content: attr(data-second-label);
-                        position: absolute;
-                        color: #2E609A;
-                        font-weight: 600;
-                        text-align: center;
-                        top: 1em;
-                        margin-bottom: 1em;
-                        left: -2.9em;
-                        writing-mode: vertical-rl;
-                        color: red;
-                        transform: rotate(-180deg);
-                    } */
   }
-  main .table_section .personal_card__col::before {
+  main .personal_card__col::before, main .personal_card td::before {
     content: attr(data-label);
     display: block;
     float: left;
     color: #2E609A;
     font-weight: 600;
     text-align: left;
-    width: 93%;
+    width: 50%;
     word-wrap: normal;
+  }
+  main .personal_card__col::after, main .personal_card td::after {
+    content: attr(data-second-label);
+    position: absolute;
+    color: #2E609A;
+    font-weight: 600;
+    text-align: center;
+    top: 1em;
+    margin-bottom: 1em;
+    left: -2.9em;
+    color: red;
   }
 }
 
@@ -1443,9 +1451,6 @@ main .list_section .teachers_list {
   text-align: center;
   list-style-position: inside;
   margin: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 @media (max-width: 414px) {

@@ -1,68 +1,66 @@
  <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg-center {
-    text-align: center;
-}
-.tg td{border:rgba(139, 139, 139, 0.5) 1px solid;font-family:Arial, sans-serif;font-size:14px;
-overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border:rgba(139, 139, 139, 0.5) 1px solid; font-family:Arial, sans-serif;font-size:14px;
-font-weight:normal;
-overflow:hidden;
-padding:10px 5px;
-word-break:normal;}
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg-center {
+        text-align: center;
+    }
+    .tg td{border:rgba(139, 139, 139, 0.5) 1px solid;font-family:Arial, sans-serif;font-size:14px;
+    overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{border:rgba(139, 139, 139, 0.5) 1px solid; font-family:Arial, sans-serif;font-size:14px;
+    font-weight:bold;
+    overflow:hidden;
+    padding:10px 5px;
+    word-break:normal;
+    color: #2E609A;
+    }
+  
+    .teacher-card__tbl {margin-top: 50px;}
+    .teacher-card__tbl table {margin:0 auto;}
 
-.teacher-card__tbl {margin-top: 50px;}
-.teacher-card__tbl table {margin:0 auto;}
-.teacher-card__title h2 {
-    text-align: center;
-}
-.teacher-card__second-title {
-    margin: 0 auto;
-    width:20%
-}
+    .teacher-card__title h2 {
+        text-align: center;
+        font-size: 1.5rem;
+       /* color: #2E609D;*/
+        margin-bottom: 2em;
+    }
 
-.teacher-card__title h2 {
-    margin-bottom: 30px;
-}
-
+    .teacher-card__second-title {
+        margin: 0 auto;
+        width:20%
+    }
 
     .teacher-card__tbl {margin-top: 50px;}
+     
+    .teacher-card__tbl table {margin:0 auto;}
+
+    .teacher-card__second-title {
+        margin: 0 auto;
+        width:80%
+    }
     
-.teacher-card__tbl table {margin:0 auto;}
-.teacher-card__title h2 {
-    text-align: center;
-}
-.teacher-card__second-title {
-    margin: 0 auto;
-    width:80%
-}
+    .form-area {
+        margin: 0 auto;
+        width: 80%;
+    }
+    
+    .form-area table {
+        margin:0 auto;
+    }
+    .form-area th, td {
+        padding:15px;
+        border-bottom: 1px solid #ccc;
+    }
+    .form-area th {
+        background-color: #487bb7;
+        color: white;
+    }
+    .form-area .h-td {
+        background-color: #649ada;
+        color: white;
+    }
 
-.teacher-card__title h2 {
-    margin-bottom: 30px;
-}
-.form-area {
-    margin: 0 auto;
-    width: 80%;
-}
-.form-area table {
-    margin:0;
-}
-.form-area th, td {
-    padding:15px;
-    border-bottom: 1px solid #ccc;
-}
-.form-area th {
-    background-color: #487bb7;
-    color: white;
-}
-.form-area .h-td {
-    background-color: #649ada;
-    color: white;
-}
-
-    option{
-    border-radius:2em
-}
+     option{
+        border-radius:2em
+    }
 
 .custom-select {
   position: relative;
@@ -88,10 +86,20 @@ select {
     margin-bottom: 40px;
 }
 
+.teacher-card label{
+    font-size: 1.2rem;
+}
+
+.teacher-card label:first-of-type{
+    display: block;
+    margin-bottom: 1.3em;
+}
+
 .w3-input {
     padding-top:20px;
 } 
 
+/*
 .card-results-discipline {
     width: 100%;
 }
@@ -99,6 +107,7 @@ select {
 .card-results-discipline {
     margin-bottom:20px;
 }
+*/
 
 p, select {
     margin: 6px;
@@ -112,12 +121,11 @@ select {
 
 .btn-card {
     background-color:#487bb7;
-    padding:20px 40px;
-    width:50%;
-    margin: 0 auto;
+    padding:16px 48px;
+    margin: 1.5em auto;
     display: block;
     border:none;
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: bold;
     color: white;
 }
@@ -137,7 +145,7 @@ select {
 }
 
 .tg {
-    background-color: #edf6f7;
+    background-color: #FFF;
     color: #3b3b3b;
 }
 
@@ -150,7 +158,10 @@ select {
 }
 
 .card_fields {
-    width: 30%;
+    display: block;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 tr.hov-link {
@@ -188,17 +199,22 @@ tr.final-tr>td{
 .list-func {
     display: flex;
     flex-flow: wrap;
-    width: 70%;
+    width: 100%;
+    max-width: 1386px;
     height: 100%;
-    margin: 0 auto;
+    margin: 2em auto;
     justify-content: space-between;
 }
 
 .list-func__child{
     width: 40%;
+    padding: 1em;
     margin: 10px;
     text-align: center;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -219,6 +235,10 @@ tr.final-tr>td{
     background-color:#aa2a65;
 }
 
+.email-btn .card-btn{
+    display: block;
+}
+
 .method-btn {
     background-color:#518b8c;
 }
@@ -227,6 +247,52 @@ tr.final-tr>td{
 
     background-color:#855d53;
 }
+
+@media (max-width: 816px){
+    .card_fields{
+        width: 100%;
+    }
+}
+
+@media (max-width: 675px){
+    .form-area, .teacher-card__second-title{
+        width: 100%;
+    }
+
+    .btn-card{
+        padding: 13px 40px;
+        font-size: 1rem;
+    }
+
+    select{
+        width: 162px;
+    }
+
+    select.custom-select{
+        padding: 5px;
+    }
+
+    .form-area th, td{
+        padding: 10px;
+    }
+
+    .teacher-card label{
+        font-size: 1rem;
+    }
+
+    .teacher-card label:first-of-type{
+        font-size: 1.1rem;
+    }
+
+    .list-func{
+        flex-direction: column;
+    }
+
+    .list-func__child{
+        width: 100%;
+    }
+}
+
 /*.list-func ul li  {
     list-style-type: none;
     background-image: url(/img/diagram-icon.png);

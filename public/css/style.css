@@ -31,6 +31,13 @@ textarea {resize:none;}
 textarea {resize:vertical;}
 textarea {resize:horizontal;}
 
+button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
 button:active, button:focus {
     outline: none;
 }

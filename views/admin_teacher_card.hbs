@@ -18,23 +18,24 @@
     .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
     .teacher-card__tbl {margin-top: 50px;}
     .teacher-card__tbl table {margin:0 auto;}
+
     .teacher-card__title h2 {
         text-align: center;
+        font-size: 1.5rem;
+       /* color: #2E609D;*/
+        margin-bottom: 2em;
     }
+
     .teacher-card__second-title {
         margin: 0 auto;
         width:20%
-    }
-
-    .teacher-card__title h2 {
-        margin-bottom: 30px;
     }
 </style>
         <section class="teacher-card">
             <div class="teacher-card__title">
                 {{#if teacherData}}
                     {{#each teacherData}}
-                    <h2>Личная карта</h2>
+                    <h1>Личная карта</h1>
                         <h2>ФИО: <span style="text-decoration:underline; text-transform:uppercase">{{surname}} {{firstname}} {{patronymic}} </span></h2>
                     {{/each}}
                 {{else}}

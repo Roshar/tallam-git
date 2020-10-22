@@ -271,7 +271,7 @@ body {
 
 @media (max-width: 675px) {
   .footer .support__info {
-    position: absolute;
+    position: absolute; 
     right: 25px;
   }
 }

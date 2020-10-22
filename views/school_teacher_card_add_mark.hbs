@@ -31,12 +31,12 @@
         <div class="w3-container">
         <section class="teacher-card">
             <div class="teacher-card__title">
-                <h2>Оценить урок1 </h2>
+                <h1>Оценить урок</h1>
             </div>
             <div class="teacher-card__second-title">
-                <form  class="w3-container" method="POST">
+                <form  method="POST">
                     {{#each teacher}}
-                         <label for="">  ФИО: {{surname}} {{firstname}} {{patronymic}} </label>
+                         <label>  ФИО: {{surname}} {{firstname}} {{patronymic}} </label>
                     {{/each}}
                    
                     <select name="discipline_id" class="card-results-discipline" id="discipline" >
@@ -50,7 +50,7 @@
                     </select>
                     <select name="class_id" id="class_id">
                         <option value=""> Выберите класс</option>
-                        <option value="1" > 1 класс </option>
+                        <option value="1"> 1 класс </option>
                         <option value="2"> 2 класс </option>
                         <option value="3"> 3 класс </option>
                         <option value="4"> 4 класс </option>
@@ -74,7 +74,7 @@
                     
                     <div class="card-class__thema"></div>
                         <label for="thema"> Тема урока: </label>
-                        <input type="text" name="thema"  class="w3-input w3-animate-input"  type="text" style="width:30%" placeholder="Напишите тему урока" > 
+                        <input type="text" name="thema"  class="w3-animate-input"  type="text" placeholder="Напишите тему урока"> 
                     </div>
             </div>
         </section>

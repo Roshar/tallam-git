@@ -31,7 +31,7 @@
     <div class="teacher-card__title">
     {{#if teacher}}
         {{#each teacher}}
-        <h2>Личная карта</h2>
+        <h1>Личная карта</h1>
             <h2>ФИО: <span style="text-decoration:underline; text-transform:uppercase">{{surname}} {{firstname}} {{patronymic}} </span></h2>
         {{/each}}
     {{else}}
@@ -130,7 +130,7 @@
 
         <div class="list-func">
                 <div class="list-func__child excel-btn"> 
-                    <form method="POST" >
+                    <form method="POST" class="secondary_form">
                         <input type="hidden" name="excel_tbl" value="{{@root.csrf}}" id="excel_tbl">
                         <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
                         <button type="submit" class="card-btn">Экспорт даных  в Excel </button>
@@ -138,14 +138,14 @@
                  </div>
                 <div class="list-func__child email-btn"> <a  class="card-btn" href="/school/card/api/send/{{../teacher_id}}/{{id_card}}">Отправить на электронный адрес учителя</a> </div>
                 <div class="list-func__child method-btn">                
-                    <form method="POST" >
+                    <form method="POST"  class="secondary_form">
                         <input type="hidden" name="method_rec" value="{{@root.csrf}}" id="excel_tbl">
                         <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
                         <button type="submit" class="card-btn">Скачать методические рекомендации</button>
                     </form> 
                 </div>
                 <div class="list-func__child diagramma-btn"> 
-                    <form method="POST" >
+                    <form method="POST"  class="secondary_form">
                         <input type="hidden" name="diagramm" value="{{@root.csrf}}" id="excel_tbl">
                         <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
                         <button type="submit" class="card-btn">Сгенерировать диаграмму по карте учителя </button>

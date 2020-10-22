@@ -61,6 +61,7 @@ exports.getCardPageByTeacherId = async (req, res) => {
                 if(req.body.id_teacher && req.body._csrf) {
 
                     let card = await SchoolCard.getCardByTeacherIdWhithFilter(req.body);
+
                     const currentSourceId = await card.source;
                     const currentDisc = await card.disc;
 
@@ -82,10 +83,30 @@ exports.getCardPageByTeacherId = async (req, res) => {
                         notice: req.flash('notice')
                     })
                 }
-       
-                let card = await SchoolCard.getCardByTeacherId(req.params)
-               
-                
+             
+                let card = await SchoolCard.getCardByTeacherId(req.params);
+
+                for(let i = 0; i < card.length; i++) {
+                   card[i].sum = card[i].k_1_1 + card[i].k_1_2 + card[i].k_1_3 +
+                   card[i].k_2_1 + card[i].k_2_2 + card[i].k_3_1 + card[i].k_4_1 + card[i].k_5_1 + card[i].k_5_2;
+                   card[i].interest = card[i].sum * 100 / 20;
+
+                    if(card[i].interest > 84) {
+                        card[i].level = "Оптимальный уровень";
+                        card[i].levelStyle = 'success';
+                    }else if(card[i].interest < 85 && card[i].interest > 59) {
+                        card[i].level = "Допустимый уровень";
+                        card[i].levelStyle = 'good';
+                    }else if(card[i].interest < 60 && card[i].interest > 49) {
+                        card[i].level = 'критический уровень';
+                        card[i].levelStyle = 'danger';
+                    } else if(card[i].interest < 50) {
+                        card[i].level = 'недопустимый уровень';
+                        card[i].levelStyle = 'trash';
+                    }
+                }
+
+                console.log(card);
 
                 return res.render('school_teacher_card', {
                     layout: 'maincard',
@@ -324,7 +345,7 @@ exports.getSingleCardById = async (req, res) => {
                 singleCard[0].school_name = school_name;
                 singleCard[0].commonValue = commonValue;
                 singleCard[0].level = level;
-             
+              
                
                 if(req.body.excel_tbl) {
                     
