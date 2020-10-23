@@ -180,7 +180,7 @@ tr.success {
 }
 
 tr.good {
-    background-color: green;
+    background-color: #8bb271;
     color: #fff;
 }
 
@@ -219,34 +219,69 @@ tr.final-tr>td{
 }
 
 
-.card-btn {
+card-btn {
     background-color: transparent;
     border:none;
     text-transform: uppercase;
     font-weight: bold;
     padding: 10px;
-    color: #fff;
+    color: rgb(131, 131, 131);
 }
 
 .excel-btn {
-    background-color:#8bb271;
+    border: 3px solid rgb(131, 131, 131);
+}
+
+.excel-btn:hover {
+    border: 3px solid #8bb271;
+    transition: 0.5s;
+}
+
+.excel-btn:hover .card-btn  {
+    color: #8bb271;
+    transition: 0.5s;
 }
 
 .email-btn {
-    background-color:#aa2a65;
+    border: 3px solid rgb(131, 131, 131);
 }
 
-.email-btn .card-btn{
-    display: block;
+.email-btn:hover {
+    border: 3px solid rgb(170, 42,101);
+    transition: 0.5s;
+}
+
+.email-btn:hover .card-btn  {
+    color: rgb(170, 42,101);
+    transition: 0.5s;
 }
 
 .method-btn {
-    background-color:#518b8c;
+    border: 3px solid rgb(131, 131, 131);
+}
+
+.method-btn:hover {
+    border: 3px solid rgb(107, 147, 148);
+     transition: 0.5s;
+}
+
+.method-btn:hover .card-btn  {
+    color: rgb(107, 147, 148);
+    transition: 0.5s;
 }
 
 .diagramma-btn {
+    border: 3px solid rgb(131, 131, 131);
+}
 
-    background-color:#855d53;
+.diagramma-btn:hover {
+    border: 3px solid rgb(133, 93, 83);
+    transition: 0.5s;
+}
+
+.diagramma-btn:hover .card-btn  {
+    color: rgb(133, 93, 83);
+    transition: 0.5s;
 }
 
 @media (max-width: 816px){
