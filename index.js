@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 const mysql = require('mysql')
+const fileUpload = require('express-fileupload');
 const MySQLStore = require('express-mysql-session')(session)
 const csrf = require('csurf');
 const {check, validateResult} = require('express-validator');
@@ -96,7 +97,7 @@ const hbs = exphbs.create({
                 return 'Октября'
             }else if(val == 11) {
                 return 'Ноября'
-            }else if(val == 2) {
+            }else if(val == 12) {
                 return 'Декабря'
             }
         },
@@ -163,6 +164,10 @@ app.use(session({
 app.use(csrf())
 app.use(varMiddle)
 app.use(flash())
+
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 
 //app.use(varmiddleware)

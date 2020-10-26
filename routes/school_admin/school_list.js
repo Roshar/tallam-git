@@ -16,6 +16,8 @@ router.get('/:teacher_id', school_teacherCtrl.getProfileByTeacherId)
 
 router.post('/', validatorForAddTeacherAdmin, school_teacherCtrl.getSchoolTeachers)  
 
+router.post('/upload', school_teacherCtrl.avatar)
+
 router.get('/', school_teacherCtrl.getSchoolTeachers)
 
 module.exports = router

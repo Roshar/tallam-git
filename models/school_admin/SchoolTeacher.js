@@ -584,6 +584,40 @@ exports.updateTeacherMainInformationById  = async (req, res) =>{
 
 
 
+/** UPDATE  AVATAR TEACHERS'S  BY TEACHER ID*/
+
+exports.updateTeacherAvatar  = async (req, res) =>{
+   try {
+      const dbh = await mysql.createConnection({
+         host: process.env.DATABASE_HOST,
+         port: process.env.DATABASE_PORT,
+         user: process.env.DATABASE_USER,
+         database: process.env.DATABASE,
+         password: process.env.DATABASE_PASSWORD,
+         socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+      })
+      
+      const id_teacher = await req.teacher_id;
+      const avatar = await req.name;
+     
+
+      const [result, fields] = 
+      await dbh.execute("UPDATE `teachers` SET avatar = ?  WHERE  id_teacher = ?  ",
+      [avatar, 
+      id_teacher])
+
+      dbh.end()
+      return result;
+
+   }catch(e) {
+      console.log(e.message)
+   }
+}
+
+/** END BLOCK ----------------------------------------  */
+
+
+
 /**
  * ######################  DELETE ROWS IN SQL #################################
  * ############################################################################

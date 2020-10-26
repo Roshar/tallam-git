@@ -1,3 +1,92 @@
+<style>
+    .modalAva {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    z-index: 999;
+    }
+
+
+    .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+
+    }
+
+
+    .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+    color: #487BB7;
+    text-decoration: none;
+    cursor: pointer;
+    }
+
+    .profile-btn {
+        border: none;
+        background-color: inherit;
+        cursor: pointer;
+    }
+
+    /*стили для формы загрузки фото профиля*/
+    #drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 480px;
+    font-family: sans-serif;
+    margin: 100px auto;
+    padding: 20px;
+    }
+    #drop-area.highlight {
+    border-color: purple;
+    }
+    p {
+    margin-top: 0;
+    }
+    .my-form {
+    margin-bottom: 10px;
+    }
+    #gallery {
+    margin-top: 10px;
+    }
+    #gallery img {
+    width: 150px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+    }
+    .button {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    }
+    .button:hover {
+    background: #ddd;
+    }
+    #fileElem {
+    display: none;
+    }
+    
+</style>
 <header class="header">
 <div class="header_top">
     <div class="logo">
@@ -33,9 +122,25 @@
             {{#if teacher.length}}
             {{#each teacher}}
         <div class="profile__photo">
-            <img src="/img/teachers/avatars/{{avatar}}" alt="Фото">
-            <a href="#" сlass="profile__button">Редактировать</a>
-            <!-- <a href="#" сlass="profile__button">Удалить из проекта</a> -->
+            <img src="/img/teachers/uploads/avatars/{{avatar}}"  alt="Фото">
+            <button class="profile-btn" id="addAva">Редактировать</button>
+
+            <div id="modalAva" class="modalAva">
+
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="drop-area">
+                    <form class="my-form" action="/school/list/upload" enctype="multipart/form-data">
+                        <p>Загрузите изображения с помощью диалога выбора файлов или перетащив нужные изображения в выделенную область</p>
+                        <input type="file" id="fileElem" name="avatar"  accept="image/*" onchange="return handleFiles(this.files)">
+                        <label class="button" for="fileElem">Выбрать изображения</label>
+                        <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token1">
+                        <input type="hidden" name="teacher_id" value="{{id_teacher}}" id="teacher_id">
+                    </form>
+                    <div id="gallery"></div>
+                    <progress id="progress-bar" max=100 value=0></progress>
+                </div>
+            </div>
         </div>
         
         <div class="profile__info">

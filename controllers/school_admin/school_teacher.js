@@ -287,6 +287,79 @@ exports.getTeacherByIdForEdit = async (req, res) => {
 /** END CONTROLLER ---------------------------------------------- */
 
 
+
+/** GENERATION FORM FOR EDIT MAIN INFORMATION ABOUT TEACHER */
+
+exports.avatar = async (req, res) => {
+    try{
+        if(req.session.user) {
+
+            const teacher = await SchoolTeacher.getProfileByTeacherId(req.body)
+
+            if(!teacher.length) {
+                return res.status(422).redirect('/school/cabinet');
+            }
+
+
+            if(req.files) {
+                let avatar = await req.files.file;
+
+                avatar.teacher_id = await req.body.teacher_id;
+
+                const libraryMIME = ['image/jpeg','image/gif','image/png'];
+
+                function checkTypeImg(type){
+                        return type == avatar.mimetype;
+                }
+                let fileFormat = libraryMIME.filter(checkTypeImg);
+
+                if(!fileFormat){
+                        req.flash('notice', notice_base.inccorect_type_mime);
+                        return res.status(422).redirect('/school/cabinet');
+                }
+
+                let randomName;
+                if(fileFormat[0] == libraryMIME[0]){
+                    randomName =  uuidv4() + '.jpg';
+                }else if(fileFormat[0] == libraryMIME[1]){
+                    randomName =  uuidv4() + '.gif';
+                }else if(fileFormat[0] == libraryMIME[2]){
+                    randomName =  uuidv4() + '.png';
+                }else {
+                    throw new Error('Неизвестная ошибка при выборе фотографии профиля!')
+                }
+
+                avatar.name = randomName;
+
+                console.log(avatar)
+                
+                avatar.mv('./public/img/teachers/uploads/avatars/' + avatar.name);
+
+                const result  = await SchoolTeacher.updateTeacherAvatar(avatar)
+
+                req.flash('notice', notice_base.success_insert_avatar);
+                return res.redirect(`/school/list/${req.body.teacher_id}`)
+            }
+    
+          }else {
+            req.session.isAuthenticated = false
+            req.session.destroy( err => {
+                if (err) {
+                    throw err
+                }else {
+                    res.redirect('/auth')
+                } 
+            })
+          }
+        
+    }catch(e) { 
+        console.log(e.message)
+    }
+}
+
+/** END CONTROLLER ---------------------------------------------- */
+
+
 /** DELETE TEACHER PROFILE  FROM NEXT TABLES
  * (TEACHERS, TRAINING_KPK, TABLE_MEMBERS, DISCIPLINE_MIDDLEWARE)
  *  */
