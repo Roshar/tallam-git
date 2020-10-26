@@ -127,20 +127,23 @@
 
             <div id="modalAva" class="modalAva">
 
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div id="drop-area">
-                    <form class="my-form" action="/school/list/upload" enctype="multipart/form-data">
-                        <p>Загрузите изображения с помощью диалога выбора файлов или перетащив нужные изображения в выделенную область</p>
-                        <input type="file" id="fileElem" name="avatar"  accept="image/*" onchange="return handleFiles(this.files)">
-                        <label class="button" for="fileElem">Выбрать изображения</label>
-                        <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token1">
-                        <input type="hidden" name="teacher_id" value="{{id_teacher}}" id="teacher_id">
-                    </form>
-                    <div id="gallery"></div>
-                    <progress id="progress-bar" max=100 value=0></progress>
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div id="drop-area">
+                        <form class="my-form" action="/school/list/upload" enctype="multipart/form-data">
+                            <p>Загрузите изображения с помощью диалога выбора файлов или перетащив нужные изображения в выделенную область</p>
+                            <input type="file" id="fileElem" name="avatar"  accept="image/*" onchange="return handleFiles(this.files)">
+                            <label class="button" for="fileElem">Выбрать изображения</label>
+                            <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token1">
+                            <input type="hidden" name="teacher_id" value="{{id_teacher}}" id="teacher_id">
+                        </form>
+                        <div id="gallery"></div>
+                            <progress id="progress-bar" max=100 value=0></progress>
+                    </div>
                 </div>
             </div>
+
+        </div>
         </div>
         
         <div class="profile__info">
