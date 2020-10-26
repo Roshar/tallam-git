@@ -62,6 +62,26 @@ exports.getCardPageByTeacherId = async (req, res) => {
 
                     let card = await SchoolCard.getCardByTeacherIdWhithFilter(req.body);
 
+                    for(let i = 0; i < card.length; i++) {
+                        card[i].sum = card[i].k_1_1 + card[i].k_1_2 + card[i].k_1_3 +
+                        card[i].k_2_1 + card[i].k_2_2 + card[i].k_3_1 + card[i].k_4_1 + card[i].k_5_1 + card[i].k_5_2;
+                        card[i].interest = card[i].sum * 100 / 20;
+     
+                         if(card[i].interest > 84) {
+                             card[i].level = "Оптимальный уровень";
+                             card[i].levelStyle = 'success';
+                         }else if(card[i].interest < 85 && card[i].interest > 59) {
+                             card[i].level = "Допустимый уровень";
+                             card[i].levelStyle = 'good';
+                         }else if(card[i].interest < 60 && card[i].interest > 49) {
+                             card[i].level = 'критический уровень';
+                             card[i].levelStyle = 'danger';
+                         } else if(card[i].interest < 50) {
+                             card[i].level = 'недопустимый уровень';
+                             card[i].levelStyle = 'trash';
+                         }
+                     }
+
                     const currentSourceId = await card.source;
                     const currentDisc = await card.disc;
 
@@ -76,7 +96,6 @@ exports.getCardPageByTeacherId = async (req, res) => {
                         disciplineListByTeacherId,
                         project_name: project[0].name_project,
                         project_id: project[0].id_project,
-
                         currentSourceId,
                         currentDisc,
                         error: req.flash('error'),
@@ -105,8 +124,6 @@ exports.getCardPageByTeacherId = async (req, res) => {
                         card[i].levelStyle = 'trash';
                     }
                 }
-
-               
 
                 return res.render('school_teacher_card', {
                     layout: 'maincard',
@@ -209,9 +226,7 @@ exports.addMarkForTeacher = async (req, res) => {
                     }
                     
                     let lastId = await SchoolCard.createNewMarkInCard(req.body); 
-                    
-                    // const some = []
-                    // console.log(some.length)
+
                     
                         if(lastId) {
                             req.flash('notice', notice_base.success_insert_sql );
@@ -219,10 +234,7 @@ exports.addMarkForTeacher = async (req, res) => {
                         }else {
                             req.flash('error', error_base.wrong_sql_insert)
                             return res.status(422).redirect('/school/card/add/project/' + project_id + '/teacher/' + teacher_id)
-                        }
-                   
-                        
-                    
+                        }  
                 }
                 return res.render('school_teacher_card_add_mark', {
                     layout: 'maincard',
