@@ -27,7 +27,7 @@
             <div class="teacher-card__title">
                 {{#if teacher}}
                     {{#each teacher}}
-                    <h1>Личная карта</h1>
+                    <h1>Личный профиль</h1>
                         <h2>ФИО: <span style="text-decoration:underline; text-transform:uppercase">{{surname}} {{firstname}} {{patronymic}} </span></h2>
                     {{/each}}
                 {{else}}
@@ -62,7 +62,9 @@
                     <button type="submit" class="btn-search card_fields"> Отобразить результаты по фильтру</button> 
                 </form>
             </div>
+
             <div class="teacher-card__tbl table_section">
+                <h2 style="text-align">Список оценок (оценка урока)</h2>
                 <table class="tg personal_card">
                 <thead>
                     <tr class="for_hide">
