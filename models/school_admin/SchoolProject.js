@@ -98,8 +98,9 @@ exports.getAllTeachersFromThisSchoolFromCurrentProject = async (req,res) => {
          }
       }
 
-      const [result, fields] = await dbh.execute(" SELECT teachers.id_teacher, teachers.firstname, teachers.surname, teachers.patronymic "+
+      const [result, fields] = await dbh.execute(" SELECT teachers.id_teacher, teachers.firstname, teachers.surname, teachers.patronymic, teachers.position, position.title_position, position.id_position "+
       " FROM "+name_table_project+" as mpt INNER JOIN teachers ON mpt.teacher_id = teachers.id_teacher "+
+      " INNER JOIN position ON teachers.position = position.id_position"+
       " WHERE teachers.school_id = ? AND mpt.in_project_status = ? ", [school_id, 2])
  
     dbh.end()

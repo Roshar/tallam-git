@@ -330,14 +330,13 @@ exports.avatar = async (req, res) => {
                 }
 
                 avatar.name = randomName;
-
-                console.log(avatar)
                 
                 avatar.mv('./public/img/teachers/uploads/avatars/' + avatar.name);
 
                 const result  = await SchoolTeacher.updateTeacherAvatar(avatar)
 
                 req.flash('notice', notice_base.success_insert_avatar);
+                
                 return res.redirect(`/school/list/${req.body.teacher_id}`)
             }
     

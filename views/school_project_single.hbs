@@ -118,13 +118,10 @@ td, th {
             {{#each teachers}}
                 <tr >
                     <td>{{increment @index}}</td>
-                    <td>{{surname}} {{firstname}}</td>
+                    <td> <a href="/school/list/{{id_teacher}}" class="rate_button button"> {{surname}} {{firstname}}</a></td>
                     <td>{{title_position}}</td>
                     <td>
-                        <a href="/school/list/{{id_teacher}}" class="rate_button button">Профиль</a>
-                    </td>
-                    <td >
-                        <a href="/school/card/project/{{../project_id}}/teacher/{{id_teacher}}" class="rate_button button">Карта</a>   
+                        <a href="/school/card/project/{{../project_id}}/teacher/{{id_teacher}}" class="rate_button button">Профиль в проекте</a>   
                     </td>
                 </tr>
             {{/each}}
