@@ -125,35 +125,50 @@ main .add_form input, main .add_form select {
     width: 100%;
 }
 
+.section-school-title__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
 
+.section-school-title__part-right {
+    display: flex;
+    align-items: center; 
+    cursor: pointer;
+}
+
+.section-school-title__part-right span {
+    padding: 10px;
+}
 
 </style>
-    <main>
-       
-   
-        <div class="section-school-title">
-           
-                {{#if school.length}}
-                {{#each school}}
-                    <h2 class="main_title ">{{this.school_name}}</h2>
-                    <h2> Общий список педагогических работников ОО </h2>
-                    <h4 >Район: {{this.title_area}}</h3>   
+<main>
+<div class="section-school-title">
+    
+    {{#if school.length}}
+    {{#each school}}
+        <h2 class="main_title ">{{this.school_name}}</h2>
+        <h2> Общий список педагогических работников ОО </h2>
+        <div class="section-school-title__wrapper">
+            <div class="section-school-title__part-left">
+                <h4 >Район: {{this.title_area}}</h3>
                 {{/each}}
-                
-                    <h4> Электронный адрес: {{email}} </h2>
-               
-
-                {{else}}
-                <h2> Нет данных </h2>
-                {{/if}}
-
-                {{#if error}}
-                <p> {{ error}}</p>
-                {{/if}}
-                {{#if notice}}
-                <p> {{ notice}}</p>
-                {{/if}}
+                <h4> Электронный адрес: {{email}} </h2>
+            </div>
+            <div class="section-school-title__part-right">
+                <i class="fa fa-file-excel-o" style="font-size:2.5em;color:#39b76c"></i> <span>Сформировать банк данных педагогов</span> 
+            </div>
         </div>
+    {{else}}
+        <h2> Нет данных </h2>
+    {{/if}}
+
+    {{#if error}}
+    <p> {{ error}}</p>
+    {{/if}}
+    {{#if notice}}
+    <p> {{ notice}}</p>
+    {{/if}}
+</div>
      
         
             
