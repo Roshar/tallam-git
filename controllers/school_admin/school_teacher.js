@@ -400,8 +400,6 @@ exports.createMainListInExcel = async (req, res) => {
 
             const jsonTeachers = JSON.parse(JSON.stringify(teachers));
 
-            console.log(jsonTeachers)
-
             let workbook = new excel.Workbook(); 
 
             let worksheet = workbook.addWorksheet('Singlecard');
@@ -427,7 +425,9 @@ exports.createMainListInExcel = async (req, res) => {
 
             worksheet.addRows(jsonTeachers);
 
-            let excelFileName =  Date.now();
+            let d = new Date();
+            
+            let excelFileName =  'Список - '+d.getFullYear()
 
             await workbook.xlsx.writeFile(`files/excels/schools/tmp/${excelFileName}.xlsx`);
 
