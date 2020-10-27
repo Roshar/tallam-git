@@ -14,6 +14,8 @@ router.get('/delete_profile/:teacher_id', school_teacherCtrl.deleteTeacherProfil
 
 router.get('/:teacher_id', school_teacherCtrl.getProfileByTeacherId)
 
+router.get('/create_base_list/:school_id', school_teacherCtrl.createMainListInExcel)
+
 router.post('/', validatorForAddTeacherAdmin, school_teacherCtrl.getSchoolTeachers)  
 
 router.post('/upload', school_teacherCtrl.avatar)

@@ -5,6 +5,9 @@ const {validationResult} = require('express-validator')
 const error_base = require('../../helpers/error_msg');
 const notice_base = require('../../helpers/notice_msg')
 const { v4: uuidv4 } = require('uuid');
+const excel = require('exceljs');
+const path = require('path'); 
+const http = require('http');
 
 
 
@@ -340,6 +343,100 @@ exports.avatar = async (req, res) => {
                 return res.redirect(`/school/list/${req.body.teacher_id}`)
             }
     
+          }else {
+            req.session.isAuthenticated = false
+            req.session.destroy( err => {
+                if (err) {
+                    throw err
+                }else {
+                    res.redirect('/auth')
+                } 
+            })
+          }
+        
+    }catch(e) { 
+        console.log(e.message)
+    }
+}
+
+/** END CONTROLLER ---------------------------------------------- */
+
+
+
+
+/** GENERATION EXCEL TABLE WITH MAIN INFORMATION  ABOUT EMPOYERS */
+
+exports.createMainListInExcel = async (req, res) => {
+    try{
+        if(req.session.user) {
+
+            const school = await SchoolCabinet.getSchoolData(req.session.user)
+
+            const school_name = await school[0].school_name;
+
+            const title_area = await school[0].title_area;
+
+            const teachers = await SchoolTeacher.getMoreInformationTeachers(req.session.user)
+
+            console.log(teachers.length)
+
+            // console.log(projectsIssetSchool)
+            if(!school.length) {
+                return res.status(422).redirect('/school/cabinet');
+            }
+
+            let currentYear = new Date();
+            for(let i = 0; i < teachers.length; i++) {
+                teachers[i].fio = teachers[i].surname +' '+ teachers[i].firstname +' '+ teachers[i].patronymic;
+                let d = teachers[i].birthday.getDate();
+                if (d < 10) d = '0' + d;
+                let m = teachers[i].birthday.getMonth() + 1;
+                if (m < 10) m = '0' + m;
+                let y = teachers[i].birthday.getFullYear();
+                teachers[i].birthdayConverter = `${d}-${m}-${y}`;
+                teachers[i].fullYear = parseInt(currentYear.getFullYear()) - parseInt(y);
+                teachers[i].fullYear
+            }
+
+            const jsonTeachers = JSON.parse(JSON.stringify(teachers));
+
+            console.log(jsonTeachers)
+
+            let workbook = new excel.Workbook(); 
+
+            let worksheet = workbook.addWorksheet('Singlecard');
+            
+            worksheet.columns = [
+                { header: 'ФИО', key: 'fio', width: 40 },
+                { header: 'Дата рождения', key: 'birthdayConverter', width: 10 },
+                { header: 'СНИЛС', key: 'snils', width: 20 },
+                { header: 'Полных лет', key: 'fullYear', width: 10 },
+                { header: 'Район', key: 'title_area', width: 30 },
+                { header: 'Образовательная организация ', key: 'school_name', width: 30 },
+                { header: 'Должность', key: 'title_position', width: 30 },
+                { header: 'ВО, СПО/ Специальность по диплому, сроки', key: 'specialty', width: 30 },
+                { header: 'Общий стаж', key: 'total_experience', width: 30 },
+                { header: 'Пед. стаж', key: 'teaching_experience', width: 30 },
+                { header: 'Место,програма (тема) КПК (в последний раз)', key: 'place_training', width: 40 },
+                { header: 'КПК в последний раз (год)', key: 'year_training', width: 40 },
+                { header: 'Категория', key: 'title_category', width: 30 },
+                { header: 'Личный электронный адрес', key: 'email', width: 30 },
+                { header: 'Номер телефона', key: 'phone', width: 30 },
+                { header: 'Пол', key: 'gender_title', width: 30 },
+            ];
+
+            worksheet.addRows(jsonTeachers);
+
+            let excelFileName =  Date.now();
+
+            await workbook.xlsx.writeFile(`files/excels/schools/tmp/${excelFileName}.xlsx`);
+
+            return res.download(path.join(__dirname,'..','..','files','excels','schools','tmp',`${excelFileName}.xlsx`), (err) => {
+                if(err) {
+                    console.log('Ошибка при скачивании' + err)
+                }
+            })
+
           }else {
             req.session.isAuthenticated = false
             req.session.destroy( err => {

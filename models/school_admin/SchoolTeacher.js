@@ -390,6 +390,49 @@ exports.getAllTeachersFromThisSchool = async (req,res) => {
 
 
 
+/** GET ALL TEACHERS FROM THIS SCHOOL BY SCHOOL ID */
+
+exports.getMoreInformationTeachers = async (req,res) => {
+
+   try{
+      const dbh = await mysql.createConnection({
+         host: process.env.DATABASE_HOST,
+         user: process.env.DATABASE_USER,
+         database: process.env.DATABASE,
+         password: process.env.DATABASE_PASSWORD,
+      })
+
+      const school_id = await req.school_id;
+
+      const [result, fields] = await dbh.execute("SELECT teachers.id_teacher, teachers.surname, "+
+       " teachers.firstname, teachers.patronymic, teachers.birthday, teachers.snils, teachers.specialty,  "+
+       " teachers.diploma, teachers.total_experience," +
+       " teachers.teaching_experience, teachers.category_id, teachers.phone, teachers.email, teachers.avatar, "+
+       " position.title_position, edu_level.title_edu_level, category.title_category, gender.id_gender, " + 
+       " gender.gender_title, schools.school_name, schools.id_school, area.title_area, area.id_area,"+
+       " training_kpk.year_training, training_kpk.place_training "+
+       " FROM  `teachers` " + 
+       " INNER JOIN `position` ON teachers.position = position.id_position "+
+       " INNER JOIN `edu_level` ON teachers.level_of_education_id = edu_level.id_edu_level "+
+       " INNER JOIN `category` ON teachers.category_id = category.id_category "+
+       " INNER JOIN `gender` ON teachers.gender_id = gender.id_gender "+
+       " INNER JOIN `schools` ON teachers.school_id = schools.id_school" +
+       " INNER JOIN `area` ON schools.area_id = area.id_area" +
+       " INNER JOIN `training_kpk` ON teachers.id_teacher = training_kpk.teacher_id" +
+       " WHERE teachers.school_id = ?", [school_id]);
+
+   dbh.end()
+   return result;
+
+   }catch(e) {
+      console.log(e)
+   }  
+}
+
+/** END BLOCK ----------------------------------------  */
+
+
+
 /** GET  DISCIPLINE LIST BY TEACHER ID  */
 
 exports.disciplineListByTeacherId = async function (req, res) {
