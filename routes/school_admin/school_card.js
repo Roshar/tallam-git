@@ -13,5 +13,6 @@ router.post('/project/:project_id/teacher/:teacher_id', school_cardCtrl.getCardP
 router.get('/project/:project_id/teacher/:teacher_id', school_cardCtrl.getCardPageByTeacherId)
 router.post('/add/project/:project_id/teacher/:teacher_id', validatorForAddMark, school_cardCtrl.addMarkForTeacher)
 router.get('/add/project/:project_id/teacher/:teacher_id', school_cardCtrl.addMarkForTeacher)
+router.get('/create_tbl_marks/teacher/:teacher_id/project/:project_id',school_cardCtrl.getAllMarksByTeacherId )
 
 module.exports = router

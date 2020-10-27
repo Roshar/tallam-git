@@ -378,8 +378,6 @@ exports.createMainListInExcel = async (req, res) => {
 
             const teachers = await SchoolTeacher.getMoreInformationTeachers(req.session.user)
 
-            console.log(teachers.length)
-
             // console.log(projectsIssetSchool)
             if(!school.length) {
                 return res.status(422).redirect('/school/cabinet');

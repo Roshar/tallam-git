@@ -175,6 +175,171 @@ exports.getCardPageByTeacherId = async (req, res) => {
 
 
 
+/** GET ALL CARDS  BY TEACHER ID */
+
+exports.getAllMarksByTeacherId = async (req, res) => {
+    try{
+        
+        if(req.session.user) {
+
+            const school = await SchoolCabinet.getSchoolData(req.session.user)
+
+            const school_name = await school[0].school_name;
+
+            const project = await SchoolProject.getInfoFromProjectById(req.params)
+
+            if(!project.length) {
+                return res.status(422).redirect('/school/cabinet');
+            }
+
+            const projectsIssetSchool = await SchoolProject.getAllProjectsWithThisSchool(req.session.user)
+            
+            let resultA = []
+
+            for(let i = 0; i < projectsIssetSchool.length; i++) {
+                if(project[0].id_project == projectsIssetSchool[i].project_id) {
+                    resultA.push(project[0].id_project)
+                }
+            }
+
+            if(!resultA.length || resultA == 1) {
+                return res.status(422).redirect('/school/cabinet');
+            } 
+
+            if(req.params.project_id == 2) {
+                console.log(req.params)
+                const allMarks = await SchoolCard.getAllMarksByTeacherId(req.params)
+                console.log(allMarks)
+                if(!allMarks.length) {
+                    return res.status(422).redirect('/school/cabinet');
+                }
+             
+                const teacher_id = await allMarks[0].teacher_id;
+
+                const teacher = await SchoolTeacher.getProfileByTeacherId({
+                    teacher_id
+                })
+
+                const month = ['января', 'февраля','марта', 'апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+
+                for(let v = 0; v <allMarks.length; v++ ) {
+                    let commonValue = allMarks[v].k_1_1 + allMarks[v].k_1_2 + allMarks[v].k_1_3 + allMarks[v].k_2_1 
+                    + allMarks[v].k_2_2 + allMarks[v].k_3_1 + allMarks[v].k_4_1 + allMarks[v].k_5_1 + allMarks[v].k_5_2 
+                    + allMarks[v].k_6_1
+
+                    let interest = (commonValue * 100) / 20;
+
+                    allMarks[v].interest  = (commonValue * 100) / 20;
+                    
+
+                    let d =  allMarks[v].create_mark_date.getDate();
+                    let m =  allMarks[v].create_mark_date.getMonth();
+
+                    let y =  allMarks[v].create_mark_date.getFullYear();
+                    allMarks[v].date = `${d}  ${month[m]} ${y}`;
+                    allMarks[v].rrrrrrrr = "ccccccccc";
+                    let sourceData;
+
+                    if(allMarks[v].source_id == 2) {
+                        sourceData = 'Внтуришкольная'
+                    }else {
+                        sourceData = allMarks[v].source_fio + ', ' + allMarks[v].position_name + ' ( '+ allMarks[v].source_workplace +')'
+                    }
+
+                    if(interest > 84) {
+                        allMarks[v].level = "Оптимальный уровень";
+                        allMarks[v].levelStyle = 'success';
+                    }else if(interest < 85 && interest > 59) {
+                        allMarks[v].level = "Допустимый уровень";
+                        allMarks[v].levelStyle = 'good';
+                    }else if(interest < 60 && interest > 49) {
+                        allMarks[v].level = 'критический уровень';
+                        allMarks[v].levelStyle = 'danger';
+                    } else if(interest < 50) {
+                        allMarks[v].level = 'недопустимый уровень';
+                        allMarks[v].levelStyle = 'trash';
+                    }
+
+                    allMarks[v].fio = teacher[0].surname +' '+ teacher[0].firstname + ' ' + teacher[0].patronymic;
+                    allMarks[v].position  = allMarks[v].title_position;
+                    allMarks[v].school_name = school_name;
+                    allMarks[v].commonValue = commonValue;
+
+                }
+
+                const jsonallMarks = JSON.parse(JSON.stringify(allMarks));
+
+                let workbook = new excel.Workbook(); 
+                let worksheet = workbook.addWorksheet('allMarks');
+
+                worksheet.columns = [
+                    { header: 'ФИО', key: 'fio', width: 10 },
+                    { header: 'Должность', key: 'position', width: 30 },
+                    { header: 'Предмет', key: 'title_discipline', width: 30},
+                    { header: 'Требования Стандартов к предметному содержанию', key: 'k_1_1', width: 50},
+                    { header: 'Развитие личностной сферы ученика средствами предмета', key: 'k_1_2', width: 50},
+                    { header: 'Использование заданий, развивающих УУД на уроках предмета', key: 'k_1_3', width: 50},
+                    { header: 'Учет и развитие мотивации и психофизиологической сферы учащихся', key: 'k_2_1', width: 50},
+                    { header: 'Обеспечение целевой психолого-педагогической поддержки обучающихся', key: 'k_2_2', width: 50},
+                    { header: 'Требования ЗСС в содержании, структуре урока, в работе с оборудованием и учете данных о детях с ОВЗ', key: 'k_3_1', width: 50},
+                    { header: 'Стиль и формы педагогического взаимодействия на уроке', key: 'k_4_1', width: 50},
+                    { header: 'Управление организацией учебной деятельности обучающихся через систему оценивания', key: 'k_5_1', width: 50},
+                    { header: 'Управление собственной обучающей   деятельностью ', key: 'k_5_2', width: 50},
+                    { header: 'Результативность урока', key: 'k_6_1', width: 50},
+                    { header: 'Сумма баллов', key: 'commonValue', width: 50},
+                    { header: 'Оценка', key: 'level', width: 50},
+                    { header: 'Источник ФИО', key: 'source_fio', width: 50},
+                    { header: 'Субьект оценивания:', key: 'name_source', width: 30},
+                    { header: 'Наименование ОО', key: 'school_name', width: 30}
+                ];
+
+                worksheet.addRows(jsonallMarks);
+
+                let excelFileName = teacher[0].surname + '-' + Date.now();
+
+                await workbook.xlsx.writeFile(`files/excels/schools/tmp/${excelFileName}.xlsx`);
+
+                return res.download(path.join(__dirname,'..','..','files','excels','schools','tmp',`${excelFileName}.xlsx`), (err) => {
+                   if(err) {
+                    console.log('Ошибка при скачивании' + err)
+                   }
+                })
+            }else if(req.params.id_project == 3) {
+                console.log('Данный раздел находится в разработке')
+                return res.render('admin_page_not_ready', {
+                    layout: 'main',
+                    title: 'Ошибка',
+                    title: 'Предупрехждение',
+                    error: req.flash('error'),
+                    notice: req.flash('notice')
+                })   
+            }else {
+                console.log('Ошибка в выборе проекта')
+                console.log(req.params)
+                return res.status(404).render('404_error_template', {
+                    layout:'404',
+                    title: "Страница не найдена!"});
+            }
+          }else {
+            req.session.isAuthenticated = false
+            req.session.destroy( err => {
+                if (err) {
+                    throw err
+                }else {
+                    res.redirect('/auth')
+                } 
+            })
+          }
+        
+    }catch (e) {
+        console.log(e)
+    }
+}
+
+/** END BLOCK */
+
+
+
 /** GET CARD PAGE BY TEACHER ID */
 
 exports.addMarkForTeacher = async (req, res) => {

@@ -84,6 +84,42 @@ exports.getCardByTeacherId = async function (req, res) {
 
 
 
+/** GET  ALL CARDS BY  TEACHER ID  */
+
+exports.getAllMarksByTeacherId = async function (req, res) {
+   try{
+      const dbh = await mysql.createConnection({
+         host: process.env.DATABASE_HOST,
+         user: process.env.DATABASE_USER,
+         database: process.env.DATABASE,
+         password: process.env.DATABASE_PASSWORD,
+      })
+
+      const teacher_id = await req.teacher_id;
+      
+      const [res, fields] = await dbh.execute('SELECT cftm.id_card, cftm.teacher_id, cftm.discipline_id, cftm.school_id, cftm.thema, '+
+      ' cftm.source_id, cftm.class_id, cftm.k_1_1, cftm.k_1_2, cftm.k_1_3, cftm.k_2_1, cftm.k_2_2, cftm.k_3_1, cftm.k_4_1,'+
+      ' cftm.k_5_1, cftm.k_5_2, cftm.k_6_1,  EXTRACT(DAY FROM cftm.create_mark_date) as day, '+
+      ' EXTRACT(MONTH FROM cftm.create_mark_date) as month, EXTRACT(YEAR FROM cftm.create_mark_date) as year, cftm.create_mark_date, dt.title_discipline,'+
+      ' outside.source_fio, outside.position_name, outside.source_workplace, stbl.name_source  '+
+      ' FROM card_from_project_teacher_mark as cftm'+
+      ' INNER JOIN  discipline_title as dt ON cftm.discipline_id = dt.id_discipline '+
+      ' INNER JOIN  outside_card as outside ON cftm.id_card = outside.card_id '+
+      ' INNER JOIN  source_tbl as stbl ON cftm.source_id = stbl.id_source '+
+      ' WHERE cftm.teacher_id = ?',[teacher_id])
+
+      dbh.end()
+      return res;
+   }catch(e) {
+      console.log(e.message)
+   }
+}
+
+/** END BLOCK ----------------------------------------  */
+
+
+
+
  /**
  * ######################  INSERT IN SQL #################################
  * ############################################################################
