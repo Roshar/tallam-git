@@ -118,6 +118,32 @@ exports.getAllMarksByTeacherId = async function (req, res) {
 /** END BLOCK ----------------------------------------  */
 
 
+/** GET  RECOMMENDATION  */
+
+exports.getRecommendation = async function (req, res) {
+   try{
+      const dbh = await mysql.createConnection({
+         host: process.env.DATABASE_HOST,
+         user: process.env.DATABASE_USER,
+         database: process.env.DATABASE,
+         password: process.env.DATABASE_PASSWORD,
+      })
+
+      const v_param = await req.v_param;
+      const k_param = await req.k_param;
+
+      const [res, fields] = await dbh.execute('SELECT * FROM recommendation WHERE k_id = ? AND val = ?',[k_param, v_param])
+
+      dbh.end()
+      return res;
+   }catch(e) {
+      console.log(e.message)
+   }
+}
+
+/** END BLOCK ----------------------------------------  */
+
+
 
 
  /**

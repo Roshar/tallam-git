@@ -13,6 +13,9 @@ const fs = require("fs");
 const excel = require('exceljs');
 const path = require('path'); 
 const http = require('http');
+const { Document, Packer, Paragraph, TextRun } = require("docx");
+
+
 
 
 
@@ -564,9 +567,89 @@ exports.getSingleCardById = async (req, res) => {
                     })
                 }
 
-                    if(req.body.method_rec) {
-                        console.log('methodRec')
-                    }
+
+                if(req.body.method_rec) {
+                    const jsonsingleCard = JSON.parse(JSON.stringify(singleCard));
+
+                    const k_1_1_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_1_1',
+                        v_param: jsonsingleCard[0].k_1_1
+                    });
+                    
+                    const k_1_2_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_1_2',
+                        v_param: jsonsingleCard[0].k_1_2
+                    });
+
+                    const k_1_3_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_1_3',
+                        v_param: jsonsingleCard[0].k_1_3
+                    });
+
+                    const k_2_1_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_2_1',
+                        v_param: jsonsingleCard[0].k_2_1
+                    });
+                    const k_2_2_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_2_2',
+                        v_param: jsonsingleCard[0].k_2_2
+                    });
+                    const k_3_1_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_3_1',
+                        v_param: jsonsingleCard[0].k_3_1
+                    });
+                    const k_4_1_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_4_1',
+                        v_param: jsonsingleCard[0].k_4_1
+                    });
+                    const k_5_1_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_5_1',
+                        v_param: jsonsingleCard[0].k_5_1
+                    });
+                    const k_5_2_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_5_2',
+                        v_param: jsonsingleCard[0].k_5_2
+                    });
+                    const k_6_1_rec = await SchoolCard.getRecommendation({
+                        k_param: 'k_6_1',
+                        v_param: jsonsingleCard[0].k_6_1
+                    });
+
+                    const doc = new Document();
+
+                    doc.addSection({
+                        properties: {},
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun("Hello World"),
+                                    new TextRun({
+                                        text: "Short hand notation for adding text.",
+                                        bold: true,
+                                    }),
+                                    new TextRun({
+                                        text: "\tGithub is the best",
+                                        bold: true,
+                                    }),
+                                ],
+                            }),
+                        ],
+                    });
+
+                    let excelFileName = teacher[0].surname + '-' + Date.now();
+
+                    await Packer.toBuffer(doc).then((buffer) => {
+                         fs.writeFileSync(`files/excels/schools/tmp/${excelFileName}.docx`,buffer,(err) => {
+                            if(err) throw err;
+                        })
+                    });
+
+                    return res.download(path.join(__dirname,'..','..','files','excels','schools','tmp',`${excelFileName}.docx`), (err) => {
+                        if(err) {
+                         console.log('Ошибка при скачивании' + err)
+                        }
+                     })
+                }
 
                 return res.render('school_teacher_card_single', {
                     layout: 'maincard',
