@@ -569,6 +569,7 @@ exports.getSingleCardById = async (req, res) => {
 
 
                 if(req.body.method_rec) {
+
                     const jsonsingleCard = JSON.parse(JSON.stringify(singleCard));
 
                     const k_1_1_rec = await SchoolCard.getRecommendation({
@@ -615,26 +616,446 @@ exports.getSingleCardById = async (req, res) => {
                         v_param: jsonsingleCard[0].k_6_1
                     });
 
+                    console.log(k_1_1_rec);
+
                     const doc = new Document();
 
                     doc.addSection({
-                        properties: {},
                         children: [
                             new Paragraph({
                                 children: [
-                                    new TextRun("Hello World"),
                                     new TextRun({
-                                        text: "Short hand notation for adding text.",
-                                        bold: true,
+                                        text: `ФИО учителя: ${teacher[0].surname} ${teacher[0].firstname} ${teacher[0].patronymic}`,
+                                        bold:true,
+                                    }),
+                                    new TextRun('  ')]
+                                     }),
+                            new Paragraph({
+                            children: [
+                                new TextRun({
+                                    text: `Школа: ${school[0].school_name}`,
+                                    bold:true,
+                                }),
+                                new TextRun('  ')]
+                                    }),
+
+                            new Paragraph({
+                                children: [
+                                    new TextRun({
+                                        text: `Район: ${school[0].title_area}`,
+                                        bold:true,
+                                    }),
+                                    new TextRun('  ')]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('   '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                    new TextRun({
+                                        text: '                                                    ЗАКЛЮЧЕНИЕ ПО ИТОГУ АНАЛИЗА УРОКА',
+                                        bold:true,
+                                    }),
+                                    new TextRun('  ')]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('   '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                    new TextRun({
+                                        text:"Категория: ",
+                                        bold:true
                                     }),
                                     new TextRun({
-                                        text: "\tGithub is the best",
-                                        bold: true,
+                                        text: k_1_1_rec[0].category,
+                                        bold:true
+                                    })]
+                                     }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('   '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun({
+                                                text: 'Рекомендации по пункту №1 (Требования Стандартов к предметному содержанию)',
+                                                bold:true
+                                            })]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun(k_1_1_rec[0].content)]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                //////////////////////////////конец первого пункта
+
+                            new Paragraph({
+                            children: [
+                                        new TextRun({
+                                            text: 'Рекомендации по пункту №2 (Развитие личностной сферы ученика средствами предмета)',
+                                            bold:true
+                                        })]
                                     }),
-                                ],
-                            }),
+                            new Paragraph({
+                            children: [
+                                        new TextRun('  '),
+                                    ]
+                                    }),
+                            new Paragraph({
+                            children: [
+                                        new TextRun(k_1_2_rec[0].content)]
+                                    }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+
+                    //////////////////////////////конец второго пункта
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun({
+                                                text: 'Рекомендации по пункту №3 (Использование заданий, развивающих УУД на уроках предмета)',
+                                                bold:true
+                                            })]
+                                        }),
+                            new Paragraph({
+                            children: [
+                                        new TextRun('  '),
+                                    ]
+                                    }),
+                            new Paragraph({
+                            children: [
+                                        new TextRun(k_1_3_rec[0].content)]
+                                    }),
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+
+                //////////////////////////////конец третьего пункта
+                            new Paragraph({
+                                children: [
+                                            new TextRun('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'),
+                                        ]
+                                        }),
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                
+                                children: [
+                                    new TextRun({
+                                        text:"Категория: ",
+                                        bold:true
+                                    }),
+                                    new TextRun({
+                                        text: k_2_1_rec[0].category,
+                                        bold:true
+                                    })]
+                                    }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('   '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun({
+                                                text: 'Рекомендации по пункту №4 (Учет  и развитие мотивации и психофизиологической сферы учащихся)',
+                                                bold:true
+                                            })]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun(k_1_1_rec[0].content)]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+    //////////////////////////////конец 4-го пункта
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun({
+                                                text: 'Рекомендации по пункту №5 (Обеспечение целевой психолого-педагогической поддержки обучающихся)',
+                                                bold:true
+                                            })]
+                                        }),
+                            new Paragraph({
+                            children: [
+                                        new TextRun('  '),
+                                    ]
+                                    }),
+                            new Paragraph({
+                            children: [
+                                        new TextRun(k_2_2_rec[0].content)]
+                                    }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+        //////////////////////////////конец 5-го пункта
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'),
+                                        ]
+                                        }),
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                
+                                children: [
+                                    new TextRun({
+                                        text:"Категория: ",
+                                        bold:true
+                                    }),
+                                    new TextRun({
+                                        text: k_3_1_rec[0].category,
+                                        bold:true
+                                    })]
+                                    }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('   '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun({
+                                                text: 'Рекомендации по пункту №6 (Требования ЗСС в содержании, структуре урока, в работе с оборудованием и учете данных о детях с ОВЗ)',
+                                                bold:true
+                                            })]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun(k_3_1_rec[0].content)]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+//////////////////////////////конец 6-го пункта
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'),
+                                        ]
+                                        }),
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                
+                                children: [
+                                    new TextRun({
+                                        text:"Категория: ",
+                                        bold:true
+                                    }),
+                                    new TextRun({
+                                        text: k_4_1_rec[0].category,
+                                        bold:true
+                                    })]
+                                    }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('   '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun({
+                                                text: 'Рекомендации по пункту №7 (Стиль и формы педагогического взаимодействия на уроке)',
+                                                bold:true
+                                            })]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun(k_4_1_rec[0].content)]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+//////////////////////////////конец 7-го пункта
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'),
+                                        ]
+                                        }),
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                
+                                children: [
+                                    new TextRun({
+                                        text:"Категория: ",
+                                        bold:true
+                                    }),
+                                    new TextRun({
+                                        text: k_5_1_rec[0].category,
+                                        bold:true
+                                    })]
+                                    }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('   '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun({
+                                                text: 'Рекомендации по пункту №8 (Управление организацией учебной деятельности обучающихся через систему оценивания)',
+                                                bold:true
+                                            })]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun(k_5_1_rec[0].content)]
+                                        }),
+                            new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+        //////////////////////////////конец 8-го пункта
+
+                            new Paragraph({
+                                children: [
+                                            new TextRun({
+                                                text: 'Рекомендации по пункту №9 (Управление собственной обучающей деятельностью)',
+                                                bold:true
+                                            })]
+                                        }),
+                                new Paragraph({
+                                children: [
+                                            new TextRun('  '),
+                                        ]
+                                        }),
+                                new Paragraph({
+                                children: [
+                                            new TextRun(k_5_2_rec[0].content)]
+                                        }),
+                                new Paragraph({
+                                    children: [
+                                                new TextRun('  '),
+                                            ]
+                                            }),
+
+        //////////////////////////////конец 9-го пункта
+
+                                new Paragraph({
+                                    children: [
+                                                new TextRun('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'),
+                                            ]
+                                            }),
+
+                                new Paragraph({
+                                    children: [
+                                                new TextRun('  '),
+                                            ]
+                                            }),
+                                new Paragraph({
+                                    
+                                    children: [
+                                        new TextRun({
+                                            text:"Категория: ",
+                                            bold:true
+                                        }),
+                                        new TextRun({
+                                            text: 'Результативность урока',
+                                            bold:true
+                                        })]
+                                        }),
+                                new Paragraph({
+                                    children: [
+                                                new TextRun('   '),
+                                            ]
+                                            }),
+                                new Paragraph({
+                                    children: [
+                                                new TextRun({
+                                                    text: 'Рекомендации по пункту №10 (Результативность урока)',
+                                                    bold:true
+                                                })]
+                                            }),
+                                new Paragraph({
+                                    children: [
+                                                new TextRun('  '),
+                                            ]
+                                            }),
+                                new Paragraph({
+                                    children: [
+                                                new TextRun(k_6_1_rec[0].content)]
+                                            }),
+                                new Paragraph({
+                                    children: [
+                                                new TextRun('  '),
+                                            ]
+                                            }),
+        //////////////////////////////конец 10-го пункта
+
                         ],
-                    });
+                });
 
                     let excelFileName = teacher[0].surname + '-' + Date.now();
 
@@ -649,7 +1070,7 @@ exports.getSingleCardById = async (req, res) => {
                          console.log('Ошибка при скачивании' + err)
                         }
                      })
-                }
+            }
 
                 return res.render('school_teacher_card_single', {
                     layout: 'maincard',
