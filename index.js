@@ -12,7 +12,8 @@ const flash = require('connect-flash');
 const cabinetRoutes = require('./routes/school_admin/school_cabinet');
 const projectsRoutes = require('./routes/school_admin/school_project');
 const schoolList = require('./routes/school_admin/school_list');
-const schoolCardRoutes = require('./routes/school_admin/school_card')
+const schoolCardRoutes = require('./routes/school_admin/school_card');
+const support = require('./routes/school_admin/support');
 
 
 const addRoutes = require('./routes/school_admin/add');
@@ -179,6 +180,7 @@ app.use('/school/cabinet', isAuth, cabinetRoutes)
 app.use('/school/project', isAuth,projectsRoutes)
 app.use('/school/list', isAuth, schoolList)
 app.use('/school/card', isAuth, schoolCardRoutes)
+app.use('/school/support',isAuth, support)
 
 
 
