@@ -1,0 +1,145 @@
+<header class="header">
+<div class="header_top">
+    <div class="logo">
+        <a href="/" class="logo__tallam">Tallam</a>
+        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+    </div>
+    <a href="#" class="menu_btn" id="menu_btn">
+        <span></span>
+    </a>
+    
+    <nav class="main_nav" id="main_nav">
+        <ul class="main_nav__items">
+            <li class="main_nav__item"><a href="/school/project" class="main_nav__link">Проекты</a></li> 
+            <li class="main_nav__item"><a href="/school/support" class="main_nav__link">Помощь</a></li> 
+            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
+        </ul>
+    </nav>
+</div>
+</header>
+ 
+ 
+<style>
+ .accordion {
+  background-color: #c7d9ed;
+  color:#2E609A;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #487BB7; 
+  color: white;
+}
+
+.panel {
+  padding: 40px 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+  font-size: 1.3em;
+}
+
+.frequently__tabs ol {
+  margin-left: 15px;
+}
+
+.frequently__tabs ol a {
+  color:#487BB7;
+
+}
+
+.support-body {
+    width: 100%;
+    color: #484343;
+}
+
+.support-body h2 {
+text-align: center;
+}
+
+.wrapper-support{
+    max-width: 1250px;
+    margin:0 auto
+}
+
+.support-area form input, textarea {
+  width: 100%;
+  margin: 15px 0;
+}
+
+.support-area form input{
+  border: 1px solid rgba(118, 118, 118, 0.5);
+  padding: 5px 5px;
+}
+
+.support-area form input, textarea {
+  border: 1px solid rgba(118, 118, 118, 0.5);
+}
+
+.support-area form textarea{
+  resize: none;
+}
+
+.support-area form button{
+  padding:8px 22px;
+  float: right;
+  border:none;
+  border-radius: 4px;
+  color:white;
+  background-color: #2E609A;
+}
+
+</style>
+
+<div class="support-body">
+  <div class="wrapper-support">
+    <div class="frequently">
+        <h2>Часто задаваемые вопросы</h2>
+        <div class="frequently__tabs">
+                <button class="accordion">Забыл логин и пароль. Что делать?</button>
+                <div class="panel">
+                <p>Логин — это  официальный email вдрес вашей образовательной организации . Если вы знаете, какой  email привязан к аккаунту, то вы знаете логин.</p>
+                <p>Если вы забыли пароль, есть два варианта.</p>
+                <ol>
+                  <li>Напишите нам в <a href="#">телеграмм</a></li>
+                  <li>Или отправьте запрос на восстановления пароля по <a href="#">ссылке</a></li>
+                </ol>
+                </div>
+
+
+        </div>
+    </div>
+    <h2>Здесь Вы можете задать любой вопрос о <strong>Tallam</strong></h2>
+    <div class="support-area">
+        <form action="">
+            <input type="text" placeholder="Пожалуйста, опишите тему Вашей проблемы ">
+            <textarea name="" id="" cols="30" rows="10" placeholder="Пожалуйста, расскажите подробнее о вашей проблеме"></textarea>
+            <button type="submit"> Отправить</button>
+        </form>
+    </div>
+  </div>
+
+</div> 
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
