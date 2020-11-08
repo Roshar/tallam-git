@@ -1,10 +1,9 @@
-const SchoolCabinet = require('../../models/school_admin/SchoolCabinet')
-const {validationResult} = require('express-validator')
+const SchoolCabinet = require('../../models/school_admin/SchoolCabinet');
+const {validationResult} = require('express-validator');
 const error_base = require('../../helpers/error_msg');
-const notice_base = require('../../helpers/notice_msg')
+const notice_base = require('../../helpers/notice_msg');
 const { v4: uuidv4 } = require('uuid');
-
-
+const mailer = require('../../library/nodemailer');
 
 /** GET SUPPORT PAGE */
 
@@ -17,7 +16,18 @@ exports.index = async (req, res) => {
         const school_name = await school[0].school_name;
         const title_area = await school[0].title_area;
 
-
+        if(req.body.support_title){
+          const subject_title = await req.body.support_title;
+          const subject_content = await req.body.support_body;
+          const message = {
+            to: 'test.tallam@mail.ru',
+            subject: `Сообщение от: ${req.session.user.email}, название ОО: ${school_name}, тема: ${subject_title} `,
+            text: `Сообщение: ${subject_content}`
+          }
+          mailer(message);
+          req.flash('notice', notice_base.success_mailed_message);
+          return res.status(200).redirect(`/school/support`)
+        }
 
         return res.render('support', {
             layout: 'main',

@@ -18,7 +18,6 @@
 </div>
 </header>
  
- 
 <style>
  .accordion {
   background-color: #c7d9ed;
@@ -95,8 +94,41 @@ text-align: center;
   color:white;
   background-color: #2E609A;
 }
+.flash {
+  display: none;
+  position: absolute;
+  background-color: #2E609A;
+  color:white;
+  text-align: center;
+  padding: 20px 30px;
+  top:30%; 
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: 500px;
+}
+
+.support_fileld::placeholder {
+  padding-left: 15px;
+}
+.support_fileld::-webkit-input-placeholder { color: #a0a0a0;}
+.support_fileld:-moz-placeholder:focus {color: #a0a0a0;}
+.support_fileld::-moz-placeholder:focus {color: #a0a0a0;}
+.support_fileld:-ms-input-placeholder:focus {color: #a0a0a0;}
 
 </style>
+    <section>
+        {{#if error}}
+          <p> {{ error}}</p>
+        {{/if}}
+        {{#if notice}}
+            <div id="notice"></div>
+            <div class="flash"><h3>{{notice}}</h3></div>
+        {{/if}}
+    </section> 
+
+
 
 <div class="support-body">
   <div class="wrapper-support">
@@ -118,9 +150,11 @@ text-align: center;
     </div>
     <h2>Здесь Вы можете задать любой вопрос о <strong>Tallam</strong></h2>
     <div class="support-area">
-        <form action="">
-            <input type="text" placeholder="Пожалуйста, опишите тему Вашей проблемы ">
-            <textarea name="" id="" cols="30" rows="10" placeholder="Пожалуйста, расскажите подробнее о вашей проблеме"></textarea>
+        <form action="" method="POST">
+            <input type="text" name="support_title"  class="support_fileld" placeholder="Пожалуйста, опишите тему Вашей проблемы ">
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+            <textarea name="support_body" id="" cols="30" rows="10" class="support_fileld" placeholder="Пожалуйста, расскажите подробнее о вашей проблеме"></textarea>
+
             <button type="submit"> Отправить</button>
         </form>
     </div>
@@ -142,4 +176,23 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+
+$( document ).ready(function() {
+  if($("#notice")){
+      $(".flash").fadeIn(.5).fadeOut(3000)
+  }
+});
 </script>
+
+
+
+
+
+
+
+
+   
+
+
+
+    
