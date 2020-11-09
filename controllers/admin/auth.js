@@ -29,12 +29,10 @@ exports.existsUserInDb = async (req,res) => {
             console.log(userData)
             if(userData[0].role == 'admin') {
                 req.session.isAdmin = true;
-                console.log('Привет Админ!')
+
                 return res.redirect('/admin/school_list'); 
             }else if(userData[0].role == 'school_admin') {
                 req.session.isAuthenticated = true
-                console.log('Привет школьный администратор')
-                console.log(req.session)
                 req.session.save( err => {
                     if (err) {
                         throw err

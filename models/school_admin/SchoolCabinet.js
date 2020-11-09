@@ -77,7 +77,7 @@ exports.insertMessageInDB  = async (req, res) => {
           password: process.env.DATABASE_PASSWORD,
           
        })
-       console.log(req)
+    
        const type_id = await req.type_id;
        const email = await req.email;
        const message = await req.message;

@@ -36,7 +36,7 @@ exports.getSchoolData = async (req, res) => {
                 return res.status(422).redirect('/school/cabinet');
             }
         }
-        // console.log(school)
+
         return res.render('school_cabinet', {
             layout: 'main',
             title: school_name,
