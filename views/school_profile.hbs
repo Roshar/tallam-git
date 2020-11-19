@@ -140,8 +140,37 @@ main .add_form input, main .add_form select {
 .section-school-title__part-right span {
     padding: 10px;
 }
+.flash {
+    display: none;
+    position: absolute;
+    text-align: center;
+    padding: 40px 60px;
+    color: white;
+    top:50%; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 500px;
+}
 
+.flash_notice{
+    background-color: #2E609A;
+}
+
+.flash_error {
+    background-color: #e60002;
+}
 </style>
+
+<section>
+    {{#if error}}
+        <div class="flash flash_error"><h3>{{error}}</h3></div>
+    {{/if}}
+    {{#if notice}}
+        <div class="flash flash_notice"><h3>{{notice}}</h3></div>
+    {{/if}}
+</section> 
 <main>
 <div class="section-school-title">
     
@@ -163,12 +192,6 @@ main .add_form input, main .add_form select {
         <h2> Нет данных </h2>
     {{/if}}
 
-    {{#if error}}
-    <p> {{ error}}</p>
-    {{/if}}
-    {{#if notice}}
-    <p> {{ notice}}</p>
-    {{/if}}
 </div>
      
         
@@ -473,6 +496,12 @@ main .add_form input, main .add_form select {
             dateInput.blur();
             }
         })
+
+        $( document ).ready(function() {
+            if($("#notice")){
+                $(".flash").fadeIn(.5).fadeOut(4000)
+            }
+        });
     </script>
    
 

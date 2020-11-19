@@ -117,15 +117,8 @@
     </nav> 
 </div>
 </header>
+
 <main>   
-    <section>
-        {{#if notice}}
-            <h3> {{ notice}}</h3>
-        {{/if}}
-        {{#if error}}
-            <h3> {{ error}}</h3>
-        {{/if}}
-    </section>
     <section class="profile">
             {{#if teacher.length}}
             {{#each teacher}}
@@ -502,5 +495,11 @@ function openModal(modal) {
             filesDone++
             progressBar.value = filesDone / filesToDo * 100
         }
+
+                $( document ).ready(function() {
+            if($("#notice")){
+                $(".flash").fadeIn(.5).fadeOut(4000)
+            }
+        });
 
 </script>
