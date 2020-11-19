@@ -329,7 +329,8 @@ exports.avatar = async (req, res) => {
                 }else if(fileFormat[0] == libraryMIME[2]){
                     randomName =  uuidv4() + '.png';
                 }else {
-                    throw new Error('Неизвестная ошибка при выборе фотографии профиля!')
+                    req.flash('notice', notice_base.inccorect_type_mime);
+                    return res.status(422).redirect('/school/cabinet');
                 }
 
                 avatar.name = randomName;
@@ -337,6 +338,8 @@ exports.avatar = async (req, res) => {
                 avatar.mv('./public/img/teachers/uploads/avatars/' + avatar.name);
 
                 const result  = await SchoolTeacher.updateTeacherAvatar(avatar)
+
+                console.log(avatar);
 
                 req.flash('notice', notice_base.success_insert_avatar);
                 
