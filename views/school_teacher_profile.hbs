@@ -93,8 +93,38 @@
     #fileElem {
     display: none;
     }
+
+    .flash {
+    display: none;
+    position: absolute;
+    text-align: center;
+    padding: 40px 60px;
+    color: white;
+    top:50%; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 500px;
+}
+
+.flash_notice{
+    background-color: #2E609A;
+}
+
+.flash_error {
+    background-color: #e60002;
+}
         
 </style>
+<section>
+    {{#if error}}
+        <div class="flash flash_error"><h3>{{error}}</h3></div>
+    {{/if}}
+    {{#if notice}}
+        <div class="flash flash_notice"><h3>{{notice}}</h3></div>
+    {{/if}}
+</section> 
 <header class="header">
 <div class="header_top">
     <div class="logo">
