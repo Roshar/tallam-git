@@ -4,7 +4,7 @@ exports.validatorForAddTeacherAdmin  = [
     body('surname','Заполните все обязательные поля!').notEmpty().escape().trim(),
     body('firstname','Заполните все обязательные поля!').notEmpty().escape().trim(),
     body('patronymic').escape().trim(),
-    body('snils','Вы пытаетесь внести вместо цифр буквы!').toInt().isInt(),
+    body('snils','Вы пытаетесь внести вместо цифр буквы!').escape().trim(),
     //body('email', 'Некорректный почтовый адрес').isEmail(),
     body('gender', 'Заполните все обязательные поля!').notEmpty().toInt(),
     body('position', 'Заполните все обязательные поля!').notEmpty().toInt(),

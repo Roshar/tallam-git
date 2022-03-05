@@ -1,0 +1,98 @@
+/* СТИЛИ ДЛЯ КНОПОК И ЭЛЕМЕНТОВ ФОРМЫ*/
+
+.modal-1 {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content-1 {
+    background-color: transparent;
+    margin: 15% auto;
+    padding: 20px;
+}
+.modal-wrap {
+    height: 200px;
+    width:200px;
+    float: right;
+    position: relative;
+}
+
+.clearfix::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+
+.close-1 {
+    color: rgba(46, 96, 154, 1);
+    font-size: 48px;
+    font-weight: bold;
+    position: fixed;
+    right: calc(100% /4 - 50px)
+}
+
+.close-1:hover,
+.close-1:focus {
+    color: rgb(130, 194, 247);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.add_form {
+    background-color: white;
+    max-width: 600px;
+    margin:0 auto;
+    padding: 25px 15px;
+}
+
+main .add_form__heading {
+    color: #2E609A;
+    margin: 1em 0;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .close-1 {
+        color: rgba(46, 96, 154, 1);
+        font-size: 48px;
+        font-weight: bold;
+        position: fixed;
+        display: none;
+    }
+}
+
+.btn-main-color {
+    padding: 12px;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    background-color: #2e609a;
+}
+
+.label-description {
+    color: #68686A; font-size: .8em
+}
+
+.add_form .star {
+    color: #E72A2B;
+}
+
+.btn-main-block:hover{
+    color: #f2f2f2;
+}
+
+.add_form__button .button {
+
+}

@@ -8,12 +8,16 @@ const { v4: uuidv4 } = require('uuid');
 
 
 
-/** GET  PROJECTS LIST */
+/**
+ *  Раздел с проектами
+ * GET  PROJECTS LIST
+ * Личный кабинет школы
+ * */
+
 
 exports.getProjectsCurrentSchool = async (req, res) => {
 
     try{
-        
         if(req.session.user) {
             const projects = await SchoolProject.getAllProjectsWithThisSchool(req.session.user)
             const school = await SchoolCabinet.getSchoolData(req.session.user)
@@ -53,12 +57,16 @@ exports.getProjectsCurrentSchool = async (req, res) => {
 
 
 
-/** GET PROJECT BY ID */
+/**
+ *  Раздел проект по ID
+ * GET PROJECT BY ID
+ * Личный кабинет школы
+ * */
 
 exports.getInformationByProjectId = async (req, res) => {
    
     try{
-        
+
         if(req.session.user) {
 
             const school = await SchoolCabinet.getSchoolData(req.session.user)

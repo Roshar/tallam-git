@@ -14,13 +14,18 @@ const excel = require('exceljs');
 const path = require('path'); 
 const http = require('http');
 const { Document, Packer, Paragraph, TextRun } = require("docx");
+const dateformat = require('../../utils/formatdate')
 
 
 
 
 
 
-/** GET CARD PAGE BY TEACHER ID */
+/**
+ *  GET CARD PAGE BY TEACHER ID
+ *  school/card/project/2/teacher/id
+ *  Раздел с оценками слушателя
+ *  */
 
 exports.getCardPageByTeacherId = async (req, res) => {
     try{
@@ -67,7 +72,7 @@ exports.getCardPageByTeacherId = async (req, res) => {
 
                     for(let i = 0; i < card.length; i++) {
                         card[i].sum = card[i].k_1_1 + card[i].k_1_2 + card[i].k_1_3 +
-                        card[i].k_2_1 + card[i].k_2_2 + card[i].k_3_1 + card[i].k_4_1 + card[i].k_5_1 + card[i].k_5_2;
+                        card[i].k_2_1 + card[i].k_2_2 + card[i].k_3_1 + card[i].k_4_1 + card[i].k_5_1 + card[i].k_5_2 + card[i].k_6_1;
                         card[i].interest = card[i].sum * 100 / 20;
      
                          if(card[i].interest > 84) {
@@ -110,7 +115,7 @@ exports.getCardPageByTeacherId = async (req, res) => {
 
                 for(let i = 0; i < card.length; i++) {
                    card[i].sum = card[i].k_1_1 + card[i].k_1_2 + card[i].k_1_3 +
-                   card[i].k_2_1 + card[i].k_2_2 + card[i].k_3_1 + card[i].k_4_1 + card[i].k_5_1 + card[i].k_5_2;
+                   card[i].k_2_1 + card[i].k_2_2 + card[i].k_3_1 + card[i].k_4_1 + card[i].k_5_1 + card[i].k_5_2 + card[i].k_6_1;
                    card[i].interest = card[i].sum * 100 / 20;
 
                     if(card[i].interest > 84) {
@@ -128,6 +133,7 @@ exports.getCardPageByTeacherId = async (req, res) => {
                     }
                 }
 
+
                 return res.render('school_teacher_card', {
                     layout: 'maincard',
                     title: 'Личная карта учителя',
@@ -142,7 +148,7 @@ exports.getCardPageByTeacherId = async (req, res) => {
                     error: req.flash('error'),
                     notice: req.flash('notice')
                 })
-            }else if(req.params.id_project == 3) {
+            }else if(req.params.id_project == 3) { 
                 console.log('Данный раздел находится в разработке')
                 return res.render('admin_page_not_ready', {
                     layout: 'main',
@@ -182,7 +188,7 @@ exports.getCardPageByTeacherId = async (req, res) => {
 
 exports.getAllMarksByTeacherId = async (req, res) => {
     try{
-        
+
         if(req.session.user) {
 
             const school = await SchoolCabinet.getSchoolData(req.session.user)
@@ -347,14 +353,16 @@ exports.getAllMarksByTeacherId = async (req, res) => {
 
 exports.addMarkForTeacher = async (req, res) => {
     try{
-    
-        
+
+       
             if(req.session.user) {
                 const project = await SchoolProject.getInfoFromProjectById(req.params)
 
                 if(!project.length) {
                     return res.status(422).redirect('/school/cabinet');
                 }
+
+                const current_date = dateformat();
                 
                 const projectsIssetSchool = await SchoolProject.getAllProjectsWithThisSchool(req.session.user)
             
@@ -387,15 +395,16 @@ exports.addMarkForTeacher = async (req, res) => {
 
                 if(req.body.id_teacher && req.body._csrf) {
                     const errors = validationResult(req);
+
                     if(!errors.isEmpty()) {
                         req.flash('error', error_base.empty_input)
                         return res.status(422).redirect('/school/card/add/project/' + project_id + '/teacher/' + teacher_id)
                         
                     }
                     
-                    let lastId = await SchoolCard.createNewMarkInCard(req.body); 
+                    let lastId = await SchoolCard.createNewMarkInCard(req.body);
 
-                    
+                    console.log('/school/card/project/' + project_id + '/teacher/' + teacher_id)
                         if(lastId) {
                             req.flash('notice', notice_base.success_insert_sql );
                             return res.status(200).redirect('/school/card/project/' + project_id + '/teacher/' + teacher_id);
@@ -404,6 +413,7 @@ exports.addMarkForTeacher = async (req, res) => {
                             return res.status(422).redirect('/school/card/add/project/' + project_id + '/teacher/' + teacher_id)
                         }  
                 }
+
                 return res.render('school_teacher_card_add_mark', {
                     layout: 'maincard',
                     title: 'Оценить урок',
@@ -414,6 +424,7 @@ exports.addMarkForTeacher = async (req, res) => {
                     school_name,
                     disciplineListByTeacherId,
                     title_area,
+                    current_date,
                     error: req.flash('error'),
                     notice: req.flash('notice'),
                 })
@@ -441,10 +452,12 @@ exports.addMarkForTeacher = async (req, res) => {
 
 exports.getSingleCardById = async (req, res) => {
     try{
-        
+
         if(req.session.user) {
 
             const school = await SchoolCabinet.getSchoolData(req.session.user)
+            const school_id = school[0]['id_school']
+
 
             const school_name = await school[0].school_name;
 
@@ -556,7 +569,9 @@ exports.getSingleCardById = async (req, res) => {
 
                     worksheet.addRows(jsonsingleCard);
 
-                    let excelFileName = teacher[0].surname + '-' + Date.now();
+                    let dt = new Date();
+                    let dtName =  dt.getDate() + '-' + dt.getMonth()+1 +'-'+dt.getFullYear();
+                    let excelFileName = teacher[0].surname + '-' + dtName;
 
                     await workbook.xlsx.writeFile(`files/excels/schools/tmp/${excelFileName}.xlsx`);
 
@@ -794,7 +809,7 @@ exports.getSingleCardById = async (req, res) => {
                                         }),
                             new Paragraph({
                                 children: [
-                                            new TextRun(k_1_1_rec[0].content)]
+                                            new TextRun(k_2_1_rec[0].content)]
                                         }),
                             new Paragraph({
                                 children: [
@@ -1071,6 +1086,24 @@ exports.getSingleCardById = async (req, res) => {
                         }
                      })
             }
+
+                if(req.body.delete_teacher_school && req.body.delete_teacher_id) {
+
+
+                    // Удалить оценку в карте учителя
+
+                    req.body['id_card'] = req.params['id_card']
+                    req.body['session'] = req.session.user
+                    let deleteMarkInCard = await SchoolCard.deleteMarkInCard(req.body);
+                    if(deleteMarkInCard.affectedRows) {
+                        req.flash('notice', notice_base.success_delete_rows );
+                        res.redirect('/school/card/project/'+ req.params['project_id'] + '/teacher/'+req.params['teacher_id']);
+                    }else {
+                        req.flash('error', error_base.wrong_sql_insert)
+                        res.status(422).redirect('/school/card/add/project/' + project_id + '/teacher/' + teacher_id)
+                    }
+                    // console.log(school[0].id_school)
+                }
 
                 return res.render('school_teacher_card_single', {
                     layout: 'maincard',

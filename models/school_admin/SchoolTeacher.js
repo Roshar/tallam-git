@@ -51,7 +51,6 @@ exports.getAllKpkByIdTeacher = async(req, res) => {
     try {
        const dbh = await mysql.createConnection({
           host: process.env.DATABASE_HOST,
-          
           user: process.env.DATABASE_USER,
           database: process.env.DATABASE,
           password: process.env.DATABASE_PASSWORD,
@@ -291,7 +290,7 @@ exports.getPositionList = async () => {
        
       })
 
-      const [res, fields] = await dbh.execute('SELECT * FROM position')
+      const [res, fields] = await dbh.execute('SELECT * FROM position ORDER BY title_position')
 
       dbh.end()
       return res;
@@ -318,7 +317,7 @@ exports.getdisciplinesList = async () => {
        
       })
 
-      const [res, fields] = await dbh.execute('SELECT * FROM discipline_title')
+      const [res, fields] = await dbh.execute('SELECT * FROM discipline_title ORDER BY title_discipline')
 
       dbh.end()
       return res;
@@ -439,7 +438,6 @@ exports.disciplineListByTeacherId = async function (req, res) {
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
@@ -452,6 +450,36 @@ exports.disciplineListByTeacherId = async function (req, res) {
   // const [res, fields] = await dbh.execute("SELECT  * FROM `discipline_middleware` as dm INNER JOIN `area` ON schools.area_id = area.id_area WHERE id_school = ?",[teacher_id])
      const [res, fields] = await dbh.execute("SELECT  discipline_middleware.discipline_id, discipline_title.title_discipline FROM `discipline_middleware` INNER JOIN discipline_title ON discipline_middleware.discipline_id = discipline_title.id_discipline WHERE discipline_middleware.teacher_id = ?",[teacher_id])
 
+      dbh.end()
+      return res;
+   }catch(e) {
+      console.log(e.message)
+   }
+}
+
+/** END BLOCK ----------------------------------------  */
+
+
+/** GET  DISCIPLINE LIST BY TEACHER ID 2   */
+
+exports.disciplineListByTeacherId2 = async function (req, res) {
+   try{
+      const dbh = await mysql.createConnection({
+         host: process.env.DATABASE_HOST,
+         user: process.env.DATABASE_USER,
+         database: process.env.DATABASE,
+         password: process.env.DATABASE_PASSWORD,
+         
+       
+      })
+
+      const teacher_id = await req.teacher_id;
+      
+//const [res, fields] = await dbh.execute("SELECT * FROM `discipline_middleware` WHERE teacher_id = ?",[teacher_id])
+  // const [res, fields] = await dbh.execute("SELECT  * FROM `discipline_middleware` as dm INNER JOIN `area` ON schools.area_id = area.id_area WHERE id_school = ?",[teacher_id])
+  const [res, fields] = await dbh.execute("SELECT  discipline_middleware.discipline_id as id_discipline, discipline_title.title_discipline FROM `discipline_middleware` INNER JOIN discipline_title ON discipline_middleware.discipline_id = discipline_title.id_discipline WHERE discipline_middleware.teacher_id = ?",[teacher_id])
+  
+   
       dbh.end()
       return res;
    }catch(e) {
@@ -481,6 +509,9 @@ exports.addNewTeacher = async (req, res) => {
        
       })
 
+      // console.log(req)
+
+      console.log('SchoolTeacher')
       /** sql for teachers table */
       const id_teacher = await req.id_teacher;
       const surname = await req.surname;
@@ -493,8 +524,8 @@ exports.addNewTeacher = async (req, res) => {
       const level_of_education_id = await req.level_of_education_id;
       const diploma = await req.diploma;
       const position = await req.position;
-      const total_experience = await req.total_experience;
-      const teaching_experience = await req.teaching_experience;
+      const total_experience = await req.total_experience || 1;
+      const teaching_experience = await req.teaching_experience || 1;
       const category = await req.category;
       const phone = await req.phone;
       const email = await req.email;
@@ -537,12 +568,13 @@ exports.addNewTeacher = async (req, res) => {
             const [result3, fields3] = 
             await dbh.execute('INSERT INTO teachers (id_teacher, surname, firstname, patronymic, birthday, snils, gender_id, specialty, level_of_education_id, diploma, position, total_experience, teaching_experience, category_id, phone,	email, school_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [id_teacher, surname,firstname, patronymic, birthday, snils, gender_id, specialty,level_of_education_id, diploma, position, total_experience, teaching_experience, category, phone,	email, school_id ])
-
-            for (let i = 0; i < disciplines_id.length; i++) {
-               const [result4, fields4] =  await dbh.execute('INSERT INTO discipline_middleware ( teacher_id,	discipline_id) VALUES (?,?)',
-               [id_teacher, disciplines_id[i]])
+            
+            if(typeof disciplines_id !== 'undefined'){
+               for (let i = 0; i < disciplines_id.length; i++) {
+                  const [result4, fields4] =  await dbh.execute('INSERT INTO discipline_middleware ( teacher_id, discipline_id) VALUES (?,?)',
+                  [id_teacher, disciplines_id[i]])
+               }
             }
-
             const [result5 , fields5] =  await dbh.execute('INSERT INTO training_kpk (year_training, place_training, teacher_id) VALUES (?,?,?)',
             [year_kpk,  place_kpk, id_teacher])
 
@@ -550,7 +582,7 @@ exports.addNewTeacher = async (req, res) => {
       return result3.insertId;
       
    }catch(e) {
-      console.log(e.message)
+      console.log(e)
    }
 }
 
@@ -568,8 +600,7 @@ exports.addNewTeacher = async (req, res) => {
 exports.updateTeacherMainInformationById  = async (req, res) =>{
    try {
       const dbh = await mysql.createConnection({
-         host: process.env.DATABASE_HOST,
-         
+         host: process.env.DATABASE_HOST,   
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
@@ -587,11 +618,18 @@ exports.updateTeacherMainInformationById  = async (req, res) =>{
       const level_of_education_id = await req.level_of_education_id;
       const diploma = await req.diploma;
       const position = await req.position;
+      /** sql for discipline table */
+      const disciplines_id = await req['disciplines[]'];
+      /** sql for training_kpk table */
+      const place_kpk = await req.place_kpk;
+      const year_kpk = await req.year_kpk || 'не проходил(а)';
+      /** sql for table_members table */
       const total_experience = await req.total_experience || 0;
       const teaching_experience = await req.teaching_experience || 0;
       const category = await req.category;
       const phone = await req.phone;
       const email = await req.email;
+  
 
       const [result, fields] = 
       await dbh.execute("UPDATE `teachers` SET surname = ?, firstname = ?, patronymic = ?,"+
@@ -615,6 +653,36 @@ exports.updateTeacherMainInformationById  = async (req, res) =>{
       email,
       id_teacher])
 
+      const [resultk, fieldsk] = await dbh.execute('SELECT * FROM training_kpk WHERE teacher_id = ?', [id_teacher])
+
+      if(!resultk.length){
+         const [result5 , fields5] =  await dbh.execute('INSERT INTO training_kpk (year_training, place_training, teacher_id) VALUES (?,?,?)',
+            [year_kpk,  place_kpk, id_teacher])
+      }else{
+         const [result3 , fields3] =  await dbh.execute('UPDATE `training_kpk` SET year_training = ?, place_training = ? WHERE teacher_id = ?',
+         [year_kpk,  place_kpk, id_teacher])
+      }
+
+      if(typeof disciplines_id == "undefined"){  
+         const de = "DELETE FROM `discipline_middleware` WHERE teacher_id = "+`${id_teacher}`;
+         const [result4, fields4] = await dbh.execute('DELETE FROM `discipline_middleware` WHERE teacher_id = ?',
+         [id_teacher])
+      }else{
+         if(typeof disciplines_id == 'string'){
+            const [result5, fields5] = await dbh.execute('DELETE FROM `discipline_middleware` WHERE teacher_id = ?',
+            [id_teacher])
+            const [result6, fields6] =  await dbh.execute('INSERT INTO discipline_middleware ( teacher_id,	discipline_id) VALUES (?,?)',
+            [id_teacher, disciplines_id])
+         }else if(typeof disciplines_id == 'object'){
+            const [result7, fields7] = await dbh.execute('DELETE FROM `discipline_middleware` WHERE teacher_id = ?',
+            [id_teacher])
+            for (let i = 0; i < disciplines_id.length; i++) {
+               const [result8, fields8] =  await dbh.execute('INSERT INTO discipline_middleware ( teacher_id,	discipline_id) VALUES (?,?)',
+               [id_teacher, disciplines_id[i]])
+            }
+         }
+      }  
+         
       dbh.end()
       return result;
 
@@ -671,7 +739,7 @@ exports.updateTeacherAvatar  = async (req, res) =>{
    try{
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
-         
+
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD,
@@ -681,7 +749,7 @@ exports.updateTeacherAvatar  = async (req, res) =>{
       const teacher_id = await req.teacher_id;
       const school_id = await req.school_id;
 
-      const [projectе, fields1] = await dbh.execute("SELECT * FROM project_middleware_names"); 
+      const [projectе, fields1] = await dbh.execute("SELECT * FROM project_middleware_names");
 
       const name_table_project = [];
 
@@ -692,7 +760,7 @@ exports.updateTeacherAvatar  = async (req, res) =>{
       if(!teacher_id ||  !school_id) {
          throw new Error('Неверне параментры! Какой то из параментров отсутствует!')
       }else {
-         const [result, fields] = 
+         const [result, fields] =
          await dbh.execute('DELETE FROM `teachers` WHERE id_teacher = ?',
          [teacher_id])
 
@@ -711,7 +779,7 @@ exports.updateTeacherAvatar  = async (req, res) =>{
 
          dbh.end()
          return result;
-      }   
+      }
       
    }catch(e) {
       console.log(e.message)

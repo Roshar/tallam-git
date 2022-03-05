@@ -37,6 +37,14 @@ th, td {
   padding: 8px;
 }
 
+table td.off {
+    color: red;
+
+}
+table td.on {
+    color: green;
+}
+
 tr:nth-child(even){background-color: #f2f2f2}
 
 th {
@@ -63,16 +71,23 @@ th {
         <table style="100%">
             <tbody>
                 <tr>
+                    <th>№</th>
                     <th> Наименование ОО</th>
                     <th> Район</th>
+                    <th> Статус</th>
                 </tr>
             </tbody>
             {{#if project_schools}}
             {{#each project_schools}}
                 <tr>
+                    <td>{{increment @index}}</td>
                     <td><a href="/admin/projects/school/{{id_school}}/{{../project_id}}"> {{school_name}}</a></td>
                     <td> {{title_area}} </td>    
+                    <td class="{{setStatus status}}">
+                        <a href="/admin/projects/school/status/{{id_school}}/{{../project_id}}/{{setStatus status}}"> {{setStatusTitle status}}</a>
+                    </td>
                 </tr>
+
             {{/each}}
 
             {{!-- BinaryRow {

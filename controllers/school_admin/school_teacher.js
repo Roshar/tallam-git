@@ -43,6 +43,7 @@ exports.getProfileByTeacherId = async (req, res) => {
             const month = ['января', 'февраля','марта', 'апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
             const y =  teacher[0].birthday.getFullYear();
             const birthdayShort = `${d}  ${month[m]} ${y}`;
+            const discipline = await SchoolTeacher.disciplineListByTeacherId(req.params);
 
 
             const support_type = await SchoolCabinet.getSupportType()
@@ -58,6 +59,7 @@ exports.getProfileByTeacherId = async (req, res) => {
                 birthdayShort,
                 school_name,
                 kpk,
+                discipline,
                 title_area,
                 issetInProjects,
                 support_type,
@@ -85,12 +87,12 @@ exports.getProfileByTeacherId = async (req, res) => {
 
 
 
-/** GET TEACHERS FROM CURRENT SCHOOL  */
+/** ПОЛУЧИТЬ ВСЕХ УЧИТЕЛЕЙ и ДОБАВИТЬ НОВОГО УЧИТЕЛЯ  */
 
 exports.getSchoolTeachers = async (req, res) => {
 
     try{
-        
+
         if(req.session.user) {
 
             const projects = await SchoolProject.getAllProjectsWithThisSchool(req.session.user)
@@ -114,7 +116,7 @@ exports.getSchoolTeachers = async (req, res) => {
                 const firstname = await req.body.firstname.trim();
                 const patronymic = await req.body.patronymic.trim();
                 const birthday = await req.body.birthday;
-                const snils = await parseInt(req.body.snils);
+                const snils = await req.body.snils || '';
                 const gender_id = await parseInt(req.body.gender);
                 const specialty = await req.body.specialty.trim();
                 const level_of_education_id = await parseInt(req.body.level_of_education) || 1;
@@ -207,11 +209,13 @@ exports.getSchoolTeachers = async (req, res) => {
 /** END BLOCK */
 
 
-/** GENERATION FORM FOR EDIT MAIN INFORMATION ABOUT TEACHER */
+/** GENERATION FORM FOR EDIT MAIN INFORMATION ABOUT TEACHER
+ *  Форма редактирования
+ * Личный кабинет школы*/
 
 exports.getTeacherByIdForEdit = async (req, res) => {
     try{
-      
+
         if(req.session.user) {
 
             const teacher = await SchoolTeacher.getProfileByTeacherId(req.params)
@@ -238,9 +242,16 @@ exports.getTeacherByIdForEdit = async (req, res) => {
 
             const support_type = await SchoolCabinet.getSupportType()
             const school_name = await school[0].school_name;
+            const currentDiscipline = await SchoolTeacher.disciplineListByTeacherId2(req.params)
+            const disciplines = await SchoolTeacher.getdisciplinesList()
 
 
+            const ddata = disciplines.filter(({ title_discipline: id1 }) => !currentDiscipline.some(({ title_discipline: id2 }) => id2 === id1));
+
+    
             if(req.body.school_id && req.body._csrf) {
+                // console.log(req.body);
+                // return ;
                 const result  = await SchoolTeacher.updateTeacherMainInformationById(req.body)
                 if(result) {
                 const id_teacher = await req.body.id_teacher;
@@ -260,10 +271,13 @@ exports.getTeacherByIdForEdit = async (req, res) => {
                 teacher_id,
                 teacher,
                 birthdayConverter,
+                ddata,
                 school_name,
                 kpk,
                 edu,
                 gender,
+                currentDiscipline,
+                disciplines,
                 category,
                 position,
                 issetInProjects,

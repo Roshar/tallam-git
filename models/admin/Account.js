@@ -16,7 +16,6 @@ exports.getAccountDataBySchoolId = async(req, res) => {
          user: process.env.DATABASE_USER,
          database: process.env.DATABASE,
          password: process.env.DATABASE_PASSWORD
-         
       })
 
       const school_id = await req.id;

@@ -1,123 +1,480 @@
-<header class="header">
-<div class="header_top">
-    <div class="logo">
-        <a href="/" class="logo__tallam">Tallam</a>
-        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+<style>
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 9999; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        position: relative;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .lists-dis{
+        display: flex;
+        vertical-align:top;
+        justify-content: space-around;
+        margin:60px 0;
+        align-items:flex-start;
+    }
+    .lists-dis h2{
+        text-align: center;
+    }
+    .lists-dis__first-block,
+    .lists-dis__second-block {
+        width: 40%;
+    }
+
+    .lists-dis__first-block ul,
+    .lists-dis__second-block ul {
+        border: 1px solid #487bb7;
+        min-height: 160px;
+        padding:10px;
+    }
+
+    .save-input {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .save-input_notice {
+        display: none;
+        position: absolute;
+        justify-content: center;
+        margin: 20px 0;
+        width:100%;
+
+
+    }
+
+    .hidden-block {
+        display: none;
+    }
+
+    .add_dis{
+        padding:13px;
+        background-color: tomato;
+        color: whitesmoke;
+    }
+
+    .add_dis:hover{
+        background-color:#f25a3f;
+    }
+    .li-dis{
+        color: darkred;
+        margin-top:10px;
+        padding-left: 10px;
+    }
+
+</style>
+<section>
+    {{#if error}}
+        <div class="flash flash_error"><h3 style="color: red">  {{error}}</h3></div>
+    {{/if}}
+    {{#if notice}}
+        <div class="flash flash_notice"><h3 style="color: #2E609A">  {{notice}}</h3></div>
+    {{/if}}
+</section>
+<header>
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class=" col-md-6 col-sm-12">
+                <div class="logo">
+                    <a href="/" class="logo__tallam">Tallam</a>
+                    <div>
+                        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-md-6 col-sm-12 ">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <div class="container-fluid pt-2">
+                        <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon "></span>
+                        </button>
+                        <div class="collapse navbar-collapse   flex-row-reverse  " id="navbarNavDropdown">
+                            <ul class="navbar-nav" >
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="/school/support">Помощь</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/logout">Выйти</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
     </div>
-    <a href="#" class="menu_btn" id="menu_btn">
-        <span></span>
-    </a>
-    <nav class="main_nav" id="main_nav">
-        <ul class="main_nav__items">
-            <li class="main_nav__item"><a href="/school/support" class="main_nav__link">Помощь</a></li>
-            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
-        </ul>
-    </nav>
-    <nav class="second_nav">
-        <ul class="second_nav__items">
-             <li class="second_nav__item"><a href="/school/list/{{teacher_id}}" class="second_nav__link">Отменить редактирование</a></li>
-        </ul>
-    </nav>
-</div>
 </header>
-<main>   
-    <section>
-        {{#if notice}}
-            <h3> {{ notice}}</h3>
-        {{/if}}
-    </section>
-    <div class="blue-line"></div>      
-        <h1>Форма редактирования</h1>  
-        <form action="" method="POST" class="add_form" name="add_teacher">
+<main>
+    <div class="container">
+        <div class="row indent-y-2-m">
+            <div class="col-12">
+                <section>
+                    {{#if notice}}
+                        <h3 style="color: #2E609A"> {{ notice}}</h3>
+                    {{/if}}
+                </section>
+                <nav class="second_nav">
+                    <ul class="second_nav__items">
+                        <li class="second_nav__item"><a href="/school/list/{{teacher_id}}" class="second_nav__link">Отменить редактирование</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="save-input_notice" id="save-input_notice">
+                            <div style="color: white; background-color:darkgreen; width:80%;   margin: 0 auto;padding:10px; text-align:center"> Изменения сохранены </div>
+                        </div>
+                        <div class="lists-dis">
+                            <div class="lists-dis__first-block" id="bk1">
+                                <h2>Общий список дисциплин</h2>
+                                <section class="list_section">
+                                    <ul class="teachers_list" id="mainDis">
+                                        {{#if ddata}}
+                                            {{#each ddata}}
+                                                <li data-id-md = "{{id_discipline}}" class="teachers_list__item"> {{title_discipline}}  </li>
+                                            {{/each}}
+                                        {{else}}
+                                            Пусто
+                                        {{/if}}
+                                    </ul>
+                                </section>
+                            </div>
 
-            <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
-            <h2 class="add_form__heading">Личные данные</h2>
-            <label>ФИО <span class="star">*</span>
-            {{#each teacher}}
-            <input type="text" autofocus value="{{surname}}" name="surname" required>
-            <label class="message" for="surname">Фамилия содержит только буквы русского алфавита</label>
+                            <div class="lists-dis__second-block" id="bk2">
+                                <h2>Список преподаваемых дисциплин </h2>
+                                <section class="list_section">
+                                    <ul class="teachers_list" id="currentD">
+                                        {{#if currentDiscipline}}
+                                            {{#each currentDiscipline}}
+                                                <li data-id-md = "{{id_discipline}}" class="teachers_list__item"> {{title_discipline}} </li>
+                                            {{/each}}
+                                        {{else}}
 
-            <input type="text" value="{{firstname}}" name="firstname" required>
-            <label class="message" for="firstname">Имя содержит только буквы русского алфавита</label>
+                                        {{/if}}
+                                    </ul>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="save-input">
+                            <button type="button"  id="add_dis" class="add_dis">Сохранить изменения</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mx-auto">
+                <h2 class="text-align-center">Форма редактирования</h2>
+                <form action="" method="POST" class="add_form"  name="add_teacher">
 
-            <input type="text" value="{{patronymic}}" name="patronymic">
-            <label class="message" for="patronymic">Отчество содержит только буквы русского алфавита</label>
+                    <h2 class="add_form__heading">Личные данные</h2>
+                    {{#each teacher}}
+                    <div class="mb-3">
+                        <label for="surname" class="form-label" >Фамилия <span class="star">*</span></label>
+                        <input type="text" class="form-control" autofocus value="{{surname}}" name="surname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Имя <span class="star">*</span></label>
+                        <input type="text"  class="form-control" value="{{firstname}}" name="firstname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Отчество</label>
+                        <input type="text" class="form-control" value="{{patronymic}}" name="patronymic">
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Дата рождения <span class="star">*</span></label>
+                        <input type="date" class="form-control"  value="{{../birthdayConverter}}" name="birthday"  required  >
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >СНИЛС</label>
+                        <input type="text" class="form-control" value="{{snils}}" name="snils" >
+                    </div>
 
-            <label>Дата рождения <span class="star">*</span>
-            <input type="date"  value="{{../birthdayConverter}}" name="birthday"   >
-            <label class="message" for="birthday">Формат даты рождения должен быть таким: 01.01.1990</label>
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Пол <span class="star">*</span></label>
+                        <select name="gender_id"  class="form-select" required>
+                            {{#each ../gender}}
+                                <option {{selected id_gender ../gender_id}} value="{{id_gender}}">{{gender_title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
 
-            <label>СНИЛС <span class="star">*</span></label>
-            <input type="text"  value="{{snils}}" name="snils" required>
-            <label class="message" for="snils">Введите только 12 цифр</label>
-           
-            <label>Пол <span class="star">*</span>
-                <select name="gender_id"  required>
-              
-                {{#each ../gender}}
-                <option {{selected id_gender ../gender_id}} value="{{id_gender}}">{{gender_title}}</option>
-                {{/each}}
-                </select>
-            </label>
-            <label class="message" for="gender">Выберите пол</label>
+                    <h2 class="add_form__heading">Образование</h2>
 
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Уровень образования <span class="star">*</span></label>
+                        <select name="level_of_education_id"  class="form-select" required>
+                            {{#each ../edu}}
+                                <option {{selected id_edu_level ../level_of_education_id}} value="{{id_edu_level}}">{{title_edu_level}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
 
-            <h2 class="add_form__heading">Образование</h2>
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Специальность</label>
+                        <input type="text" class="form-control" value="{{specialty}}"  name="specialty">
+                    </div>
 
-            <input type="text" value="{{specialty}}"  name="specialty">
-            <label class="message" for="specialty"></label>
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Номер документа</label>
+                        <input type="text"  class="form-control" value="{{diploma}}" name="diploma">
+                    </div>
 
-            <label>Уровень образования <span class="star">*</span>
-                <select name="level_of_education_id"  required>    
-                    {{#each ../edu}}
-                     <option {{selected id_edu_level ../level_of_education_id}} value="{{id_edu_level}}">{{title_edu_level}}</option>
+                    <h2 class="add_form__heading">Профессиональные данные</h2>
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Должность <span class="star">*</span></label>
+                        <select name="position"  class="form-select" required>
+                            {{#each ../position}}
+                                <option  {{selected id_position ../position}} value="{{id_position}}">{{title_position}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label" ><a id="myBtn" href="#">Преподаваемые дисциплины (изменить список) </a> <span class="star">*</span></label>
+                        <select class="js-example-basic-multiple" class="form-select"  name="disciplines[]" multiple="multiple" id="ddata-s" style="display:none">
+                            {{#if ../currentDiscipline}}
+                                {{#each ../currentDiscipline}}
+                                    <option selected value="{{id_discipline}}"></option>
+                                {{/each}}
+                            {{else}}
+                            {{/if}}
+                        </select>
+                        <ul id="ddata">
+                            {{#each ../currentDiscipline}}
+                                <li class="li-dis">{{title_discipline}}</li>
+                            {{/each}}
+                        </ul>
+                        <hr>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="total_experience" class="form-label">Общий стаж</label>
+                        <input type="text"  class="form-control" placeholder="Общий стаж" value="{{total_experience}}" name="total_experience">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="teaching_experience" class="form-label">Педагогический стаж</label>
+                        <input type="text" class="form-control" placeholder="Педагогический стаж"  value="{{teaching_experience}}" name="teaching_experience">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label" >Категория </label>
+                        <select name="category" class="form-select" >
+                            {{#each ../category}}
+                                <option {{selected id_category ../category_id}} value="{{id_category}}">{{title_category}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <h2 class="add_form__heading">Контактные данные</h2>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Мобильной номер телефона</label>
+                        <input type="text" class="form-control" value="{{phone}}" name="phone">
+                        <label  class="form-label label-description indent-y-5-m" for="phone">Введите номер телефона в формате +7 (000) 000 00 00</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Мобильной номер телефона</label>
+                        <input type="email" class="form-control" value="{{email}}" name="email">
+                        <label  class="form-label label-description indent-y-5-m" for="email">Адрес почты должен быть верного формата: example@mail.ru</label>
+                    </div>
+
+                    {{#if ../kpk}}
+                        {{#each ../kpk}}
+                        <div class="mb-3">
+                            <label for="place_kpk" class="form-label">Место, программа (тема) последнего прохождения КПК </label>
+                            <input type="text" class="form-control" value="{{place_training}}" placeholder="Место, программа (тема) последнего прохождения КПК" name="place_kpk">
+                        </div>
+                        <div class="mb-3">
+                            <label for="place_kpk" class="form-label">Год прохождения КПК </label>
+                               <input type="text"  class="form-control" name="year_kpk" value="{{year_training}}">
+                        </div>
+                        {{/each}}
+                    {{else}}
+                    <div class="mb-3">
+                        <label class="form-label">Год прохождения КПК   </label>
+                        <input type="text" placeholder="Место, программа (тема) последнего прохождения КПК" name="place_kpk">
+                    </div>
+                    <div class="mb-3">
+                        <select name="year" class="form-select" >
+                            <option value="" selected>-</option>
+                            <option value="punkt1"></option>
+                            <option value="punkt2"></option>
+                            <option value="punkt3"></option>
+                        </select>
+                    </div>
+                    {{/if}}
+
+                    <input type="hidden" name="id_teacher" value="{{id_teacher}}">
+                    <input type="hidden" name="school_id" value="{{ ../school_id }}">
+                    <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-block btn-main-block btn-main-color">Обновить</button>
+                    </div>
                     {{/each}}
-                </select>
-            </label>
-            <label class="message" for="level_of_education">Выберите уровень образования</label>
-            <label for=""> Номер документа</label>
-            <input type="text" value="{{diploma}}" name="diploma">
-            <h2 class="add_form__heading">Профессиональные данные</h2>
-
-            <label>Должность <span class="star">*</span>
-                <select name="position"  required>
-                    {{#each ../position}}
-                    <option  {{selected id_position ../position}} value="{{id_position}}">{{title_position}}</option>
-                    {{/each}} 
-                </select>
-            </label>
-
-            <label class="message" for="position">Выберите должность</label>
-            <label class="message" for="disciplines">message</label>
-            <label  for="total_experience">Общий стаж</label>
-            <input type="text" placeholder="Общий стаж" value="{{total_experience}}" name="total_experience">
-            <label for="teaching_experience">Педагогический стаж</label>
-            <input type="text" placeholder="Педагогический стаж"  value="{{teaching_experience}}" name="teaching_experience">
-            
-            
-            <label>Категория
-                <select name="category" >
-                    <option value="" selected>-</option>
-                   {{#each ../category}}
-                    <option {{selected id_category ../category_id}} value="{{id_category}}">{{title_category}}</option>
-                   {{/each}}
-                </select>
-            </label>
-            <label class="message" for="category">message</label>
-
-
-            <h2 class="add_form__heading">Контактные данные</h2>
-
-            <input type="text" value="{{phone}}" name="phone">
-            <label class="message" for="phone">Введите номер телефона в формате <br>+7 (000) 000 00 00</label>
-
-            <input type="email" value="{{email}}" name="email">
-            <label class="message" for="email">Адрес почты должен быть верного формата: example@mail.ru</label>
-            <input type="hidden" name="id_teacher" value="{{id_teacher}}">
-            <input type="hidden" name="school_id" value="{{ ../school_id }}">
-            <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
-            <button type="submit" class="add_form__button button">Обновить </button>
-
-            {{/each}}
-        </form>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    let items = document.querySelectorAll('.teachers_list__item');
+    let leftC = document.getElementById('#mainDis');
+    let rightC = document.getElementById('#currentD');
+    for (let i = 0; i < items.length; i++) {
+        items[i].addEventListener('click', (e) => {
+            if(e.target.parentNode.id == "mainDis"){
+                $('#currentD').append(e.target)
+            }else{
+                $('#mainDis').append(e.target)
+            }
+        })
+    }
+    let save = $('#add_dis');
+    var modal = document.getElementById("myModal");
+    save.on('click',event=>{
+        event.preventDefault;
+        $('#ddata').empty();
+        $('#ddata-s').empty();
+        let list = $('#currentD li');
+        for(let l = 0; l < list.length; l++){
+            let idDiscipline = $(list[l]).attr("data-id-md");
+            let nameDiscipline = $(list[l]).text();
+
+            $('#ddata-s').append($('<option>', {
+                value: idDiscipline,
+                selected: 'selected'
+            }))
+
+            $('#ddata').append($('<li>',{
+                text:nameDiscipline,
+                class: 'li-dis'
+                }))
+
+        }
+         $('#save-input_notice').show().delay(1000).fadeOut()
+            setTimeout(function() {
+               modal.style.display = "none";
+            }, 1500);
+    })
+})
+
+let modal = document.getElementById("myModal");
+let btn = document.getElementById("myBtn");
+let span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function(e) {
+  e.preventDefault;
+  modal.style.display = "block";
+}
+$(document).keyup(function(e) {
+     if (e.key === "Escape") {
+         modal.style.display = "none";
+    }
+});
+
+span.onclick = function() {
+
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+let form = document.querySelector('.add_form');
+form.addEventListener('submit', event => {
+    validateSelections()
+    if(!isValid || validSelections < 3) {
+        let activeElement = document.activeElement;
+        activeElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+        event.preventDefault();
+        return false;
+    }
+})
+
+
+
+
+let dateInput = document.querySelector("input[type='date']");
+
+let isMouseDown = false; // в примере будет работать только для 1ой кнопки
+dateInput.addEventListener('click', () => {
+    isMouseDown = true
+
+    if(!isMouseDown){
+    dateInput.blur();
+    }
+})
+
+$( document ).ready(function() {
+    if($("#notice")){
+        $(".flash").fadeIn(.5).fadeOut(4000)
+    }
+});
+
+ let years = document.querySelectorAll("select[name='year'] > option");
+        function setYears(){
+            let year = new Date().getFullYear();
+
+            for(let i = 1; i < 6; i++){
+                years[i].value = year - i+1;
+                years[i].innerHTML = year - i+1;
+            }
+        }
+
+        setYears();
+</script>

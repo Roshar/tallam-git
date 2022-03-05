@@ -1,0 +1,279 @@
+.list_action .card-btn {
+    margin: 10px 0;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 10px;
+    color: rgb(131, 131, 131);
+
+}
+.hov-link {
+    cursor: pointer;
+}
+
+.btn-card:hover{
+    background-color:#649ada;
+    cursor:pointer;
+}
+.btn-search:hover {
+    background-color:#649ada ;
+}
+tr.hov-link:hover {
+    background-color: #649ada;
+    color: white;
+}
+
+.btn-primary:focus,.btn-primary:active, .btn-primary:hover{
+    outline: none; !important;
+    box-shadow: none; !important;
+}
+.btn:focus,.btn:active,.btn:hover{
+    outline: none; !important;
+    box-shadow: none; !important;
+}
+.w3-input:focus,.w3-input:active,.w3-input:hover{
+    outline: none; !important;
+    box-shadow: none; !important;
+}
+
+.hidden-block {
+    display: none;
+}
+
+.excel-btn {
+    border: 3px solid rgb(131, 131, 131);
+}
+
+.excel-btn:hover {
+    border: 3px solid #8bb271;
+    transition: 0.5s;
+}
+
+.excel-btn:hover .card-btn  {
+    color: #8bb271;
+    transition: 0.5s;
+}
+
+.email-btn {
+    border: 3px solid rgb(131, 131, 131);
+}
+
+.email-btn:hover {
+    border: 3px solid rgb(170, 42,101);
+    transition: 0.5s;
+}
+
+.email-btn:hover .card-btn  {
+    color: rgb(170, 42,101);
+    transition: 0.5s;
+}
+
+.method-btn {
+    border: 3px solid rgb(131, 131, 131);
+}
+
+.method-btn:hover {
+    border: 3px solid rgb(107, 147, 148);
+    transition: 0.5s;
+}
+
+.method-btn:hover .card-btn  {
+    color: rgb(107, 147, 148);
+    transition: 0.5s;
+}
+
+.diagramma-btn {
+    border: 3px solid rgb(131, 131, 131);
+}
+
+.diagramma-btn:hover {
+    border: 3px solid rgb(133, 93, 83);
+    transition: 0.5s;
+}
+
+.diagramma-btn:hover .card-btn  {
+    color: rgb(133, 93, 83);
+    transition: 0.5s;
+}
+
+.lesson_info{
+    display: none;
+}
+.own-container {
+    padding: 0 10em;
+}
+
+tr.success {
+    background-color: #67a030;
+    color: #fff;
+}
+
+tr.good {
+    background-color: #8bb271;
+    color: #fff;
+}
+
+tr.danger {
+    background-color: #b3504b;
+    color: #fff;
+}
+
+tr.trash {
+    background-color: tomato;
+    color: #fff;
+}
+table.form-area {
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing: 2px;
+}
+tr.final-tr>td{
+    font-size: 1.3em;
+}
+.form-area th {
+    background-color: #487bb7;
+    color: white;
+}
+.form-area th, td {
+    padding: 15px !important;
+    border-bottom: 1px solid #ccc;
+}
+.form-area th.form-area__main {
+    padding: 2em 1em !important;
+}
+
+.form-area .h-td {
+    background-color: #649ada !important;
+    color: white;
+}
+
+
+@media only screen and (max-width: 1270px) {
+
+.card-btn {
+    font-size: .8em;
+}
+    ul.navbar-nav {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+}
+
+
+@media only screen and (max-width: 1098px) {
+
+    .card-btn {
+        font-size: .6em;
+    }
+    ul.navbar-nav {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+}
+
+@media print {
+
+    tr.final-tr>td{
+        font-size: 13px;
+    }
+    .own-container {
+        padding: 0;
+    }
+    .table_section td {
+        padding: 2px 6px;
+    }
+    .table_section th {
+        padding: 2px 6px;
+    }
+    @page {
+        size: auto;
+        margin: 0mm 5mm;
+    }
+
+    .second_nav,
+    .list_action{
+        display: none !important;
+    }
+
+    .navbar ul.navbar-nav {
+        display: none !important;
+    }
+
+    main{
+        padding: 0 14px !important;
+    }
+
+    header{
+        font-size: 14px !important;
+        border-bottom: 1px solid #2E609A;
+        margin-bottom: 9px !important;
+    }
+
+    .logo__tallam{
+        margin-bottom: 3px !important;
+        color: #2E609A !important;
+    }
+
+    .header__institution{
+        max-width: 100% !important;
+        margin-top: 0;
+        color: #111 !important;
+        font-weight: normal;
+    }
+
+    main h1{
+        margin-bottom: 2px !important;
+    }
+
+    main h2{
+        margin: 2px 0 8px !important;
+        font-size: 14px !important;
+    }
+
+    .teacher-card__tbl, .table_section{
+        margin: 0 !important;
+    }
+
+    .table .tg th,
+    .table.tg td{
+        /*padding: 2px 8px !important;*/
+        padding: 0 !important;
+        font-size: 12px !important;
+    }
+
+    .table td{
+        color: #111 !important;
+    }
+
+    .table td:first-child{
+        text-align: left;
+    }
+
+    .table .tg-c3ow .tg-center {
+        font-weight: normal !important;
+    }
+
+    .table .final-tr {
+        color: #111 !important;
+    }
+
+    .lesson_info{
+        display: block;
+    }
+
+    .lesson_info > *{
+        font-size: 12px;
+    }
+
+    .lesson_info p{
+        display: none;
+        display: flex;
+        justify-content: space-between;
+    }
+}

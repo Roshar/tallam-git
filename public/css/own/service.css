@@ -1,0 +1,154 @@
+body {
+    font-family: "Istok Web", sans-serif, serif;
+    font-weight: normal;
+    font-size: 16px;
+    color: #484343;
+}
+
+.header_main_blue_color, .main_title {
+    color: #2E609A;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+a:hover {
+    color:#2E609A;
+}
+
+ul {
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* ВЕРТИАЛЬНЫЕ ОТСТУПЫ margin НАЧАЛО*/
+
+.indent-y-1 {
+    margin: 1em 0;
+}
+.indent-y-2 {
+    margin: 2em 0;
+}
+.indent-y-3 {
+    margin: 3em 0;
+}
+.indent-y-4 {
+    margin: 4em 0;
+}
+.indent-y-1-m {
+    margin: .1em 0;
+}
+.indent-y-2-m {
+    margin: .2em 0;
+}
+.indent-y-3-m {
+    margin: .3em 0;
+}
+.indent-y-4-m {
+    margin: .4em 0;
+}
+.indent-y-5-m {
+    margin: .5em 0;
+}
+/* ВЕРТИАЛЬНЫЕ ОТСТУПЫ margin КОНЕЦ*/
+
+/* ВЕРТИАЛЬНЫЕ ОТСТУПЫ  padding-top НАЧАЛО*/
+.pt-1 {
+    padding-top: 1em;
+}
+.pt-2 {
+    padding-top: 2em;
+}
+.pt-3 {
+    padding-top: 3em;
+}
+
+/* ВЕРТИАЛЬНЫЕ ОТСТУПЫ padding-top КОНЕЦ*/
+
+.header_text_h2 {
+    font-size: 1.7em;
+}
+
+.text-align-center {
+    text-align: center;
+}
+.text-align-left {
+    text-align: left;
+}
+.text-align-right {
+    text-align: right;
+}
+
+/* СТИЛИ ДЛЯ ТАБЛИЦ  НАЧАЛО*/
+.table_section th {
+    color: #2E609A;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table_section td, .table_section th {
+    border: 1px solid #dad6d6;
+    text-align: left;
+    padding: 18px;
+}
+
+.table_section .table_section__link_item:hover {
+    color:#2E609A;
+}
+
+/* СТИЛИ ДЛЯ ТАБЛИЦ КОНЕЦ*/
+
+/* СТИЛИ ДЛЯ ДОБАВЛЕНИЯ ВЫСОТЫ  НАЧАЛО*/
+.mh-1 {
+    min-height: 1em;
+}
+.mh-2 {
+    min-height: 2em;
+}
+.mh-3 {
+    min-height: 3em;
+}
+.mh-4 {
+    min-height: 4em;
+}
+
+/* СТИЛИ ДЛЯ ДОБАВЛЕНИЯ ВЫСОТЫ  КОНЕЦ*/
+
+
+/* СТИЛИ ДЛЯ ЭЛЕМЕНТОВ ТАБЛИЦЫ  НАЧАЛО*/
+
+.own-table-align-center {
+    text-align: center !important;
+}
+
+/* СТИЛИ ДЛЯ ЭЛЕМЕНТОВ ТАБЛИЦЫ  КОНЕЦ*/
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #383a3b !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #383a3b !important;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #383a3b !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #383a3b !important;
+}
+
+select.form-select option {
+    color: #383a3b !important;
+}
+
+select.form-select {
+    color: #383a3b !important;
+}
+
+

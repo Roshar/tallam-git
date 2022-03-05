@@ -88,6 +88,8 @@ exports.selectSchoolsByProjectId = async(req, res) => {
         const this_project_information = await cabinet.getInfoFromProjectById(project_id)
         const projects = await cabinet.getAllProjects()
 
+
+
         return  res.render('admin_project_panel_schools', {
                 layout: 'admin',
                 title: 'ПРОЕКТ| ' + this_project_information[0].name_project,

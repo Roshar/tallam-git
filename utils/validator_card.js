@@ -3,6 +3,7 @@ const {body} = require('express-validator')
 exports.validatorForAddMark  = [
     body('discipline_id','Заполните все обязательные поля!').toInt().isInt(),
     body('class_id','Заполните все обязательные поля!').notEmpty().toInt().isInt(),
+    body('liter_class').escape().trim(),
     body('source_id','Заполните все обязательные поля!').toInt().isInt(),
     body('id_teacher','Заполните все обязательные поля!').notEmpty().trim(),
     body('school_id','Заполните все обязательные поля!').notEmpty().toInt().isInt(),

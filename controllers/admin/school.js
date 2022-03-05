@@ -150,9 +150,6 @@ exports.getSchoolProfileById = async(req, res) => {
         const teachers = await cabinet.getAllTeachersFromThisSchool(id) 
         const school_id = id;
 
-        
-        
-        
         if(school) {
             return  res.render('admin_school_profile', {
                     layout: 'admin',
@@ -183,71 +180,80 @@ exports.getSchoolProfileById = async(req, res) => {
 /** CREATE NEW TEACHER IN SCHOOL   */
 
 exports.insertNewTeacherInThisSchoolBase = async(req, res) => {
-
-    try{
-        const id_teacher = uuidv4()
-        const surname = await req.body.surname.trim();
-        const firstname = await req.body.firstname.trim();
-        const patronymic = await req.body.patronymic.trim();
-        const birthday = await req.body.birthday;
-        const snils = await parseInt(req.body.snils);
-        const gender_id = await parseInt(req.body.gender);
-        const specialty = await req.body.specialty.trim();
-        const level_of_education_id = await parseInt(req.body.level_of_education);
-        const diploma = await req.body.diploma.trim();
-        const position = await parseInt(req.body.position);
-        const total_experience = await parseInt(req.body.total_experience);
-        const teaching_experience = await parseInt(req.body.teaching_experience);
-        const category = await parseInt(req.body.category);
-        const phone = await req.body.phone.trim();
-        const email = await req.body.email.trim();
-        const disciplines = await req.body['disciplines[]'];
-        const place_kpk = await req.body.place_kpk.trim();
-        const year_kpk = await req.body.year.trim();
-        const school_id = await req.body.id_school.trim();
-        const project_id = await parseInt(req.body.project_id);
-        
- 
-        const errors = validationResult(req)
-    
-
-        if(!errors.isEmpty()){
-            req.flash('error', errors.array()[0].msg);
-            return res.status(422).redirect('/admin/school_list/'+ school_id);
-        }else {
-            const result = await cabinet.addNewTeacher({
-                id_teacher,
-                surname,
-                firstname,
-                patronymic,
-                birthday,
-                snils,
-                gender_id,
-                specialty,
-                level_of_education_id,
-                diploma,
-                position,
-                total_experience,
-                teaching_experience,
-                category,
-                phone,
-                email,
-                disciplines,
-                place_kpk,
-                year_kpk,
-                school_id,
-                project_id
-            })
-           
-            if(result) {
-                req.flash('notice', notice_base.success_insert_sql );
-                return res.status(200).redirect('/admin/school_list/'+ school_id);
-            }
-        }
-
-    }catch(e) {
-        console.log(e.message)
-    }
+    console.log('ывыв')
+    return true
+    // try{
+    //
+    //     const id_teacher = uuidv4()
+    //     const {surname,firstname,patronymic = '',birthday, snils = 'qsqs',
+    //         gender_id, specialty = '',level_of_education_id,diploma = '',
+    //         position, total_experience,teaching_experience, category, phone = '',email = '', disciplines,
+    //         place_kpk = '', year_kpk = '', school_id, project_id } = await req.body
+    //     req.body
+    //     return true
+    //     // const surname = await req.body.surname.trim();
+    //     // const firstname = await req.body.firstname.trim();
+    //     // const patronymic = await req.body.patronymic.trim();
+    //     // const birthday = await req.body.birthday;
+    //     // const snils = await req.body.snils;
+    //     // const gender_id = await parseInt(req.body.gender);
+    //     // const specialty = await req.body.specialty.trim();
+    //     // const level_of_education_id = await parseInt(req.body.level_of_education);
+    //     // const diploma = await req.body.diploma.trim();
+    //     // const position = await parseInt(req.body.position);
+    //     // const total_experience = await parseInt(req.body.total_experience);
+    //     // const teaching_experience = await parseInt(req.body.teaching_experience);
+    //     // const category = await parseInt(req.body.category);
+    //     // const phone = await req.body.phone.trim();
+    //     // const email = await req.body.email.trim();
+    //     // const disciplines = await req.body['disciplines[]'];
+    //     // const place_kpk = await req.body.place_kpk.trim();
+    //     // const year_kpk = await req.body.year.trim();
+    //     // const school_id = await req.body.id_school.trim();
+    //     // const project_id = await parseInt(req.body.project_id);
+    //
+    //
+    //     const errors = validationResult(req)
+    //
+    //
+    //     if(!errors.isEmpty()){
+    //
+    //         req.flash('error', errors.array()[0].msg);
+    //         return res.status(422).redirect('/admin/school_list/'+ school_id);
+    //     }else {
+    //         const result = await cabinet.addNewTeacher({
+    //             id_teacher,
+    //             surname,
+    //             firstname,
+    //             patronymic,
+    //             birthday,
+    //             snils,
+    //             gender_id,
+    //             specialty,
+    //             level_of_education_id,
+    //             diploma,
+    //             position,
+    //             total_experience,
+    //             teaching_experience,
+    //             category,
+    //             phone,
+    //             email,
+    //             disciplines,
+    //             place_kpk,
+    //             year_kpk,
+    //             school_id,
+    //             project_id
+    //         })
+    //
+    //         if(result) {
+    //             req.flash('notice', notice_base.success_insert_sql );
+    //             return res.status(200).redirect('/admin/school_list/'+ school_id);
+    //         }
+    //     }
+    //
+    // }catch(e) {
+    //     console.log(e.message)
+    // }
 }
 
 /** END BLOCK */
@@ -474,6 +480,36 @@ exports.select_school_for_add_in_project = async(req,res) => {
         console.log(e)
     }
     
+}
+
+/** END BLOCK */
+
+/** ИЗМЕНИТЬ СТАТУС АККАУНТ  */
+
+exports.changeStatusSchool = async(req,res) => {
+
+    try {
+        console.log(req.params)
+
+        const changeStatusSchool = await cabinet.changeStatusSchool(req.params)
+
+        if(changeStatusSchool.affectedRows) {
+            req.flash('notice', notice_base.success_update_sql);
+            return res.status(200).redirect('/admin/projects/'+req.params.project_id+'/schools')
+            // admin/projects/2/schools
+        }else {
+            req.flash('error', error_base.error_update );
+            return res.status(422).redirect('/admin/projects/'+req.params.project_id+'/schools')
+        }
+
+
+            return true
+
+
+    }catch(e) {
+        console.log(e)
+    }
+
 }
 
 /** END BLOCK */

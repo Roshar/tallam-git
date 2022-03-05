@@ -1,0 +1,9 @@
+.alert_notification {
+    position: absolute;
+    max-width: 500px;
+    height: auto;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+}

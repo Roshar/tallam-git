@@ -20,7 +20,8 @@ exports.getCardPageByTeacherId = async (req, res) => {
             const school_id = await req.params.id_school;
             const project_id = await req.params.id_project;
             const teacherData = await Card.getAllInformationByTeacherId(dataparams)
-            console.log(req.session.user)
+            // console.log(req.session.user)
+            console.log(disciplineListByTeacherId)
     
             return res.render('admin_teacher_card', {
                 layout: 'admin',
@@ -68,8 +69,8 @@ exports.addMarkForTeacher = async (req, res) => {
         const school_id = await req.params.id_school;
         const project_id = await req.params.id_project;
         const teacherData = await Card.getAllInformationByTeacherId(dataparams)
-       
 
+        console.log('sdsdsd')
         return  res.render('admin_teacher_card_add_mark', {
                 layout: 'admin',
                 title: 'Личная карта учителя',
@@ -103,9 +104,8 @@ exports.getCardPageByTeacherIdWithFilter = async (req, res) => {
         const teacher_id = await req.params.id_teacher;
         const school_id  = await req.params.id_school;
         const project_id = await req.params.id_project;
-        
 
-        console.log(req.params)
+        console.log('sdsdsd')
         
         const teacherData = await Card.getAllInformationByTeacherId(dataparams)
 

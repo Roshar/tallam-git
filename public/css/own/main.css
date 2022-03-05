@@ -1,0 +1,403 @@
+
+.main .footer-auth {
+    min-height: 20vh;
+}
+.main-auth {
+    min-height: 65vh;
+}
+
+.section-school-title .main_title {
+    color: #2e609a;
+}
+
+header .logo a {
+    margin-bottom: 0.5em;
+    color: #FFF;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: normal;
+
+}
+
+h2.header__institution {
+    display: inline-block;
+    color: #EEE;
+    border-top: 3px solid white;
+    margin: 0;
+    padding-top: .5em;
+}
+
+.header__institution {
+    font-weight: normal;
+    -webkit-transition: .5s;
+    transition: .5s;
+    font-size: 1.1rem;
+    color: #EEE;
+}
+
+.form-wrapper {
+    margin-top:20vh;
+}
+
+.white-container{
+    vertical-align: middle;
+    max-width: 500px;
+    margin:0 auto;
+    padding: 35px 15px;
+    background-color: #FFF;
+}
+
+.main-auth,.footer-auth {
+    background-color: #c7d9ed;
+}
+
+.main-header {
+    padding: 20px 0px;
+}
+
+.main-header__heading {
+    color: #2E609A;
+    font-size: 3.7rem;
+    text-transform: uppercase;
+    font-weight: inherit;
+}
+
+.main-header__blue-line {
+    width: 130px;
+    height: 2px;
+    background: #52A1FF;
+    margin: 0.7em 0;
+}
+.white-container .white-container__btn  {
+    background: #2E609A;
+    color: #FFF;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+a.forget-password__btn:hover {
+    color: #2E609A;
+}
+
+.main-header__info {
+    max-width: 365px;
+    font-size: 1.3rem;
+    color: #2E609A;
+}
+
+/*
+/////////// school cabinet /////////////////
+                НАЧАЛО
+/////////////////////////////////////////
+*/
+header {
+    width: 100vw;
+    padding: 2.8em 2em;
+    background-color: #2e609a;
+    color: #f2f2f2;
+    position: relative;
+    margin: 0;
+
+}
+
+header .header__heading {
+    /*position: absolute;*/
+    /*left: 30%;*/
+    /*right: 30%;*/
+    /*text-align: center;*/
+    font-size: 1.5rem;
+}
+header .header__heading, header a.nav-link {
+    text-transform: uppercase;
+}
+
+
+.navbar-light .navbar-toggler {
+    color: #FFFFFF;
+    box-shadow: none;
+    border-color: #FFFFFF;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #FFFFFF;
+}
+header li.nav-link a.nav-link{
+    padding: .4rem 1rem 0.4rem 1rem;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #f2f2f2;
+}
+
+.main_page .main-header__blue-line, .main_page .main_page_buttons {
+    margin: 0 auto;
+}
+.main_page_buttons {
+    max-width: 560px;
+    box-sizing: border-box;
+}
+.main_page_button_item {
+    display: inline-block;
+    width: 100%;
+    padding: 3em 2em;
+    background: #487BB7;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.main_page_button_item:hover {
+    background: #FFF;
+    color: #487BB7;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.row .own-reset .col-md-6 {
+    padding-right: 0;
+    padding-left: 0;
+    box-sizing: border-box;
+}
+
+.main_page_buttons {
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    padding-right: calc(var(--bs-gutter-x) * .5)
+}
+
+/*
+///////// school cabinet /////////////////
+                КОНЕЦ
+/////////////////////////////////////////
+*/
+
+/*
+///////// school project /////////////////
+             НАЧАЛО
+/////////////////////////////////////////
+*/
+
+.card {
+    max-width: 60%;
+    margin: 0 auto
+}
+
+
+.card img{
+    width: 100%;
+}
+
+.card-wrapper {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border: none;
+    margin-bottom: 20px;;
+    box-shadow: none;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 0;
+
+}
+
+.container-card {
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.container-card a {
+    color:#f9abb2;
+}
+
+/*
+///////// school project /////////////////
+               КОНЕЦ
+/////////////////////////////////////////
+*/
+
+
+/*
+///////// school project single /////////////////
+             НАЧАЛО
+/////////////////////////////////////////
+*/
+
+main .second_nav {
+    background: #487BB7;
+    max-width: 716px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1rem;
+    border-top: 3px solid #FFF;
+}
+main ul.second_nav__items li {
+    display: inline-block;
+}
+
+main .second_nav .second_nav__link {
+    display: inline-block;
+    padding: 1em;
+    text-transform: uppercase;
+    color:#fff;
+    position: relative;
+}
+
+main .second_nav__items {
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}
+
+main .second_nav__items:hover {
+    box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+    transition: all 0.2s ease-in-out;
+}
+main .second_nav__items:hover a.second_nav__link:before {
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+}
+main .second_nav a.second_nav__link:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 3px solid white;
+    opacity: 0;
+}
+
+/*
+///////// school project single /////////////////
+               КОНЕЦ
+/////////////////////////////////////////
+*/
+
+
+
+/*
+///////// school project library /////////////////
+             НАЧАЛО
+/////////////////////////////////////////
+*/
+
+main .list_section {
+    max-width: 80%;
+    margin: 0 auto 2.5em;
+    -webkit-box-shadow: 0 1px 10px rgb(200 200 200 / 40%);
+    box-shadow: 0 1px 10px rgb(200 200 200 / 40%);
+    padding: 2em 3.5em;
+    position: relative;
+    border-top: 5px solid #C7D9ED;
+}
+
+.gg-add-r {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    transform: scale(var(--ggs,1));
+    border-radius: 2px;
+    top:5px;
+}
+.gg-add-r::after,
+.gg-add-r::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 5px;
+    top: 8px;
+    left: 4px
+}
+.gg-add-r::after {
+    width: 2px;
+    height: 10px;
+    top: 4px;
+    left: 8px
+}
+
+.gg-add-rr {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    transform: scale(var(--ggs,1));
+    border-radius: 2px;
+    top:5px;
+}
+.gg-add-rr::after,
+.gg-add-rr::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 5px;
+    top: 8px;
+    left: 4px
+}
+
+/*
+///////// school project library /////////////////
+             КОНЕЦ
+/////////////////////////////////////////
+*/
+
+
+
+@media only screen and (max-width: 576px) {
+
+
+    ul.navbar-nav {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+
+    .main-header, .main-header__heading, .main-header__info, header .header__heading, ul.navbar-nav li.nav-item, header {
+        text-align: center;
+
+    }
+
+    .forget-password__btn {
+        display: block;
+    }
+
+    .main-header__blue-line {
+        width: 100%;
+    }
+    .main-header__info {
+        max-width: 100%;
+    }
+    .header_text_h2 {
+        font-size: 1.3em;
+    }
+    iframe {
+        width: 95%;
+    }
+    /*
+    /////////////
+    */
+    h2.header__institution {
+        display: block;
+        border:none;
+        padding-top: .5em;
+        margin-bottom: 1em;
+    }
+
+    .card {
+        max-width: 100%;
+        margin: 0 auto
+    }
+
+}

@@ -13,6 +13,8 @@ router.get('/', projectsCtrl.index)
 router.get('/:id', projectsCtrl.selectProjects)
 
 router.post('/:id/select_school_for_add_in_project/', schoolsCtrl.select_school_for_add_in_project)
+// /admin/projects/school/blocked
+router.get('/school/status/:id_school/:project_id/:current_status', schoolsCtrl.changeStatusSchool)
 
 router.get('/add_in_current_project/:id/:id_school/', schoolsCtrl.add_in_current_project)
 

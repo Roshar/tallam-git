@@ -1,115 +1,173 @@
-<header class="header">
-<div class="header_top">
-    <div class="logo">
-        <a href="/" class="logo__tallam">Tallam</a>
-        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
-    </div>
-    <nav class="main_nav main_nav--not_for_hide" id="main_nav">
-        <ul class="main_nav__items">
-            <li class="main_nav__item"><a href="/school/support" class="main_nav__link">Помощь</a></li>
-            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
-        </ul>
-    </nav>
-    <nav class="second_nav">
-                <ul class="second_nav__items">
-                    <li class="second_nav__item"><a href="/school/project/{{project_id}}" class="second_nav__link">Вернуться на главную страницу проекта</a></li>
-                    <li class="second_nav__item"><a href="/school/card/add/project/{{project_id}}/teacher/{{teacher_id}}" class="second_nav__link">Оценить</a></li>
-                </ul>
-    </nav>
-</div>
-</header>
-<main>   
-    <section>
-        {{#if notice}}
-            <h3> {{ notice}}</h3>
-        {{/if}}
-    </section> 
-        <section class="teacher-card">
-            <div class="teacher-card__title">
-                {{#if teacher}}
-                    {{#each teacher}}
-                    <h1>Личный профиль</h1>
-                        <h2>ФИО: <span style="text-decoration:underline; text-transform:uppercase">{{surname}} {{firstname}} {{patronymic}} </span></h2>
-                    {{/each}}
-                {{else}}
-                    нет данных
-                {{/if}}
-            </div>
-            
-            <div class="teacher-card__second-title">
-                
-                <form  method="POST">
-                    
-                    <select name="card-results-sourse" id="card-results-sourse" class="card_fields">
-                        <option value="all"  > Тип оценки </option>
-                        <option value="1" {{selected 1 currentSourceId}}> Отобразить результаты внешней проверки</option>
-                        <option value="2" {{selected 2 currentSourceId}}> Отобразить результаты внтуренней проверки</option>
-                    </select>   
-                    <select name="card-results-discipline" id="card-results-discipline" class="card_fields">
-                        {{#if disciplineListByTeacherId}}
-                             <option value="all" > Выбрать предмет</option>
-                            {{#each disciplineListByTeacherId}}
-                                <option value="{{discipline_id}}"{{selected discipline_id ../currentDisc}}>  {{title_discipline}}</option>
-                            {{/each}}
-                        {{else}}
-                        <option value="">Нет предмета</option>
-                        {{/if}}
-                    </select> 
-                    
-                    <input type="hidden" name="id_teacher" value="{{teacher_id}}" id="id_teacher">
-                    <input type="hidden" name="school_id" value="{{school_id}}" id="school_id">
-                    <input type="hidden" name="project_id" value="{{project_id}}" id="project_id">
-                    <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
-                    <button type="submit" class="btn-search card_fields"> Отобразить результаты по фильтру</button> 
-                </form>
-            </div>
+<section>
+    {{#if error}}
+        <div class="alert alert-danger alert_notification" role="alert">
+            {{error}}
+        </div>
+    {{/if}}
 
-            <div class="teacher-card__tbl table_section">
-                <h3 style="text-align:center; ">Список оценок (оценки уроков) </h3>
-                <table class="tg personal_card">
-                <thead>
-                    <tr class="for_hide">
-                        <th class="tg-fymr">№</th>
-                        <th class="tg-fymr">Дата</th>
-                        <th class="tg-0pky"><span style="font-weight:bold;font-style:normal">Результат </span></th>
-                        <th class="tg-fymr">Предмет</th>
-                        <th class="tg-fymr">Класс</th>
-                        <th class="tg-fymr">Тип оценки</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {{#if card}}
-                    {{#each card}}
-                    <tr class="hov-link" data-href="/school/card/single/{{id_card}}/project/{{../project_id}}">
-                        <td class="tg-0pky"> {{increment @index}}</td>
-                        <td class="tg-0pky">{{day}} {{getMonthFromArray month}} {{year}}</td>
-                        <td class="tg-0pky">{{level}}</td>
-                        <td class="tg-0pky">{{title_discipline}}</td>
-                        <td class="tg-0pky">{{class_id}}</td>
-                        <td class="tg-0pky">{{getSource source_id}} </td>
-                    </tr>
-                    {{/each}}
-                {{else}}
-                    <tr>
-                         <td class="tg-fymr" colspan="15"> нет данных</td>
-                    </tr>
-                {{/if}}
-                </tbody>
-                </table>
-            </div>
-           
-        </section> 
-
-        <section>
-            <div class="operation-block">
-                <div class="operation-block__links">
-                       <a href="/school/card/create_tbl_marks/teacher/{{teacher_id}}/project/{{project_id}}"><i class="fa fa-file-excel-o" style="font-size:2.5em;color:#39b76c"></i> <span>Сформировать таблицу со всеми оценками учителя</span></a>  
+    {{#if notice}}
+        <div class="alert alert-primary alert_notification" role="alert"  >
+            {{notice}}
+        </div>
+    {{/if}}
+</section>
+<header>
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class=" col-md-6 col-sm-12">
+                <div class="logo">
+                    <a href="/" class="logo__tallam">Tallam</a>
+                    <div>
+                        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+                    </div>
                 </div>
             </div>
-        </section> 
-    </main>
+            <div class=" col-md-6 col-sm-12 ">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <div class="container-fluid pt-2">
+                        <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon "></span>
+                        </button>
+                        <div class="collapse navbar-collapse   flex-row-reverse  " id="navbarNavDropdown">
+                            <ul class="navbar-nav" >
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="/school/support">Помощь</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/logout">Выйти</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
 
-<div class="black"></div>
+
+<main>
+    <div class="container">
+        <div class="row indent-y-2-m">
+            <div class="col-md-6">
+                <nav class="second_nav">
+                    <ul class="second_nav__items">
+                        <li class="second_nav__item"><a href="/school/project/{{project_id}}" class="second_nav__link">Вернуться на главную страницу проекта</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-6">
+                <nav class="second_nav">
+                    <ul class="second_nav__items">
+                        <li class="second_nav__item"><a href="/school/card/add/project/{{project_id}}/teacher/{{teacher_id}}" class="second_nav__link">Оценить</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <section class="teacher-card">
+                    <div class="teacher-card__title">
+                        {{#if teacher}}
+                            {{#each teacher}}
+                                <h2 class="text-align-center header_main_blue_color">Личный профиль</h2>
+                                <h2 class="text-align-center">ФИО: <span style="text-decoration:underline; text-transform:uppercase">{{surname}} {{firstname}} {{patronymic}} </span></h2>
+                            {{/each}}
+                        {{else}}
+                            нет данных
+                        {{/if}}
+                    </div>
+                    <div class="teacher-card__second-title">
+                        <form  method="POST">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="input-group mb-3">
+                                        <select name="card-results-sourse"  id="card-results-sourse" class="form-select">
+                                            <option value="all"  > Тип оценки </option>
+                                            <option value="1" {{selected 1 currentSourceId}}> Отобразить результаты внешней проверки</option>
+                                            <option value="2" {{selected 2 currentSourceId}}> Отобразить результаты внтуренней проверки</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="input-group mb-3">
+                                        <select name="card-results-discipline" id="card-results-discipline" class="form-select">
+                                            {{#if disciplineListByTeacherId}}
+                                                <option value="all" > Выбрать предмет</option>
+                                                {{#each disciplineListByTeacherId}}
+                                                    <option value="{{discipline_id}}"{{selected discipline_id ../currentDisc}}>  {{title_discipline}}</option>
+                                                {{/each}}
+                                            {{else}}
+                                                <option value="">Нет предмета</option>
+                                            {{/if}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="input-group">
+                                <input type="hidden" name="id_teacher" value="{{teacher_id}}" id="id_teacher">
+                                <input type="hidden" name="school_id" value="{{school_id}}" id="school_id">
+                                <input type="hidden" name="project_id" value="{{project_id}}" id="project_id">
+                                <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
+
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-block btn-main-block btn-main-color">Отобразить результаты по фильтру</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="wrapper-body table_section table-responsive">
+                        <h3  class="text-align-center">Список оценок (оценки уроков) </h3>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Дата</th>
+                                <th><span style="font-weight:bold;font-style:normal">Результат </span></th>
+                                <th>Предмет</th>
+                                <th>Класс</th>
+                                <th>Тип оценки</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#if card}}
+                                {{#each card}}
+                                    <tr class="hov-link" data-href="/school/card/single/{{id_card}}/project/{{../project_id}}/{{../teacher_id}}">
+                                        <td class="tg-0pky"> {{increment @index}}</td>
+                                        <td class="tg-0pky">{{day}} {{getMonthFromArray month}} {{year}}</td>
+                                        <td class="tg-0pky">{{level}}</td>
+                                        <td class="tg-0pky">{{title_discipline}}</td>
+                                        <td class="tg-0pky">{{class_id}}</td>
+                                        <td class="tg-0pky">{{getSource source_id}} </td>
+                                    </tr>
+                                {{/each}}
+                            {{else}}
+                                <tr>
+                                    <td class="tg-fymr" colspan="15"> нет данных</td>
+                                </tr>
+                            {{/if}}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row indent-y-1">
+            <div class="col-12">
+                <section>
+                    <div class="operation-block">
+                        <div class="operation-block__links">
+                            <a href="/school/card/create_tbl_marks/teacher/{{teacher_id}}/project/{{project_id}}"><i class="fa fa-file-excel-o" style="font-size:2.5em;color:#39b76c"></i> <span>Сформировать таблицу со всеми оценками учителя</span></a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
 
 <script>
     $('tr[data-href]').on("click", function() {

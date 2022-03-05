@@ -1,171 +1,103 @@
-<style>
-
-  
-        
-    .teachers_list__item a {
-        position: relative;
-    }
-
-        li .teachers_list__item  {
-            display: flex;
-            justify-content: center; /*Центрирование по горизонтали*/
-            align-items: center;  
-            
-        }  
-
-    .gg-add-r {
-    box-sizing: border-box;
-    position: relative;
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    border: 2px solid;
-    transform: scale(var(--ggs,1));
-    border-radius: 2px;
-    top:5px;
-    }
-    .gg-add-r::after,
-    .gg-add-r::before {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    width: 10px;
-    height: 2px;
-    background: currentColor;
-    border-radius: 5px;
-    top: 8px;
-    left: 4px
-    }
-    .gg-add-r::after {
-    width: 2px;
-    height: 10px;
-    top: 4px;
-    left: 8px
-    }
-
-    .gg-add-rr {
-    box-sizing: border-box;
-    position: relative;
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    border: 2px solid;
-    transform: scale(var(--ggs,1));
-    border-radius: 2px;
-    top:5px;
-    }
-    .gg-add-rr::after,
-    .gg-add-rr::before {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    width: 10px;
-    height: 2px;
-    background: currentColor;
-    border-radius: 5px;
-    top: 8px;
-    left: 4px
-    }
-
-</style>
-
-<header class="header">
-<div class="header_top">
-    <div class="logo">
-        <a href="/" class="logo__tallam">Tallam</a>
-        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+<header>
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class=" col-md-6 col-sm-12">
+                <div class="logo">
+                    <a href="/" class="logo__tallam">Tallam</a>
+                    <div>
+                        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-md-6 col-sm-12 ">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <div class="container-fluid pt-2">
+                        <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon "></span>
+                        </button>
+                        <div class="collapse navbar-collapse   flex-row-reverse  " id="navbarNavDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="/school/support">Помощь</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/logout">Выйти</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
     </div>
-    <a href="#" class="menu_btn" id="menu_btn">
-        <span></span>
-    </a>
-    <nav class="main_nav" id="main_nav">
-        <ul class="main_nav__items">
-            <li class="main_nav__item"><a href="/school/support" class="main_nav__link">Помощь</a></li>
-            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
-        </ul>
-    </nav>
-    <nav class="second_nav">
-        <ul class="second_nav__items">
-            <li class="second_nav__item"><a href="/school/project/{{project_id}}" class="second_nav__link"> Вернуться в проект </a></li>
-            <li class="second_nav__item"><a href="/" class="second_nav__link">Вернуться в личный кабинет</a></li>
-        </ul>
-    </nav>
-</div>
 </header>
-
-    <main>
-        <section>
-            {{#if notice}}
-            <h3> {{ notice}}</h3>
-            {{/if}}
-            {{#if error}}
-            <h3> {{ error}}</h3>
-            {{/if}}
-        </section>
-        <div class="lists">
-            <div class="lists__list lists__global_list"> <!-- <div class="blue-line"></div>    -->   
-                <h1>Общий список учителей школы</h1>   
-                <section class="list_section">
-                    <ul class="teachers_list">
-                        {{#if common_data}}
-                            {{#each common_data}}
-                            <div class="wrapper_list_item">
-                                <li class="teachers_list__item"> <a href="/school/project/{{../project_id}}/add/{{id_teacher}}"> {{surname}} {{firstname}} {{patronymic}} <i class="gg-add-r"></i>  </a></li>
-                            </div>
-                            {{/each}}
-                        {{else}}
-                            Пусто
-                        {{/if}}
-                    </ul>
-                </section>  
+<main>
+    <div class="container">
+        <div class="col-12">
+            <div class="row indent-y-2-m">
+                <div class="col-md-6">
+                    <nav class="second_nav">
+                        <ul class="second_nav__items">
+                            <li class="second_nav__item"><a href="/school/project/{{project_id}}" class="second_nav__link"> Вернуться в проект </a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-6">
+                    <nav class="second_nav">
+                        <ul class="second_nav__items">
+                            <li class="second_nav__item"><a href="/" class="second_nav__link">Вернуться в личный кабинет</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-
-            <div class="lists__list lists__project_list">
-                <h1>Список учителей, участвующих <br class="br-mobile"> в проекте <br class="br-heading">"{{project_name}}"</h1>   
-                <section class="list_section">
-                    <ul class="teachers_list">
-                        {{#if members_current_project_teachers}}
-                            {{#each members_current_project_teachers}}   
-                                <li class="teachers_list__item"> <a href="/school/project/library/{{../project_id}}/delete_in_project/{{id_teacher}}">{{surname}} {{firstname}} {{patronymic}} <i class="gg-add-rr"></i> </a> </i></li>
-                            {{/each}}
-                        {{else}}
-                            пусто
-                        {{/if}}
-                    </ul>
-                </section>
+            <section>
+                {{#if notice}}
+                    <h3> {{ notice}}</h3>
+                {{/if}}
+                {{#if error}}
+                    <h3> {{ error}}</h3>
+                {{/if}}
+            </section>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="lists">
+                    <div class="lists__list lists__global_list">
+                        <h4 class="text-align-center mh-3 header_main_blue_color bold" >Общий список учителей школы</h4>
+                        <section class="list_section">
+                            <ul class="teachers_list">
+                                {{#if common_data}}
+                                    {{#each common_data}}
+                                        <div class="wrapper_list_item">
+                                            <li class="teachers_list__item"> <a href="/school/project/{{../project_id}}/add/{{id_teacher}}"> {{surname}} {{firstname}} {{patronymic}} <i class="gg-add-r"></i>  </a></li>
+                                        </div>
+                                    {{/each}}
+                                {{else}}
+                                    Пусто
+                                {{/if}}
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="list">
+                    <div class="lists__list lists__project_list">
+                        <h4 class="text-align-center mh-3 header_main_blue_color bold">Список учителей, участвующих  в проекте <br class="br-heading">"{{project_name}}"</h4>
+                        <section class="list_section">
+                            <ul class="teachers_list">
+                                {{#if members_current_project_teachers}}
+                                    {{#each members_current_project_teachers}}
+                                        <li class="teachers_list__item"> <a href="/school/project/library/{{../project_id}}/delete_in_project/{{id_teacher}}">{{surname}} {{firstname}} {{patronymic}} <i class="gg-add-rr"></i> </a> </li>
+                                    {{/each}}
+                                {{else}}
+                                    пусто
+                                {{/if}}
+                            </ul>
+                        </section>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="modal modal--feedback">
-            <div class="modal__cross modal__cross--feedback">x</div>
-            <div class="feedback">
-                <form action="/" method="POST" class="feedback__form" name="feedback_form" novalidate>
-                    <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
-                    <h2 class="feedback__heading">Форма обратной связи</h2>
-                    <label> Тема
-                        <select name="type_id" id="feedback_theme" class="feedback__theme">
-                            {{#each support_type}}
-                                <option value="{{id_type}}">{{thema}}</option>
-                            {{/each}}
-                        </select>
-                    </label>  
-                    <label>
-                        Сообщение <span class="star">*</span>
-                        <textarea name="message" id="feedback_text" cols="30" rows="10"  required></textarea>
-                    </label>
-                    
-                    <label>
-                        Почта <span class="star">*</span>
-                        <input type="email" name="email" required>
-                    </label>
-                    <label>
-                        Номер телефона
-                        <input type="tel" name="phone">
-                    </label>
-                     <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
-                    <button type="submit" class="button feedback__button">Отправить</button>
-                </form>
-            </div>
-        </div>
-    </main>
+    </div>
+</main>

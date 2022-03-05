@@ -1,76 +1,79 @@
-<header class="header">
-    <div class="header_top">
-        <h2 class="header__institution--main">{{school_name}}</h2>
-        <a href="#" class="menu_btn" id="menu_btn">
-            <span></span>
-        </a>
-        <h1 class="header__heading fulltitle">{{school_name}}</h1>
-        <nav class="main_nav" id="main_nav">
-            <ul class="main_nav__items">
-                <li class="main_nav__item"><a href="/school/support" class="main_nav__link">Помощь</a></li> 
-                <li class="main_nav__item"><a href="/auth/logout" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
-            </ul>
-        </nav>
+
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="header__heading fulltitle">{{school_name}}</h1>
+            </div>
+            <div class="col-md-6 ">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon "></span>
+                        </button>
+                        <div class="collapse navbar-collapse flex-row-reverse " id="navbarNavDropdown">
+                            <ul class="navbar-nav" >
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="/school/support">Помощь</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/logout">Выйти</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
     </div>
 </header>
 
-    <main class="main_page">   
-        <!-- <div class="block"></div> -->
-        <div class="logo">
-            <h1 class="main-header__heading">Tallam</h1>
-            <div class="main-header__blue-line"></div>
-        </div>
-        <div class="content">
-            <div class="main_page__heading">
-                <h2>Добро пожаловать на платформу Tallam!</h2>
-                <h2>Перед началом работы рекомендуем просмотреть видеоинструкцию</h2>
-                {{#if error}}
-                    <h3>{{error}}</h3>
-                {{/if}}
-                {{#if notice}}
-                    <h3>{{notice}}</h3>
-                {{/if}}
-               
-            </div>
-            <section class="video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/TKpa1TanrDE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
-            </section>   
-            <section class="main_page_buttons">
-                <a href="/school/project" class="main_page_button">Проекты</a>
-                <a href="/school/list" class="main_page_button">База работников</a>
-            </section>
-        </div>
-        
-        <div class="modal modal--feedback">
-            <div class="modal__cross modal__cross--feedback">x</div>
-            <div class="feedback">
-                <form action="/" method="POST" class="feedback__form" name="feedback_form" novalidate>
-                    <p class="prompt"><span class="star">* поля, обязательные для заполнения </span></p>
-                    <h2 class="feedback__heading">Форма обратной связи</h2>
-                    <label> Тема
-                        <select name="type_id" id="feedback_theme" class="feedback__theme">
-                            {{#each support_type}}
-                                <option value="{{id_type}}">{{thema}}</option>
-                            {{/each}}
-                        </select>
-                    </label>  
-                    <label>
-                        Сообщение <span class="star">*</span>
-                        <textarea name="message" id="feedback_text" cols="30" rows="10"  required></textarea>
-                    </label>
-                    
-                    <label>
-                        Почта <span class="star">*</span>
-                        <input type="email" name="email" required>
-                    </label>
-                    <label>
-                        Номер телефона
-                        <input type="tel" name="phone">
-                    </label>
-                     <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token">
-                    <button type="submit" class="button feedback__button">Отправить</button>
-                </form>
+<main class="main_page">
+    <div class="container">
+        <div class="row indent-y-2">
+            <div class="col-12 text-align-center">
+                <div class="logo">
+                    <h1 class="main-header__heading">Tallam</h1>
+                    <div class="main-header__blue-line"></div>
+                </div>
             </div>
         </div>
-    </main>
+        <div class="row">
+            <div class="col-12">
+                <div class="content text-align-center ">
+                    <div class="main_page__heading indent-y-2">
+                        <h2 class="header_text_h2">Добро пожаловать на платформу Tallam!</h2>
+                        <h2 class="header_text_h2">Перед началом работы рекомендуем просмотреть видеоинструкцию</h2>
+                        {{#if error}}
+                            <h3>{{error}}</h3>
+                        {{/if}}
+                        {{#if notice}}
+                            <h3>{{notice}}</h3>
+                        {{/if}}
+
+                    </div>
+                    <section class="video">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/TKpa1TanrDE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="row indent-y-2">
+            <div class="col-12">
+                <section class="main_page_buttons text-align-center">
+                    <div class="row  own-reset">
+                        <div class="col-md-6 left">
+                            <a href="/school/project" class="main_page_button_item">Проекты</a>
+                        </div>
+                        <div class="col-md-6 right">
+                            <a href="/school/list" class="main_page_button_item">База работников</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+
     

@@ -6,7 +6,11 @@ const { v4: uuidv4 } = require('uuid');
 
 
 
-/** GENERATION FORM FOR ADD NEW SCHOOL */
+/**
+ * Главная страница личного кабинета
+ * GENERATION FORM FOR ADD NEW SCHOOL */
+
+
 
 exports.getSchoolData = async (req, res) => {
     try{

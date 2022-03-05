@@ -602,11 +602,12 @@ exports.getAllSchoolsFromThisProjects = async (req, res) => {
 
       const project_id = await req.id;
 
-      const [result, fields2] = await dbh.execute('SELECT  schools.id_school, schools.school_name, schools.type_id, schools.area_id, area.title_area, type_school.title_type ' +
+      const [result, fields2] = await dbh.execute('SELECT  schools.id_school, schools.school_name, schools.type_id, schools.area_id, area.title_area, type_school.title_type, users.status ' +
       ' FROM `schools` '+
       ' INNER JOIN `middleware_project_school` ON schools.id_school = middleware_project_school.school_id '+
       ' INNER JOIN `area` ON schools.area_id  = area.id_area '+
       ' INNER JOIN `type_school` ON schools.type_id = type_school.id_type '+
+      ' INNER JOIN `users` ON schools.id_school  = users.school_id '+
       ' WHERE middleware_project_school.project_id = ?', [project_id])
      
       dbh.end()
@@ -850,6 +851,8 @@ exports.addNewSchool = async (req, res) => {
 
 exports.addNewTeacher = async (req, res) => {
    try{
+      console.log('stop')
+      return true
       const dbh = await mysql.createConnection({
          host: process.env.DATABASE_HOST,
          
@@ -858,6 +861,10 @@ exports.addNewTeacher = async (req, res) => {
          password: process.env.DATABASE_PASSWORD,
          
       })
+
+      console.log(req)
+
+      console.log('CabinetTeacher')
 
       /** sql for teachers table */
       const id_teacher = await req.id_teacher;
@@ -1055,6 +1062,8 @@ exports.deleteTeacherProfileById = async(req , res) => {
          
       })
 
+      console.log('DeleteCabinet')
+
       const teacher_id = await req.teacher_id;
       const school_id = await req.school_id;
 
@@ -1090,6 +1099,35 @@ exports.deleteTeacherProfileById = async(req , res) => {
          return result;
       }   
       
+   }catch(e) {
+      console.log(e.message)
+   }
+}
+
+/** END BLOCK ----------------------------------------  */
+
+/** ОБНОВИТЬ СТАТУС ШКОЛЫ */
+
+exports.changeStatusSchool = async(req , res) => {
+   try{
+      const dbh = await mysql.createConnection({
+         host: process.env.DATABASE_HOST,
+         user: process.env.DATABASE_USER,
+         database: process.env.DATABASE,
+         password: process.env.DATABASE_PASSWORD,
+      })
+
+      const {id_school, project_id, current_status} = await req;
+
+      //TODO менять статус по ID проекта
+
+      const [result, fields] = await dbh.execute(`UPDATE users SET status = ? WHERE school_id = ? `, [current_status, id_school])
+
+
+      dbh.end()
+      return result;
+
+
    }catch(e) {
       console.log(e.message)
    }

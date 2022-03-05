@@ -26,12 +26,12 @@ exports.existsUserInDb = async (req,res) => {
         //const getRole = await Auth.getRoleFromSession()
         if(await bcrypt.compare(req.body.password,userData[0].password)) {
             req.session.user = userData[0];
-            console.log(userData)
-            if(userData[0].role == 'admin') {
+
+            if(userData[0].role === 'admin'  && userData[0].status === 'on' ) {
                 req.session.isAdmin = true;
 
                 return res.redirect('/admin/school_list'); 
-            }else if(userData[0].role == 'school_admin') {
+            }else if(userData[0].role === 'school_admin' && userData[0].status === 'on') {
                 req.session.isAuthenticated = true
                 req.session.save( err => {
                     if (err) {
@@ -39,6 +39,18 @@ exports.existsUserInDb = async (req,res) => {
                     }else {
                        
                         return res.redirect('/school/cabinet/'); 
+                    }
+                })
+            }else {
+                req.session.isAuthenticated = false
+                req.session.save( err => {
+                    if (err) {
+                        throw err
+                    }else {
+                        // return res.redirect('/school/cabinet/');
+                        req.flash('error', error_base.blocked );
+
+                        return res.status(422).redirect('/auth');
                     }
                 })
             }

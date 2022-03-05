@@ -62,7 +62,7 @@ exports.getCardByTeacherId = async function (req, res) {
       const id_card = await req.id_card;
       
       const [res, fields] = await dbh.execute('SELECT cftm.id_card, cftm.teacher_id, cftm.discipline_id, cftm.school_id, cftm.thema, '+
-      ' cftm.source_id, cftm.class_id, cftm.k_1_1, cftm.k_1_2, cftm.k_1_3, cftm.k_2_1, cftm.k_2_2, cftm.k_3_1, cftm.k_4_1,'+
+      ' cftm.source_id, cftm.class_id,cftm.liter_class, cftm.k_1_1, cftm.k_1_2, cftm.k_1_3, cftm.k_2_1, cftm.k_2_2, cftm.k_3_1, cftm.k_4_1,'+
       ' cftm.k_5_1, cftm.k_5_2, cftm.k_6_1,  EXTRACT(DAY FROM cftm.create_mark_date) as day, '+
       ' EXTRACT(MONTH FROM cftm.create_mark_date) as month, EXTRACT(YEAR FROM cftm.create_mark_date) as year, cftm.create_mark_date, dt.title_discipline,'+
       ' outside.source_fio, outside.position_name, outside.source_workplace, stbl.name_source  '+
@@ -167,6 +167,7 @@ exports.createNewMarkInCard = async (req, res) => {
       let {
        discipline_id,
        class_id,
+       liter_class = '',
        source_id,
        source_fio,
        position_name,
@@ -187,10 +188,10 @@ exports.createNewMarkInCard = async (req, res) => {
        } = await req;
        
       const [result, fields] = await dbh.execute('INSERT INTO card_from_project_teacher_mark '+
-      '(teacher_id, discipline_id, source_id, school_id, thema, class_id, k_1_1, k_1_2, '+
+      '(teacher_id, discipline_id, source_id, school_id, thema, class_id,liter_class, k_1_1, k_1_2, '+
       'k_1_3, k_2_1, k_2_2, k_3_1, k_4_1, k_5_1, k_5_2, k_6_1 '+
-       ') VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-       [id_teacher, discipline_id, source_id, school_id, thema, class_id, k_1_1, k_1_2,
+       ') VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+       [id_teacher, discipline_id, source_id, school_id, thema, class_id,liter_class, k_1_1, k_1_2,
        k_1_3, k_2_1, k_2_2, k_3_1, k_4_1, k_5_1, k_5_2, k_6_1])
        if(!result) {
            throw new Error('не удалось добавить оценку, обратитесь к технической службе')
@@ -289,4 +290,33 @@ exports.getCardByTeacherIdWhithFilter = async function (req, res) {
 }
 
 /** END BLOCK ----------------------------------------  */
+
+exports.deleteMarkInCard = async(req , res) => {
+
+    try{
+        const dbh = await mysql.createConnection({
+            host: process.env.DATABASE_HOST,
+            user: process.env.DATABASE_USER,
+            database: process.env.DATABASE,
+            password: process.env.DATABASE_PASSWORD,
+
+        })
+
+        const school_id = await req.session['school_id']
+        if(school_id) {
+
+        const {id_card} = await req
+
+        const [deleteCard, fields] = await dbh.execute('DELETE FROM card_from_project_teacher_mark WHERE id_card = ?  AND school_id = ?', [id_card,school_id])
+        const [deleteCardFromOutside, fields2] = await dbh.execute('DELETE FROM outside_card WHERE card_id = ? ', [id_card])
+
+            dbh.end()
+            return deleteCard;
+        }
+
+
+    }catch(e) {
+        console.log(e.message)
+    }
+}
 

@@ -1,4 +1,4 @@
-// const projects = require('../models/Project')
+ // const projects = require('../models/Project')
 
 exports.all = async function(req,res) {
     const result = await projects.all()
@@ -8,3 +8,4 @@ exports.all = async function(req,res) {
         result
     })
 }
+

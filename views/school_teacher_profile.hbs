@@ -1,322 +1,250 @@
-<style>
-    .modalAva {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto;
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-    z-index: 999;
-    }
 
-    .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; 
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
-
-    }
-
-    .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-    color: #487BB7;
-    text-decoration: none;
-    cursor: pointer;
-    }
-
-    .profile-btn {
-        border: none;
-        background-color: inherit;
-        cursor: pointer;
-    }
-
-    /*стили для формы загрузки фото профиля*/
-    #drop-area {
-    border: 2px dashed #ccc;
-    border-radius: 20px;
-    width: 480px;
-    font-family: sans-serif;
-    margin: 100px auto;
-    padding: 20px;
-    }
-
-    #drop-area.highlight {
-    border-color: purple;
-    }
-
-    p {
-    margin-top: 0;
-    }
-
-    #drop-area>form {
-    margin-bottom: 10px;
-    border: none !important;;
-    box-shadow: none !important;
-    }
-
-    #gallery {
-    margin-top: 10px;
-    }
-
-    #gallery img {
-    width: 150px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    vertical-align: middle;
-    }
-
-    .button {
-    display: inline-block;
-    padding: 10px;
-    background: #ccc;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    }
-
-    .button:hover {
-    background: #ddd;
-    }
-
-    #fileElem {
-    display: none;
-    }
-
-    .flash {
-    display: none;
-    position: absolute;
-    text-align: center;
-    padding: 40px 60px;
-    color: white;
-    top:10%; 
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
-    width: 500px;
-}
-
-.flash_notice{
-    background-color: #2E609A;
-}
-
-.flash_error {
-    background-color: #e60002;
-}
-        
-</style>
 <section>
     {{#if error}}
-        <div class="flash flash_error"><h3>{{error}}</h3></div>
+        <div class="alert alert-danger alert_notification" role="alert">
+            {{error}}
+        </div>
     {{/if}}
+
     {{#if notice}}
-        <div class="flash flash_notice"><h3>{{notice}}</h3></div>
+        <div class="alert alert-primary alert_notification" role="alert"  >
+            {{notice}}
+        </div>
     {{/if}}
-</section> 
-<header class="header">
-<div class="header_top">
-    <div class="logo">
-        <a href="/" class="logo__tallam">Tallam</a>
-        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
-    </div>
-    <a href="#" class="menu_btn" id="menu_btn">
-        <span></span>
-    </a>
-    <nav class="main_nav" id="main_nav">
-        <ul class="main_nav__items">
-            <li class="main_nav__item"><a href="/school/support" class="main_nav__link">Помощь</a></li>
-            <li class="main_nav__item"><a href="/auth/logout/" class="main_nav__link main_nav__link--log_out">Выйти</a></li>
-        </ul>
-    </nav>
-    <nav class="second_nav">
-        <ul class="second_nav__items">
-            <li class="second_nav__item"><a href="/" id="myBtn" class="second_nav__link"> Вернуться на главную </a></li>
-        </ul>
-    </nav> 
-</div>
-</header>
-
-<main>   
-    <section class="profile">
-            {{#if teacher.length}}
-            {{#each teacher}}
-        <div class="profile__photo">
-            <img src="/img/teachers/uploads/avatars/{{avatar}}"  alt="Фото">
-            {{!-- <button class="profile-btn" id="addAva">Редактировать</button> --}}
-
-            <div id="modalAva" class="modalAva">
-
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <div id="drop-area">
-                        <form class="my-form" action="/school/list/upload" enctype="multipart/form-data">
-                           <p>Вы можете загрузить изображение в формате JPG, GIF или PNG.</p>
-                            <input type="file" id="fileElem" name="avatar"  accept="image/*" onchange="return handleFiles(this.files)">
-                            <label class="button" for="fileElem">Выбрать изображения</label>
-                            <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token1">
-                            <input type="hidden" name="teacher_id" value="{{id_teacher}}" id="teacher_id">
-                        </form>
-                        <div id="gallery"></div>
-                            <progress id="progress-bar" max=100 value=0></progress>
+</section>
+<header>
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class=" col-md-6 col-sm-12">
+                <div class="logo">
+                    <a href="/" class="logo__tallam">Tallam</a>
+                    <div>
+                        <h2 class="header__institution" id="header__institution">{{school_name}}</h2>
                     </div>
-                     <hr>
-                <span>Если у Вас возникают проблемы с загрузкой, попробуйте выбрать фотографию меньшего размера.</span>
                 </div>
             </div>
-
-        </div>
-        </div>
-        
-        <div class="profile__info">
-
-            <section class="profile__block personal">
-                <h2 class="profile__title">Личные данные</h2>
-                <div class="personal__buttons">
-                    <a href="/school/list/edit/{{id_teacher}}"> Редактировать </a>
-                    <!-- <a href="#">Оценить</a> -->
-                </div>
-                <div>
-                    <div>
-                        <h4 class="profile__subtitle">ФИО</h4> 
-                        
-                        <p class="personal__fullname">{{surname}}  {{firstname}} {{patronymic}}</p>
-                    </div>
-                    <div>
-                        <h4 class="profile__subtitle">Дата рождения</h4>
-                        <p class="personal__birthday"> {{../birthdayShort}}</p>
-                    </div>  
-                    <div>
-                        <h4 class="profile__subtitle">СНИЛС</h4> 
-                        <p class="personal__snils">{{snils}}</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="profile__block profile__education education">
-                <h2 class="profile__title">Образование</h2>
-                <div>
-                    <div>
-                        <h4 class="profile__subtitle">Образование</h4>
-                        <p class="education__name">{{title_edu_level}}</p>
-                    </div>
-                    <div>
-                        <h4 class="profile__subtitle ">Номер документа</h4>
-                        <p class="education__document">{{diploma}}</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="profile__block profile__education education">
-                <h2 class="profile__title">Профессиональные данные</h2>
-                <div>
-                    <div>
-                        <h4 class="profile__subtitle">Должность</h4> 
-                        <p class="personal__position">{{ title_position}}</p>
-                    </div>
-                    <div>
-                        <h4 class="profile__subtitle ">Категория</h4>
-                        <p class="title_category">{{title_category}}</p>
-                    </div>
-                    <div>
-            
-                        <h4 class="profile__subtitle ">Преподваемые дисциплины:</h4>
-                        {{#if ../discipline.length}}
-                        <ol class="training__projects projects__list">
-                        {{#each ../discipline}}
-                            <li style="list-style-type: none;"> <p class="title_category" >{{title_discipline}}</p></li>
-                        {{/each}}
-                        </ol>
-                        
-                        {{else}}
-                            <p class="title_category"> нет </p>
-                        {{/if}}
-                    </div>
-                </div>
-            </section>
-
-            <section class="profile__block profile__contacts contacts">
-                <h2 class="profile__title">Контактные данные</h2>
-                <div>
-                    <div>
-                        <h4 class="profile__subtitle">Email</h4>
-                        <p class="contacts__email">{{email}}</p>
-                    </div>
-                    
-                    <div>
-                        <h4 class="profile__subtitle">Телефон</h4>
-                        <p class="contacts__phone">{{phone}}</p>
+            <div class=" col-md-6 col-sm-12 ">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <div class="container-fluid pt-2">
+                        <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon "></span>
+                        </button>
+                        <div class="collapse navbar-collapse   flex-row-reverse  " id="navbarNavDropdown">
+                            <ul class="navbar-nav" >
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="/school/support">Помощь</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/logout">Выйти</a>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+<div class="container">
+    <div class="row indent-y-2-m">
+        <div class="col-12">
+            <nav class="second_nav">
+                <ul class="second_nav__items">
+                    <li class="second_nav__item"><a href="/" id="myBtn" class="second_nav__link"> Вернуться на главную</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="row top-main-line ">
+    {{#if teacher.length}}
+        {{#each teacher}}
+        <div class="col-md-3 ">
+            <section class="profile">
+                <div class="profile__photo">
+                    <img src="/img/teachers/uploads/avatars/{{avatar}}"  alt="Фото">
+                 {{!-- <button class="profile-btn" id="addAva">Редактировать</button> --}}
+<!--                    <div id="modalAva" class="modalAva">-->
+<!--                         <div class="modal-content">-->
+<!--                    <span class="close">&times;</span>-->
+<!--                    <div id="drop-area">-->
+<!--                    <form class="my-form" action="/school/list/upload" enctype="multipart/form-data">-->
+<!--                    <p>Вы можете загрузить изображение в формате JPG, GIF или PNG.</p>-->
+<!--                    <input type="file" id="fileElem" name="avatar"  accept="image/*" onchange="return handleFiles(this.files)">-->
+<!--                    <label class="button" for="fileElem">Выбрать изображения</label>-->
+<!--                    <input type="hidden" name="_csrf" value="{{@root.csrf}}" id="token1">-->
+<!--                    <input type="hidden" name="teacher_id" value="{{id_teacher}}" id="teacher_id">-->
+<!--                    </form>-->
+<!--                    <div id="gallery"></div>-->
+<!--                    <progress id="progress-bar" max=100 value=0></progress>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                    <span>Если у Вас возникают проблемы с загрузкой, попробуйте выбрать фотографию меньшего размера.</span>-->
+<!--                    </div>-->
+<!--                    </div>-->
                 </div>
             </section>
-            {{/each}}
-                {{else}}
-            <h2> Работник отсутствует!</h2>
-                {{/if}}
-            <section class="profile__block profile__training training">
-                <h2 class="profile__title">Повышение квалификации  </h2>
-                <h4>Сведения о последних пройденных КПК</h4>
-                {{#if kpk.length}}
-                    {{#each kpk}}
-                    <div>
-                        <h4 class="profile__subtitle">Наименование программы КПК, место прохождения</h4>
-                        <p class="training__name">{{place_training}}</p>
-                    </div>
-                    <div>
-                        <h4 class="profile__subtitle">Год прохождения</h4>
-                        <p class="training__place">{{year_training}}</p>
-                    </div>
-                    {{/each}}
-                {{else}}
-                <h3> Отсутствует информация о прохождении КПК</h3>
-                {{/if}}
-            </section>
-         
-            <section class="profile__block profile__training training">
-                <h2 class="profile__title">Проекты, в которых участвует учитель</h2>
-                <table>
-                    <tr>
-                        <td><h4 class="profile__subtitle">Проекты </h4></td>
-                        <td style="width: 60%">
-                            
-                            <ol class="training__projects projects__list">
-                            {{#if issetInProjects }}
-                            {{#each issetInProjects}}
-                                <li class="project"><p class="project__name"> {{name_project}} </p></li>
-                            {{/each}}
-                            {{else}}
-                                <li class="project"><p class="project__name"> не участвует  </p></li>
-                            {{/if}}
-                            </ol>
-                        </td>
-                    </tr>
-                </table>  
-            </section> 
         </div>
-            <a href="/school/list/delete_profile/{{teacher_id}}" class="profile__button profile__button--delete">Удалить профиль</a> 
-           
-            <div class="modal modal--delete_profile">
-                <div class="modal__cross modal__cross--delete_profile">x</div>
-                <h3 class="modal__question">Вы уверены, что хотите удалить этот профиль?</h3>
-                <button type="button" class="modal__answer modal__answer--yes">Да</button>
-                <button type="button" class="modal__answer modal__answer--no">Нет</button>
+        <div class="col-md-9">
+            <div class="profile">
+                <!-- HEADER TITLE -->
+                <div class="row">
+                    <div class="col-sm-6">
+
+                    </div>
+                    <div class="col-sm-6 text-align-right">
+                        <div class="personal__buttons">
+                            <a href="/school/list/edit/{{id_teacher}}"> Редактировать </a>
+                            <!-- <a href="#">Оценить</a> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- HEADER TITLE -->
+
+
+                <!-- PERSONAL DATA -->
+                <section class="profile__block personal">
+                    <h2 class="profile__title">Личные данные</h2>
+                    <hr>
+                    <div class="row ">
+                        <div class="col-sm-4 row_line"><h4 class="profile__subtitle">ФИО</h4></div>
+                        <div class="col-sm-8 row_line"> <h5 class="personal__fullname">{{surname}}  {{firstname}} {{patronymic}}</h5></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 row_line"><h4 class="profile__subtitle">Дата рождения</h4></div>
+                        <div class="col-sm-8 row_line"><h5 class="personal__birthday"> {{../birthdayShort}}</h5></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 row_line"> <h4 class="profile__subtitle">СНИЛС</h4>
+                        </div>
+                        <div class="col-sm-8 row_line"> <h5 class="personal__snils">{{snils}}</h5></div>
+                    </div>
+                </section>
+                <!-- PERSONAL DATA -->
+
+
+                <!-- EDUCATION -->
+                <section class="profile__block personal indent-y-3">
+                    <h2 class="profile__title">Образование</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4 row_line"> <h4 class="profile__subtitle">Образование</h4></div>
+                        <div class="col-sm-8 row_line"><h5 class="education__name">{{title_edu_level}}</h5></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 row_line"><h4 class="profile__subtitle ">Номер документа</h4></div>
+                        <div class="col-sm-8 row_line"> <h5 class="education__document">{{diploma}}</h5></div>
+                    </div>
+                </section>
+                <!-- EDUCATION -->
+
+                <!-- PROFESSIONAL SKILLS-->
+                <section class="profile__block personal indent-y-3">
+                    <h2 class="profile__title">Профессиональные данные</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4 row_line"><h4 class="profile__subtitle">Должность</h4>
+                        </div>
+                        <div class="col-sm-8 row_line"> <h5 class="personal__position">{{ title_position}}</h5></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 row_line"> <h4 class="profile__subtitle ">Категория</h4></div>
+                        <div class="col-sm-8 row_line"> <h5 class="title_category">{{title_category}}</h5></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 row_line">   <h4 class="profile__subtitle ">Преподваемые дисциплины:</h4></div>
+                        <div class="col-sm-8 row_line">
+                            {{#if ../discipline.length}}
+                                <ol class="training__projects">
+                                    {{#each ../discipline}}
+                                        <li > {{title_discipline}}</li>
+                                    {{/each}}
+                                </ol>
+
+                            {{else}}
+                                <p class="title_category"> нет </p>
+                            {{/if}}
+                        </div>
+                    </div>
+                </section>
+                <!-- PROFESSIONAL SKILLS-->
+
+                <!-- CONTACT-->
+                <section class="profile__block personal indent-y-3">
+                    <h2 class="profile__title">Контактные данные</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4 row_line"> <h4 class="profile__subtitle">Email</h4></div>
+                        <div class="col-sm-8 row_line"> <h5 class="contacts__email">{{email}}</h5></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 row_line"><h4 class="profile__subtitle">Телефон</h4></div>
+                        <div class="col-sm-8 row_line"><h5 class="contacts__phone">{{phone}}</h5></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8"></div>
+                    </div>
+                </section>
+                <!-- CONTACT-->
             </div>
-    </section> 
+            <div class="row">
+                <div class="col-12 text-align-right">
+                    <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Удалить пользователя
+                    </button>
+                </div>
+            </div>
+        {{/each}}
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Вы уверены?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                            <a href="/school/list/delete_profile/{{teacher_id}}" class="btn btn-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+
+      </div>
+</div>
+
+
+
+{{else}}
+       <div class="col-12">
+           <h2> Работник отсутствует!</h2>
+       </div>
+{{/if}}
+
+
+
+
+
 </main>
-<div class="black"></div>
+
 
 <script type="text/javascript">
+
+    setTimeout(function(){
+       let notices =  document.querySelectorAll('.alert_notification')
+        for (let i = 0; i <notices.length; i ++ ) {
+            notices[i].remove()
+        }
+    },2000)
+
 
 let menuButton = document.querySelector(".menu_btn");
 
@@ -421,11 +349,7 @@ function openModal(modal) {
         })
 
         //PROFILE PHOTO MODAL
-        var modalAva = document.getElementById("modalAva");
 
-        var btn = document.getElementById("addAva");
-
-        var span = document.getElementsByClassName("close")[0];
 
         btn.addEventListener('click', (event) => {
             event.preventDefault()
