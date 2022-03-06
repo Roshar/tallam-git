@@ -64,6 +64,13 @@ main .add_form__heading {
     text-align: center;
 }
 
+.btn-main-color {
+    padding: 12px;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    background-color: #2e609a;
+}
 
 @media only screen and (max-width: 768px) {
     .close-1 {
